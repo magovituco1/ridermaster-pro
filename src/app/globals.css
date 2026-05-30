@@ -45,6 +45,7 @@
   }
 }
 
+/* Professional A4 Landscape Grid Layout */
 .a4-landscape-page {
   background: white;
   width: 297mm;
@@ -57,6 +58,7 @@
   flex-direction: column;
   color: black;
   overflow: hidden;
+  border: 1px solid #ddd;
 }
 
 @media print {
@@ -93,6 +95,11 @@
   table {
     height: 100% !important;
     border-collapse: collapse !important;
+    width: 100% !important;
+  }
+
+  th, td {
+    border: 1px solid black !important;
   }
 
   tr {

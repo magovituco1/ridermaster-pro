@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useMemo, Suspense } from 'react';
@@ -165,7 +164,7 @@ function RiderViewContent() {
               <table className="w-full text-left border-collapse table-fixed border-2 border-black h-full">
                 <thead>
                   <tr className="bg-gray-100 border-b-2 border-black text-[8px] font-black uppercase tracking-widest h-8">
-                    <th className="px-2 w-8 text-center border-r border-black">#</th>
+                    <th className="px-2 w-10 text-center border-r border-black">#</th>
                     <th className="px-2 w-[18%] border-r border-black">SONG / ACT</th>
                     <th className="px-2 w-[27%] border-r border-black">SOUND SPECIFICATIONS</th>
                     <th className="px-2 w-[27%] border-r border-black">LIGHTING & CUES</th>
@@ -180,6 +179,16 @@ function RiderViewContent() {
                       <td className="px-2 border-r border-black whitespace-pre-wrap leading-tight py-1 overflow-hidden">{song.soundNotes || '-'}</td>
                       <td className="px-2 border-r border-black whitespace-pre-wrap leading-tight py-1 overflow-hidden">{song.lightNotes || '-'}</td>
                       <td className="px-2 border-r border-black whitespace-pre-wrap leading-tight py-1 overflow-hidden">{song.extraNotes || '-'}</td>
+                    </tr>
+                  ))}
+                  {/* Fills empty space if fewer than 10 rows */}
+                  {Array.from({ length: Math.max(0, 10 - chunk.length) }).map((_, i) => (
+                    <tr key={`empty-${i}`} className="border-b border-black h-[calc(100%/10.5)] opacity-20">
+                      <td className="border-r border-black">&nbsp;</td>
+                      <td className="border-r border-black">&nbsp;</td>
+                      <td className="border-r border-black">&nbsp;</td>
+                      <td className="border-r border-black">&nbsp;</td>
+                      <td className="border-r border-black">&nbsp;</td>
                     </tr>
                   ))}
                 </tbody>

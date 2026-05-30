@@ -1,4 +1,3 @@
-
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
@@ -16,6 +15,7 @@ const nextConfig: NextConfig = {
   },
   webpack: (config, { isServer }) => {
     if (!isServer) {
+      // Extensive fallbacks for browser context during static export
       config.resolve.fallback = {
         ...config.resolve.fallback,
         fs: false,
