@@ -20,7 +20,7 @@ interface RiderEditorProps {
 
 export const RiderEditor = ({ initialRider }: RiderEditorProps) => {
   const router = useRouter();
-  const db = useFirestore();
+  const firestore = useFirestore();
   const { toast } = useToast();
   const [isSaving, setIsSaving] = useState(false);
   const [formData, setFormData] = useState<Partial<Rider>>(initialRider || {
@@ -32,15 +32,15 @@ export const RiderEditor = ({ initialRider }: RiderEditorProps) => {
   });
 
   const handleSave = async () => {
-    if (!db) return;
+    if (!firestore) return;
     if (!formData.showName || !formData.artistName) {
       toast({ title: "Validation Error", description: "Show Name and Artist are required.", variant: "destructive" });
       return;
     }
 
     setIsSaving(true);
-    const riderId = formData.id || doc(collection(db, 'riders')).id;
-    const riderRef = doc(db, 'riders', riderId);
+    const riderId = formData.id || doc(collection(firestore, 'riders')).id;
+    const riderRef = doc(firestore, 'riders', riderId);
     
     const savePayload = {
       ...formData,
