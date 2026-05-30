@@ -1,16 +1,16 @@
-
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  // Exportación estática obligatoria para Electron local
+  // Exportación estática obligatoria para aplicaciones Electron/Pendrive
   output: 'export',
-  // Genera carpetas con index.html para rutas limpias en el sistema de archivos
+  // Genera carpetas con index.html para que las rutas funcionen sin servidor (file://)
   trailingSlash: true,
   distDir: 'out',
   images: {
     unoptimized: true,
   },
   typescript: {
+    // Ignoramos errores menores para asegurar que el build termine en entornos locales
     ignoreBuildErrors: true,
   },
   eslint: {
@@ -18,7 +18,7 @@ const nextConfig: NextConfig = {
   },
   webpack: (config, { isServer }) => {
     if (!isServer) {
-      // Evita que Electron intente cargar módulos de servidor de Node
+      // Evita que Electron intente cargar módulos de Node que no existen en el navegador
       config.resolve.fallback = {
         ...config.resolve.fallback,
         fs: false,
@@ -33,7 +33,7 @@ const nextConfig: NextConfig = {
         zlib: false,
       };
     }
-    // Ignora telemetría y logs de Genkit que requieren conexión en build time
+    // Ignora telemetría y logs de Genkit que requieren conexión en tiempo de compilación
     config.ignoreWarnings = [
       { module: /@opentelemetry/ },
       { module: /@genkit-ai/ }
