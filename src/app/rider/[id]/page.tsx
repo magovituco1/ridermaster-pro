@@ -87,76 +87,76 @@ export default async function RiderViewPage({ params }: { params: { id: string }
       </header>
 
       <main className="max-w-7xl mx-auto p-6 mt-8 print:mt-0 print:p-0 print-container">
-        {/* Print Only Logo/Header */}
-        <div className="hidden print:flex items-center justify-between mb-8 border-b-2 border-black pb-4">
+        {/* Print Only Header Logo */}
+        <div className="hidden print:flex items-center justify-between mb-10 border-b-4 border-black pb-4">
           <div className="flex flex-col">
-            <h1 className="text-2xl font-black tracking-tighter text-black uppercase">RIDER MASTER</h1>
-            <span className="text-[10px] font-bold tracking-[0.3em] uppercase">Technical Documentation v2.0</span>
+            <h1 className="text-3xl font-black tracking-tighter text-black uppercase">RIDER MASTER TECHNICAL</h1>
+            <span className="text-[10px] font-bold tracking-[0.4em] uppercase text-gray-600">Pro-Grade Stage Management System</span>
           </div>
           <div className="text-right">
-            <div className="text-xs font-bold uppercase">ID: {rider.id.toUpperCase()}</div>
-            <div className="text-[10px] font-mono">PRINTED: {new Date().toLocaleString()}</div>
+            <div className="text-xs font-bold uppercase">PROJECT ID: {rider.id.toUpperCase()}</div>
+            <div className="text-[9px] font-mono mt-1 opacity-70">DATE GENERATED: {new Date().toLocaleString()}</div>
           </div>
         </div>
 
-        {/* Header Section (Show Information) */}
-        <div className="mb-12 border-l-4 border-primary pl-6 py-6 bg-secondary/20 backdrop-blur-sm print:bg-white print:border-black print:text-black print:mb-8 print:pl-4 print:py-2">
-          <div className="flex justify-between items-end">
-            <div>
-              <h1 className="text-5xl font-black mb-4 tracking-tighter print:text-3xl print:mb-2">{rider.showName}</h1>
-              <div className="flex flex-wrap gap-6 items-center print:gap-4">
-                <div className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest">
-                  <Users className="w-4 h-4 text-primary print:text-black" /> {rider.artistName}
+        {/* Show Information Section (TOP) */}
+        <div className="mb-12 border-l-8 border-primary pl-8 py-8 bg-secondary/20 backdrop-blur-sm print:bg-white print:border-black print:text-black print:mb-10 print:pl-6 print:py-4">
+          <div className="flex justify-between items-start">
+            <div className="space-y-4">
+              <h1 className="text-6xl font-black mb-2 tracking-tighter print:text-4xl print:mb-4">{rider.showName}</h1>
+              <div className="flex flex-wrap gap-10 items-center print:gap-8">
+                <div className="flex items-center gap-3 text-lg font-bold uppercase tracking-widest print:text-sm">
+                  <Users className="w-5 h-5 text-primary print:text-black" /> {rider.artistName}
                 </div>
-                <div className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest">
-                  <Calendar className="w-4 h-4 text-accent print:text-black" /> {rider.showDate}
+                <div className="flex items-center gap-3 text-lg font-bold uppercase tracking-widest print:text-sm">
+                  <Calendar className="w-5 h-5 text-accent print:text-black" /> {rider.showDate}
                 </div>
-                <div className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest">
-                  <MapPin className="w-4 h-4 text-accent print:text-black" /> {rider.venue}
+                <div className="flex items-center gap-3 text-lg font-bold uppercase tracking-widest print:text-sm">
+                  <MapPin className="w-5 h-5 text-accent print:text-black" /> {rider.venue}
                 </div>
               </div>
             </div>
             <div className="text-right no-print">
-              <div className="text-[10px] font-mono text-muted-foreground">CREATED: {new Date(rider.createdAt).toLocaleDateString()}</div>
-              <div className="text-[10px] font-mono text-muted-foreground">UPDATE: {new Date(rider.updatedAt).toLocaleTimeString()}</div>
+              <div className="text-[10px] font-mono text-muted-foreground uppercase">Created: {new Date(rider.createdAt).toLocaleDateString()}</div>
+              <div className="text-[10px] font-mono text-muted-foreground uppercase">Last Sync: {new Date(rider.updatedAt).toLocaleTimeString()}</div>
             </div>
           </div>
         </div>
 
-        {/* Technical Table Section (Specs Bottom) */}
-        <div className="space-y-4 print:space-y-2">
-          <h2 className="text-xl font-bold flex items-center gap-2 mb-6 no-print">
-            <LayoutGrid className="w-5 h-5 text-primary" /> TECHNICAL SETLIST SPECIFICATIONS
+        {/* Technical Table Section (BOTTOM) */}
+        <div className="space-y-6 print:space-y-4">
+          <h2 className="text-2xl font-black flex items-center gap-3 mb-8 no-print">
+            <LayoutGrid className="w-6 h-6 text-primary" /> TECHNICAL SETLIST SPECIFICATIONS
           </h2>
           
-          <div className="hidden print:block text-xs font-black uppercase tracking-widest mb-2 border-b border-black">
-            Technical Setlist Specifications
+          <div className="hidden print:block text-sm font-black uppercase tracking-[0.3em] mb-4 border-b-2 border-black pb-1">
+            SETLIST TECHNICAL SPECIFICATIONS & CUES
           </div>
 
           <div className="overflow-hidden border border-border rounded-lg bg-card/40 print:border-black print:rounded-none print:bg-white print:text-black">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="bg-secondary/50 border-b border-border text-[10px] font-black uppercase tracking-[0.2em] print:bg-gray-100 print:border-black">
-                  <th className="px-4 py-4 w-12 text-center print:py-2 print:border-r">#</th>
-                  <th className="px-4 py-4 w-[20%] print:py-2 print:border-r">SONG / SEGMENT</th>
-                  <th className="px-4 py-4 w-[25%] print:py-2 print:border-r">SOUND CONFIG</th>
-                  <th className="px-4 py-4 w-[25%] print:py-2 print:border-r">LIGHTING CUES</th>
-                  <th className="px-4 py-4 print:py-2">FX / EXTRA NOTES</th>
+                <tr className="bg-secondary/50 border-b border-border text-xs font-black uppercase tracking-[0.2em] print:bg-gray-200 print:border-black">
+                  <th className="px-4 py-5 w-16 text-center print:py-3 print:border-r">POS</th>
+                  <th className="px-4 py-5 w-[20%] print:py-3 print:border-r">SONG / SEGMENT</th>
+                  <th className="px-4 py-5 w-[25%] print:py-3 print:border-r">SOUND CONFIG</th>
+                  <th className="px-4 py-5 w-[25%] print:py-3 print:border-r">LIGHTING CUES</th>
+                  <th className="px-4 py-5 print:py-3">FX / EXTRA NOTES</th>
                 </tr>
               </thead>
               <tbody>
                 {rider.songs.map((song) => (
                   <tr key={song.id} className="border-b border-border/50 hover:bg-secondary/20 transition-colors print:border-black print:hover:bg-transparent">
-                    <td className="px-4 py-6 text-center font-mono text-primary font-bold print:py-2 print:border-r print:text-black">{song.orderNum}</td>
-                    <td className="px-4 py-6 font-black tracking-widest text-sm uppercase print:py-2 print:border-r print:text-xs">{song.songName}</td>
-                    <td className="px-4 py-6 text-xs whitespace-pre-wrap text-muted-foreground print:py-2 print:border-r print:text-black print:text-[9pt]">{song.soundNotes || '-'}</td>
-                    <td className="px-4 py-6 text-xs whitespace-pre-wrap text-muted-foreground print:py-2 print:border-r print:text-black print:text-[9pt]">{song.lightNotes || '-'}</td>
-                    <td className="px-4 py-6 text-xs whitespace-pre-wrap text-muted-foreground print:py-2 print:text-black print:text-[9pt]">{song.extraNotes || '-'}</td>
+                    <td className="px-4 py-8 text-center font-mono text-primary font-bold text-lg print:py-4 print:border-r print:text-black print:text-sm">{song.orderNum}</td>
+                    <td className="px-4 py-8 font-black tracking-widest text-base uppercase print:py-4 print:border-r print:text-xs">{song.songName}</td>
+                    <td className="px-4 py-8 text-xs whitespace-pre-wrap text-muted-foreground print:py-4 print:border-r print:text-black print:text-[10pt] leading-relaxed">{song.soundNotes || 'NO NOTES'}</td>
+                    <td className="px-4 py-8 text-xs whitespace-pre-wrap text-muted-foreground print:py-4 print:border-r print:text-black print:text-[10pt] leading-relaxed">{song.lightNotes || 'NO NOTES'}</td>
+                    <td className="px-4 py-8 text-xs whitespace-pre-wrap text-muted-foreground print:py-4 print:text-black print:text-[10pt] leading-relaxed">{song.extraNotes || '-'}</td>
                   </tr>
                 ))}
                 {rider.songs.length === 0 && (
                   <tr>
-                    <td colSpan={5} className="px-4 py-12 text-center text-muted-foreground italic print:text-black">No songs configured in setlist.</td>
+                    <td colSpan={5} className="px-4 py-20 text-center text-muted-foreground italic uppercase tracking-widest print:text-black">No technical cues configured for this setlist.</td>
                   </tr>
                 )}
               </tbody>
@@ -165,9 +165,9 @@ export default async function RiderViewPage({ params }: { params: { id: string }
         </div>
 
         {/* Footer for Print */}
-        <div className="mt-8 hidden print:block text-[8pt] text-center border-t border-gray-300 pt-4 italic">
-          <p>Confidential Stage Document - RiderMaster Technical v2.0</p>
-          <p className="mt-1">All lighting and sound cues must be verified during soundcheck at {rider.venue}.</p>
+        <div className="mt-12 hidden print:flex justify-between items-center text-[9pt] border-t-2 border-gray-400 pt-4 italic">
+          <p>CONFIDENTIAL STAGE DOCUMENT - PROPERTY OF PRODUCTION TEAM</p>
+          <p>RiderMaster Technical v2.0 - Page 1 of 1</p>
         </div>
       </main>
     </div>

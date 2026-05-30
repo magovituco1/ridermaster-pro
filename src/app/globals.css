@@ -48,10 +48,11 @@
   }
 }
 
+/* PRINT ENGINE CONFIGURATION */
 @media print {
   @page {
     size: A4 landscape !important;
-    margin: 10mm !important;
+    margin: 15mm !important;
   }
   
   html, body {
@@ -59,6 +60,7 @@
     color: black !important;
     height: auto !important;
     font-size: 10pt !important;
+    overflow: visible !important;
   }
 
   .no-print {
@@ -75,6 +77,8 @@
     box-shadow: none !important;
     text-shadow: none !important;
     background-color: transparent !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
 
   .print-container {
@@ -88,6 +92,12 @@
     width: 100% !important;
     border-collapse: collapse !important;
     page-break-inside: auto;
+    border: 1px solid black !important;
+  }
+
+  thead {
+    display: table-header-group !important;
+    background-color: #f0f0f0 !important;
   }
 
   tr {
@@ -97,18 +107,14 @@
 
   th, td {
     border: 1px solid black !important;
-    padding: 8px !important;
-  }
-
-  thead {
-    display: table-header-group;
-    background-color: #eee !important;
+    padding: 10px !important;
+    text-align: left !important;
   }
 
   .print-header {
     border-bottom: 3px solid black !important;
-    margin-bottom: 20px !important;
-    padding-bottom: 10px !important;
+    margin-bottom: 25px !important;
+    padding-bottom: 15px !important;
   }
 }
 

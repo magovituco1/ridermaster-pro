@@ -6,9 +6,8 @@ import { Printer } from 'lucide-react';
 
 export const PrintButton = () => {
   const handlePrint = () => {
-    // Explicitly check for window and call print
+    // Direct call to trigger browser print dialog
     if (typeof window !== 'undefined') {
-      window.focus();
       window.print();
     }
   };
@@ -17,9 +16,9 @@ export const PrintButton = () => {
     <Button 
       onClick={handlePrint} 
       type="button"
-      className="bg-primary text-primary-foreground font-bold tracking-widest uppercase text-xs hover:bg-primary/90"
+      className="bg-primary text-primary-foreground font-black tracking-widest uppercase text-xs hover:bg-primary/90 shadow-lg"
     >
-      <Printer className="w-4 h-4 mr-2" /> PRINT LANDSCAPE
+      <Printer className="w-4 h-4 mr-2" /> PRINT / EXPORT PDF
     </Button>
   );
 };
