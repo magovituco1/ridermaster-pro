@@ -18,7 +18,7 @@ const nextConfig: NextConfig = {
   },
   webpack: (config, { isServer }) => {
     if (!isServer) {
-      // Prevents Electron from trying to load Node modules that don't exist in the browser
+      // Prevents Electron/Next from trying to load Node modules in the browser bundle
       config.resolve.fallback = {
         ...config.resolve.fallback,
         fs: false,
@@ -34,15 +34,17 @@ const nextConfig: NextConfig = {
         child_process: false,
         dns: false,
         readline: false,
-        http2: false, // Added http2 fallback to fix Genkit/OpenTelemetry build errors
+        http2: false,
+        perf_hooks: false,
       };
     }
-    // Ignore warnings and errors for modules that only work on the server
+    // Ignore warnings and errors for modules that only work on the server (like Genkit/gRPC)
     config.ignoreWarnings = [
       { module: /@opentelemetry/ },
       { module: /@genkit-ai/ },
       { module: /google-auth-library/ },
-      { module: /@grpc\/grpc-js/ }
+      { module: /@grpc\/grpc-js/ },
+      { module: /genkit/ }
     ];
     return config;
   },

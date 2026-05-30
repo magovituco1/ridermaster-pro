@@ -1,14 +1,17 @@
 
-// This route is deprecated. App uses /rider/view/?id=...
-// Neutralized for static export compatibility in Next.js 15.
+// This route is legacy. App uses /rider/view/?id=...
+// Optimized for static export in Next.js 15.
 
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  // Providing a placeholder to satisfy the 'output: export' requirement
-  return [{ id: 'default' }];
+  return [{ id: 'legacy' }];
 }
 
 export default function Page() {
-  return null;
+  return (
+    <div className="min-h-screen bg-black flex items-center justify-center">
+      <p className="text-primary font-bold uppercase tracking-widest text-xs">Redirecting to production data...</p>
+    </div>
+  );
 }
