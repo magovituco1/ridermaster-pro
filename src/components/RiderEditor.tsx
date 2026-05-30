@@ -11,7 +11,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { SetlistEditor } from './SetlistEditor';
 import { useToast } from '@/hooks/use-toast';
-import { Save, LayoutDashboard, Eye, Cloud, CloudUpload } from 'lucide-react';
+import { Save, LayoutDashboard, Eye, Cloud, CloudUpload, EyeOff } from 'lucide-react';
 import { errorEmitter } from '@/firebase/error-emitter';
 import { FirestorePermissionError } from '@/firebase/errors';
 import Link from 'next/link';
@@ -172,7 +172,7 @@ export const RiderEditor = ({ initialRider }: RiderEditorProps) => {
       />
 
       <div className="flex justify-end gap-4 pt-10 no-print">
-        {formData.id && (
+        {formData.id ? (
           <Link href={`/rider/view/?id=${formData.id}`}>
             <Button 
               variant="outline"
@@ -181,7 +181,16 @@ export const RiderEditor = ({ initialRider }: RiderEditorProps) => {
               <Eye className="mr-2 w-5 h-5" /> VIEW PREVIEW
             </Button>
           </Link>
+        ) : (
+          <Button 
+            variant="outline"
+            disabled
+            className="border-border text-muted-foreground min-w-[180px] h-14 font-black tracking-[0.2em] uppercase text-sm opacity-50 cursor-not-allowed"
+          >
+            <EyeOff className="mr-2 w-5 h-5" /> PREVIEW LOCKED
+          </Button>
         )}
+        
         <Button 
           onClick={handleManualSave} 
           disabled={isSaving}
