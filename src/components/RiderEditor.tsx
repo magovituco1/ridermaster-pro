@@ -74,7 +74,7 @@ export const RiderEditor = ({ initialRider }: RiderEditorProps) => {
       <Card className="border-primary/20 bg-card/60 backdrop-blur-md stage-shadow">
         <CardHeader>
           <CardTitle className="text-sm font-bold flex items-center gap-2 text-primary tracking-widest uppercase">
-            <Info className="w-4 h-4" /> SHOW INFORMATION
+            <支配 className="w-4 h-4" /> SHOW INFORMATION
           </CardTitle>
         </CardHeader>
         <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-6">
