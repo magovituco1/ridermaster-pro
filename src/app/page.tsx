@@ -97,7 +97,7 @@ export default function HomePage() {
                   </div>
                   
                   <div className="pt-4 border-t border-border flex justify-between items-center">
-                    <span className="text-xs font-bold text-muted-foreground uppercase tracking-widest">{(rider.songs?.length || 0)} SONGS REGISTERED</span>
+                    <span className="text-xs font-bold text-muted-foreground uppercase tracking-widest">{(rider.songs?.length || 0)} CUES REGISTERED</span>
                   </div>
                 </CardContent>
 
