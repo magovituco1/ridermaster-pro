@@ -10,9 +10,11 @@ function createWindow() {
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
+      preload: path.join(__dirname, 'preload.js')
     },
     title: 'RIDERMASTER PRO',
-    show: false
+    show: false,
+    icon: path.join(__dirname, '../public/icon.png')
   });
 
   const isDev = process.env.NODE_ENV === 'development';
@@ -20,8 +22,10 @@ function createWindow() {
   if (isDev) {
     win.loadURL('http://localhost:9002');
   } else {
-    // Cargamos el archivo index.html de la carpeta out generada por Next.js
-    win.loadFile(path.join(__dirname, '../out/index.html'));
+    // En exportación estática de Next.js, el archivo principal es index.html
+    // Cargamos el archivo directamente desde la carpeta 'out'
+    const indexPath = path.join(__dirname, '../out/index.html');
+    win.loadFile(indexPath).catch(err => console.error("Error cargando el rider:", err));
   }
 
   win.setMenuBarVisibility(false);
@@ -31,6 +35,7 @@ function createWindow() {
   });
 }
 
+// Configuración de seguridad y ciclo de vida
 app.whenReady().then(() => {
   createWindow();
 

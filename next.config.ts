@@ -2,7 +2,9 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
+  // Exportación estática obligatoria para Electron local
   output: 'export',
+  // Genera carpetas con index.html para rutas limpias en el sistema de archivos
   trailingSlash: true,
   distDir: 'out',
   images: {
@@ -16,6 +18,7 @@ const nextConfig: NextConfig = {
   },
   webpack: (config, { isServer }) => {
     if (!isServer) {
+      // Evita que Electron intente cargar módulos de servidor de Node
       config.resolve.fallback = {
         ...config.resolve.fallback,
         fs: false,
@@ -30,7 +33,7 @@ const nextConfig: NextConfig = {
         zlib: false,
       };
     }
-    // Ignora módulos que causan problemas en exportación estática
+    // Ignora telemetría y logs de Genkit que requieren conexión en build time
     config.ignoreWarnings = [
       { module: /@opentelemetry/ },
       { module: /@genkit-ai/ }
