@@ -1,10 +1,10 @@
-
+// Neutralized for static export compatibility
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return [{ id: 'production' }];
+  return [{ id: 'manual-build-fix' }];
 }
 
-export default function Page() {
+export default function NeutralizedEditPage() {
   return null;
 }

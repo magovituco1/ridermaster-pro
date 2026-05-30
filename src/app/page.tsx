@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useMemo } from 'react';
@@ -35,7 +34,7 @@ export default function HomePage() {
   const handleDelete = (id: string) => {
     if (!db) return;
     deleteDoc(doc(db, 'riders', id));
-    toast({ title: "Rider Deleted", description: "The project has been removed." });
+    toast({ title: "Project Removed", description: "The technical rider has been deleted." });
   };
 
   const seedDemoData = async () => {
@@ -68,7 +67,7 @@ export default function HomePage() {
         <RiderMasterLogo />
         <Link href="/rider/new">
           <Button className="bg-primary text-primary-foreground hover:bg-primary/90 gap-2 font-bold tracking-widest uppercase text-xs">
-            <Plus className="w-4 h-4" /> NEW RIDER
+            <Plus className="w-4 h-4" /> NEW PRODUCTION
           </Button>
         </Link>
       </header>
@@ -136,7 +135,7 @@ export default function HomePage() {
                 <div className="p-4 rounded-full bg-secondary group-hover:bg-primary/20 transition-colors">
                   <Plus className="w-8 h-8 text-muted-foreground group-hover:text-primary" />
                 </div>
-                <span className="text-muted-foreground font-bold tracking-widest uppercase text-[10px]">CREATE NEW PRODUCTION</span>
+                <span className="text-muted-foreground font-bold tracking-widest uppercase text-[10px]">CREATE NEW PROJECT</span>
               </div>
             </Link>
 

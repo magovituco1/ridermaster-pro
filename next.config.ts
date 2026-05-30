@@ -1,4 +1,3 @@
-
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
@@ -35,8 +34,8 @@ const nextConfig: NextConfig = {
         perf_hooks: false,
         async_hooks: false,
         canvas: false,
-        "inspector": false,
-        "undici": false,
+        inspector: false,
+        undici: false,
         "node:async_hooks": false,
         "node:events": false,
         "node:util": false,

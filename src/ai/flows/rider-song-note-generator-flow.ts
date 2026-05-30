@@ -1,4 +1,3 @@
-
 import { z } from 'zod';
 
 const RiderSongNoteGeneratorInputSchema = z.object({
@@ -15,6 +14,7 @@ export type RiderSongNoteGeneratorOutput = z.infer<typeof RiderSongNoteGenerator
 
 export async function generateRiderSongNotes(input: RiderSongNoteGeneratorInput): Promise<RiderSongNoteGeneratorOutput> {
   try {
+    // In static export/electron, we try to use genkit client-side or fallback if offline
     if (typeof window !== 'undefined' && !window.navigator.onLine) {
       return getOfflineFallback();
     }
@@ -28,6 +28,7 @@ export async function generateRiderSongNotes(input: RiderSongNoteGeneratorInput)
 
     return output || getOfflineFallback();
   } catch (error) {
+    console.warn('AI Flow error, using fallback:', error);
     return getOfflineFallback();
   }
 }
