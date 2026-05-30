@@ -11,7 +11,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { SetlistEditor } from './SetlistEditor';
 import { useToast } from '@/hooks/use-toast';
-import { Save, LayoutDashboard, Eye, CloudCheck, CloudUpload } from 'lucide-react';
+import { Save, LayoutDashboard, Eye, Cloud, CloudUpload } from 'lucide-react';
 import { errorEmitter } from '@/firebase/error-emitter';
 import { FirestorePermissionError } from '@/firebase/errors';
 import Link from 'next/link';
@@ -37,11 +37,8 @@ export const RiderEditor = ({ initialRider }: RiderEditorProps) => {
   const lastSavedData = useRef(JSON.stringify(initialRider || {}));
   const autoSaveTimer = useRef<NodeJS.Timeout | null>(null);
 
-  // Background Auto-save Logic
   useEffect(() => {
     const currentData = JSON.stringify(formData);
-    
-    // Don't auto-save if data hasn't changed or basic info is missing
     if (currentData === lastSavedData.current) return;
     if (!formData.showName || !formData.artistName) return;
 
@@ -50,7 +47,7 @@ export const RiderEditor = ({ initialRider }: RiderEditorProps) => {
     setIsAutoSaving(true);
     autoSaveTimer.current = setTimeout(() => {
       performSave(true);
-    }, 2000); // 2 second debounce for auto-save
+    }, 2000);
 
     return () => {
       if (autoSaveTimer.current) clearTimeout(autoSaveTimer.current);
@@ -90,9 +87,6 @@ export const RiderEditor = ({ initialRider }: RiderEditorProps) => {
           requestResourceData: savePayload,
         });
         errorEmitter.emit('permission-error', permissionError);
-        if (!isBackground) {
-          toast({ title: "Save Failed", description: "Check permissions.", variant: "destructive" });
-        }
       })
       .finally(() => {
         setIsSaving(false);
@@ -122,7 +116,7 @@ export const RiderEditor = ({ initialRider }: RiderEditorProps) => {
               </div>
             ) : (
               <div className="flex items-center gap-1 text-[10px] text-muted-foreground font-bold uppercase tracking-widest opacity-50">
-                <CloudCheck className="w-3 h-3" /> Sync Active
+                <Cloud className="w-3 h-3" /> Sync Active
               </div>
             )}
           </div>

@@ -117,11 +117,6 @@ export default function RiderViewPage() {
       </header>
 
       <main className="max-w-7xl mx-auto p-6 mt-8 print:mt-0 print:p-0">
-        <div className="no-print mb-6 flex items-center gap-2 text-primary">
-          <FileText className="w-5 h-5" />
-          <span className="text-xs font-black uppercase tracking-widest">TECHNICAL DOCUMENT PREVIEW</span>
-        </div>
-
         <div className="bg-white text-black p-12 shadow-2xl rounded-sm print:shadow-none print:p-0 print-container">
           
           <div className="mb-2">
