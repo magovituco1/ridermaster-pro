@@ -1,7 +1,7 @@
+
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  // Static export is required for Electron local file:// loading
   output: 'export',
   trailingSlash: true,
   distDir: 'out',
@@ -16,7 +16,6 @@ const nextConfig: NextConfig = {
   },
   webpack: (config, { isServer }) => {
     if (!isServer) {
-      // Prevent bundling Node.js modules that are missing in the browser environment
       config.resolve.fallback = {
         ...config.resolve.fallback,
         fs: false,
@@ -53,7 +52,6 @@ const nextConfig: NextConfig = {
       };
     }
     
-    // Suppress warnings related to Node-only packages like Genkit/gRPC
     config.ignoreWarnings = [
       { module: /@opentelemetry/ },
       { module: /@genkit-ai/ },

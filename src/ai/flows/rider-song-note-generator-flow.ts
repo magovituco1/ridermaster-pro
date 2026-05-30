@@ -1,9 +1,4 @@
 
-/**
- * @fileOverview An AI assistant that suggests technical stage notes.
- * Optimized for Client-Side execution in Electron environments with Offline support.
- */
-
 import { z } from 'zod';
 
 const RiderSongNoteGeneratorInputSchema = z.object({
@@ -18,19 +13,12 @@ const RiderSongNoteGeneratorOutputSchema = z.object({
 export type RiderSongNoteGeneratorInput = z.infer<typeof RiderSongNoteGeneratorInputSchema>;
 export type RiderSongNoteGeneratorOutput = z.infer<typeof RiderSongNoteGeneratorOutputSchema>;
 
-/**
- * Handles technical note generation.
- * Includes a robust fallback for offline scenarios (e.g. touring on a pendrive).
- */
 export async function generateRiderSongNotes(input: RiderSongNoteGeneratorInput): Promise<RiderSongNoteGeneratorOutput> {
   try {
-    // Check for internet connection before attempting AI call
     if (typeof window !== 'undefined' && !window.navigator.onLine) {
       return getOfflineFallback();
     }
 
-    // Dynamic import to isolate Node.js dependencies during the build
-    // This prevents build-time failures for static exports.
     const { ai } = await import('@/ai/genkit');
     
     const { output } = await ai.generate({
