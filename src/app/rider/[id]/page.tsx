@@ -44,7 +44,7 @@ export default function RiderViewPage() {
 
   const { data: rider, loading } = useDoc(riderRef);
 
-  // Lógica de segmentación: 10 entradas por página A4 horizontal
+  // Lógica de segmentación: Siempre 10 entradas por página para mantener cuadrícula fija
   const pageChunks = useMemo(() => {
     if (!rider) return [[]];
     const songs = rider.songs || [];
@@ -139,7 +139,7 @@ export default function RiderViewPage() {
             </div>
 
             {/* Franja negra técnica unificada - Optimizada */}
-            <div className="bg-black text-white px-4 py-2 flex items-center justify-between gap-6 mb-4 border-b-2 border-primary shrink-0">
+            <div className="bg-black text-white px-4 py-1.5 flex items-center justify-between gap-6 mb-4 border-b-2 border-primary shrink-0">
               <div className="flex items-center gap-2 min-w-0">
                 <Users className="w-3 h-3 text-primary flex-shrink-0" />
                 <span className="text-[7px] font-black uppercase text-gray-500 tracking-tighter">ARTIST:</span>
@@ -163,13 +163,13 @@ export default function RiderViewPage() {
             </div>
 
             {/* Cuerpo del Documento */}
-            <h2 className="text-[10px] font-black flex items-center gap-2 uppercase border-b-2 border-black pb-1 mb-2 shrink-0">
+            <h2 className="text-[11px] font-black flex items-center gap-2 uppercase border-b-2 border-black pb-1 mb-2 shrink-0">
               <LayoutGrid className="w-3 h-3" /> TECHNICAL RIDER
             </h2>
             
-            {/* Tabla Técnica Expandida */}
-            <div className="flex-grow flex flex-col">
-              <table className="w-full text-left border-collapse table-fixed border-2 border-black flex-grow">
+            {/* Tabla Técnica de Tamaño Fijo (Siempre 10 filas) */}
+            <div className="flex-grow flex flex-col overflow-hidden">
+              <table className="w-full text-left border-collapse table-fixed border-2 border-black h-full">
                 <thead>
                   <tr className="bg-gray-100 border-b-2 border-black text-[9px] font-black uppercase tracking-widest h-10">
                     <th className="px-2 w-10 text-center border-r border-black">#</th>
@@ -180,26 +180,20 @@ export default function RiderViewPage() {
                   </tr>
                 </thead>
                 <tbody className="text-[9px] uppercase font-bold">
-                  {chunk.length > 0 ? (
-                    chunk.map((song: any) => (
-                      <tr key={song.id} className="border-b border-black">
-                        <td className="px-2 text-center border-r border-black bg-gray-50">{song.orderNum}</td>
-                        <td className="px-3 font-black border-r border-black leading-tight">{song.songName || 'UNTITLED'}</td>
-                        <td className="px-3 border-r border-black whitespace-pre-wrap leading-relaxed py-1">{song.soundNotes || '-'}</td>
-                        <td className="px-3 border-r border-black whitespace-pre-wrap leading-relaxed py-1">{song.lightNotes || '-'}</td>
-                        <td className="px-3 border-r border-black whitespace-pre-wrap leading-relaxed py-1">{song.extraNotes || '-'}</td>
-                      </tr>
-                    ))
-                  ) : (
-                    <tr>
-                      <td colSpan={5} className="px-2 text-center text-gray-300 font-bold uppercase tracking-widest">
-                        END OF DOCUMENT
-                      </td>
+                  {/* Filas con datos */}
+                  {chunk.map((song: any) => (
+                    <tr key={song.id} className="border-b border-black h-[calc(100%/10.5)]">
+                      <td className="px-2 text-center border-r border-black bg-gray-50">{song.orderNum}</td>
+                      <td className="px-3 font-black border-r border-black leading-tight truncate">{song.songName || 'UNTITLED'}</td>
+                      <td className="px-3 border-r border-black whitespace-pre-wrap leading-relaxed py-1 overflow-hidden">{song.soundNotes || '-'}</td>
+                      <td className="px-3 border-r border-black whitespace-pre-wrap leading-relaxed py-1 overflow-hidden">{song.lightNotes || '-'}</td>
+                      <td className="px-3 border-r border-black whitespace-pre-wrap leading-relaxed py-1 overflow-hidden">{song.extraNotes || '-'}</td>
                     </tr>
-                  )}
-                  {/* Relleno para mantener el alto si hay menos de 10 */}
-                  {chunk.length < 10 && chunk.length > 0 && Array.from({ length: 10 - chunk.length }).map((_, i) => (
-                    <tr key={`empty-${i}`} className="border-b border-black opacity-10">
+                  ))}
+                  
+                  {/* Filas vacías de relleno para completar 10 siempre */}
+                  {Array.from({ length: Math.max(0, 10 - chunk.length) }).map((_, i) => (
+                    <tr key={`empty-${i}`} className="border-b border-black h-[calc(100%/10.5)] opacity-20">
                       <td className="px-2 border-r border-black"></td>
                       <td className="px-3 border-r border-black"></td>
                       <td className="px-3 border-r border-black"></td>
@@ -211,13 +205,13 @@ export default function RiderViewPage() {
               </table>
             </div>
 
-            {/* Firma al pie de página */}
-            <div className="mt-2 pt-2 border-t border-gray-100 flex justify-between items-end shrink-0">
+            {/* Firma al pie de página unificada */}
+            <div className="mt-3 pt-2 border-t border-gray-100 flex justify-between items-end shrink-0">
               <div className="text-[7px] font-bold text-gray-300 uppercase tracking-[0.4em]">
-                OFFICIAL TECHNICAL DOCUMENT • MAGO VITUCO PRODUCTIONS
+                OFFICIAL TECHNICAL DOCUMENT
               </div>
-              <div className="text-[9px] font-black uppercase text-black tracking-tight">
-                RIDERMASTER <span className="text-gray-400 font-bold">by</span> Mago Vituco Productions
+              <div className="text-[10px] font-black uppercase text-black tracking-tight">
+                RIDERMASTER <span className="text-gray-400 font-bold lowercase italic">by</span> MAGO VITUCO PRODUCTIONS
               </div>
             </div>
           </div>
