@@ -11,9 +11,10 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { SetlistEditor } from './SetlistEditor';
 import { useToast } from '@/hooks/use-toast';
-import { Save, LayoutDashboard } from 'lucide-react';
+import { Save, LayoutDashboard, Eye } from 'lucide-react';
 import { errorEmitter } from '@/firebase/error-emitter';
 import { FirestorePermissionError } from '@/firebase/errors';
+import Link from 'next/link';
 
 interface RiderEditorProps {
   initialRider?: Rider;
@@ -122,7 +123,17 @@ export const RiderEditor = ({ initialRider }: RiderEditorProps) => {
         onChange={(songs) => setFormData({ ...formData, songs })} 
       />
 
-      <div className="flex justify-end pt-8">
+      <div className="flex justify-end gap-4 pt-8 no-print">
+        {formData.id && (
+          <Link href={`/rider/${formData.id}`}>
+            <Button 
+              variant="outline"
+              className="border-primary/50 text-primary hover:bg-primary hover:text-primary-foreground min-w-[200px] h-14 font-black tracking-[0.2em] uppercase text-lg transition-all"
+            >
+              <Eye className="mr-2 w-5 h-5" /> VIEW PREVIEW
+            </Button>
+          </Link>
+        )}
         <Button 
           onClick={handleSave} 
           disabled={isSaving}
