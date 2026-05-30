@@ -36,9 +36,9 @@ export default function RootLayout({
           <Toaster />
           
           <footer className="fixed bottom-6 right-8 pointer-events-none no-print z-[100] opacity-90 transition-opacity">
-            <p className="text-[10px] font-bold tracking-[0.3em] uppercase flex items-center gap-1">
+            <p className="text-[10px] font-bold tracking-[0.2em] uppercase flex items-center gap-1">
               <span className="text-primary">RIDERMASTER</span> 
-              <span className="text-muted-foreground/50">by</span> 
+              <span className="text-muted-foreground/60">by</span> 
               <span className="text-accent">MAGO VITUCO PRODUCTIONS</span>
             </p>
           </footer>

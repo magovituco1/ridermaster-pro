@@ -9,7 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { SetlistEditor } from './SetlistEditor';
-import { toast } from '@/hooks/use-toast';
+import { useToast } from '@/hooks/use-toast';
 import { Save, Info } from 'lucide-react';
 import { errorEmitter } from '@/firebase/error-emitter';
 import { FirestorePermissionError } from '@/firebase/errors';
@@ -21,6 +21,7 @@ interface RiderEditorProps {
 export const RiderEditor = ({ initialRider }: RiderEditorProps) => {
   const router = useRouter();
   const db = useFirestore();
+  const { toast } = useToast();
   const [isSaving, setIsSaving] = useState(false);
   const [formData, setFormData] = useState<Partial<Rider>>(initialRider || {
     showName: '',
@@ -38,7 +39,7 @@ export const RiderEditor = ({ initialRider }: RiderEditorProps) => {
     }
 
     setIsSaving(true);
-    // Ensure we have a valid ID
+    // Ensure we have a valid ID or generate a new one
     const riderId = formData.id || doc(collection(db, 'riders')).id;
     const riderRef = doc(db, 'riders', riderId);
     
@@ -51,7 +52,7 @@ export const RiderEditor = ({ initialRider }: RiderEditorProps) => {
 
     setDoc(riderRef, savePayload, { merge: true })
       .then(() => {
-        toast({ title: "Success", description: "Rider saved successfully." });
+        toast({ title: "Success", description: "Technical rider saved." });
         router.push(`/rider/${riderId}`);
       })
       .catch(async (err) => {
@@ -61,7 +62,7 @@ export const RiderEditor = ({ initialRider }: RiderEditorProps) => {
           requestResourceData: savePayload,
         });
         errorEmitter.emit('permission-error', permissionError);
-        toast({ title: "Error", description: "Failed to save rider.", variant: "destructive" });
+        toast({ title: "Save Failed", description: "Check permissions and connection.", variant: "destructive" });
       })
       .finally(() => {
         setIsSaving(false);
@@ -80,7 +81,7 @@ export const RiderEditor = ({ initialRider }: RiderEditorProps) => {
           <div className="space-y-2">
             <label className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground">Show / Tour Name</label>
             <Input 
-              placeholder="E.G. STADIUM OVERLOAD TOUR" 
+              placeholder="E.G. WORLD TOUR 2025" 
               className="bg-background uppercase tracking-wider font-bold"
               value={formData.showName}
               onChange={(e) => setFormData({ ...formData, showName: e.target.value })}
@@ -107,7 +108,7 @@ export const RiderEditor = ({ initialRider }: RiderEditorProps) => {
           <div className="space-y-2">
             <label className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground">Venue</label>
             <Input 
-              placeholder="VENUE NAME / CITY" 
+              placeholder="VENUE / CITY" 
               className="bg-background uppercase tracking-wider font-bold"
               value={formData.venue}
               onChange={(e) => setFormData({ ...formData, venue: e.target.value })}
@@ -127,7 +128,7 @@ export const RiderEditor = ({ initialRider }: RiderEditorProps) => {
           disabled={isSaving}
           className="bg-primary text-primary-foreground hover:bg-primary/90 min-w-[200px] h-14 font-black tracking-[0.2em] uppercase text-lg shadow-2xl"
         >
-          {isSaving ? "SAVING..." : <><Save className="mr-2 w-5 h-5" /> SAVE RIDER</>}
+          {isSaving ? "PROCESSING..." : <><Save className="mr-2 w-5 h-5" /> SAVE RIDER</>}
         </Button>
       </div>
     </div>
