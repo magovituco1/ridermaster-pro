@@ -39,7 +39,7 @@ function EditRiderContent() {
         <div className="text-center">
           <h1 className="text-2xl font-black mb-4">RIDER NOT FOUND</h1>
           <Link href="/">
-            <Button variant="outline">BACK TO HOME</Button>
+            <Button variant="outline">BACK TO RIDERS</Button>
           </Link>
         </div>
       </div>
@@ -70,7 +70,7 @@ function EditRiderContent() {
 
 export default function EditRiderPage() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<div>Loading Editor...</div>}>
       <EditRiderContent />
     </Suspense>
   );

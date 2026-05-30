@@ -90,7 +90,7 @@ export default function HomePage() {
 
       <main className="max-w-7xl mx-auto p-6 space-y-8">
         <div className="flex flex-col gap-2">
-          <h1 className="text-4xl font-black">RIDERS</h1>
+          <h1 className="text-4xl font-black text-primary">RIDERS</h1>
           <p className="text-muted-foreground font-medium tracking-wide">ACTIVE TECHNICAL RIDERS FOR UPCOMING SHOWS</p>
         </div>
 

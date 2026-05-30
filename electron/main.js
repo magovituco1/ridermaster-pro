@@ -10,7 +10,7 @@ function createWindow() {
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
-      preload: path.join(__dirname, 'preload.js'),
+      title: 'RIDERMASTER PRO',
     },
     title: 'RIDERMASTER PRO',
     show: false
@@ -22,6 +22,7 @@ function createWindow() {
     win.loadURL('http://localhost:9002');
   } else {
     // En producción cargamos el archivo estático generado por Next.js
+    // El archivo principal es out/index.html
     win.loadFile(path.join(__dirname, '../out/index.html'));
   }
 

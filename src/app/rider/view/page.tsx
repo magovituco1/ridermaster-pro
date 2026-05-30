@@ -45,6 +45,7 @@ function RiderViewContent() {
 
   const { data: rider, loading } = useDoc(riderRef);
 
+  // Lógica de segmentación fija de 10 cues para A4 Horizontal
   const pageChunks = useMemo(() => {
     if (!rider) return [[]];
     const songs = rider.songs || [];
@@ -131,11 +132,14 @@ function RiderViewContent() {
       <main className="flex flex-col items-center py-12 print:p-0 print:py-0">
         {pageChunks.map((chunk, pageIndex) => (
           <div key={pageIndex} className="a4-landscape-page">
+            
+            {/* Cabecera superior mínima */}
             <div className="mb-1 flex justify-between items-end">
               <p className="text-[8px] font-black tracking-[0.4em] uppercase text-gray-400">TECHNICAL RIDER</p>
               <p className="text-[8px] font-bold text-gray-300">PAGE {pageIndex + 1} / {pageChunks.length}</p>
             </div>
 
+            {/* Franja técnica negra unificada */}
             <div className="bg-black text-white px-4 py-1.5 flex items-center justify-between gap-6 mb-4 border-b-2 border-primary shrink-0">
               <div className="flex items-center gap-2 min-w-0">
                 <Users className="w-3 h-3 text-primary flex-shrink-0" />
@@ -159,10 +163,12 @@ function RiderViewContent() {
               </div>
             </div>
 
+            {/* Título de sección */}
             <h2 className="text-[11px] font-black flex items-center gap-2 uppercase border-b-2 border-black pb-1 mb-2 shrink-0">
               <LayoutGrid className="w-3 h-3" /> TECHNICAL RIDER
             </h2>
             
+            {/* Tabla Técnica de Tamaño Fijo */}
             <div className="flex-grow flex flex-col overflow-hidden">
               <table className="w-full text-left border-collapse table-fixed border-2 border-black h-full">
                 <thead>
@@ -185,6 +191,7 @@ function RiderViewContent() {
                     </tr>
                   ))}
                   
+                  {/* Filas vacías para completar siempre 10 y mantener el diseño */}
                   {Array.from({ length: Math.max(0, 10 - chunk.length) }).map((_, i) => (
                     <tr key={`empty-${i}`} className="border-b border-black h-[calc(100%/10.5)] opacity-20">
                       <td className="px-2 border-r border-black"></td>
@@ -198,6 +205,7 @@ function RiderViewContent() {
               </table>
             </div>
 
+            {/* Firma Corporativa */}
             <div className="mt-3 pt-2 border-t border-gray-100 flex justify-between items-end shrink-0">
               <div className="text-[7px] font-bold text-gray-300 uppercase tracking-[0.4em]">
                 OFFICIAL TECHNICAL DOCUMENT
@@ -215,7 +223,7 @@ function RiderViewContent() {
 
 export default function RiderViewPage() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-black text-primary font-bold">CARGANDO TÉCNICOS...</div>}>
       <RiderViewContent />
     </Suspense>
   );
