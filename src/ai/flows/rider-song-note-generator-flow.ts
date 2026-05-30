@@ -26,20 +26,21 @@ export async function generateRiderSongNotes(input: RiderSongNoteGeneratorInput)
   try {
     // Check for internet connection before attempting AI call
     if (typeof window !== 'undefined' && !window.navigator.onLine) {
-      throw new Error('OFFLINE_MODE');
+      return getOfflineFallback();
     }
 
     // Dynamic import to isolate Node.js dependencies during the build
+    // Note: In a pure static export, Genkit (Node-based) might not be fully functional in the browser.
+    // This dynamic import prevents build-time failures.
     const { ai } = await import('@/ai/genkit');
     
     const { output } = await ai.generate({
-      prompt: `Suggest sound and lighting notes for a stage act of type: ${input.genre}. Be technical and professional.`,
+      prompt: `Suggest technical sound and lighting notes for a stage act of genre: ${input.genre}. Be professional and specific.`,
       output: { schema: RiderSongNoteGeneratorOutputSchema as any },
     });
 
     return output || getOfflineFallback();
   } catch (error) {
-    console.warn("AI Generation unavailable. Using technical template.");
     return getOfflineFallback();
   }
 }
