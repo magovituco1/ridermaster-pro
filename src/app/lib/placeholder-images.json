@@ -1,10 +1,9 @@
-
 {
   "placeholderImages": [
     {
       "id": "stage-background",
-      "description": "Professional Concert Stage Lighting and Gear",
-      "imageUrl": "https://picsum.photos/seed/ridermaster-stage/1920/1080",
+      "description": "Fondo oficial RiderMaster Pro - Escenario y Marca",
+      "imageUrl": "https://picsum.photos/seed/ridermaster-pro-background/1920/1080",
       "imageHint": "concert stage"
     }
   ]

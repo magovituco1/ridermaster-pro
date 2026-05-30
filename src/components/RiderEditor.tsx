@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
@@ -27,8 +26,9 @@ export const RiderEditor = ({ initialRider }: RiderEditorProps) => {
   const [isSaving, setIsSaving] = useState(false);
   const [isAutoSaving, setIsAutoSaving] = useState(false);
   
-  // Estado para controlar la UI (botón de preview) y Ref para la lógica de guardado
+  // Usamos estado para disparar redibujado cuando el ID se asigna
   const [currentId, setCurrentId] = useState<string | null>(initialRider?.id || null);
+  // Ref para evitar regenerar el ID en cada guardado de la misma sesión
   const assignedId = useRef<string | null>(initialRider?.id || null);
   
   const [formData, setFormData] = useState<Partial<Rider>>(initialRider || {
@@ -46,7 +46,7 @@ export const RiderEditor = ({ initialRider }: RiderEditorProps) => {
     const currentData = JSON.stringify(formData);
     if (currentData === lastSavedData.current) return;
     
-    // Solo auto-guardamos si hay algo de contenido
+    // Solo auto-guardamos si hay algo de contenido relevante
     if (!formData.showName?.trim() && !formData.artistName?.trim()) return;
 
     if (autoSaveTimer.current) clearTimeout(autoSaveTimer.current);
@@ -64,11 +64,11 @@ export const RiderEditor = ({ initialRider }: RiderEditorProps) => {
   const performSave = (isBackground: boolean = false) => {
     if (!firestore) return;
 
-    // Asignamos un ID único si es nuevo y no tiene uno
+    // Asignamos un ID único si es nuevo y no tiene uno persistente en la Ref
     if (!assignedId.current) {
       const newId = doc(collection(firestore, 'riders')).id;
       assignedId.current = newId;
-      setCurrentId(newId); // Esto activa el botón de preview en la UI
+      setCurrentId(newId); // Activa el botón de preview en la UI
     }
 
     const riderId = assignedId.current!;
