@@ -58,7 +58,7 @@ export default async function HomePage() {
                       type="submit" 
                       variant="ghost" 
                       size="icon" 
-                      className="text-destructive hover:bg-destructive/10 hover:text-destructive h-8 w-8 z-10 relative"
+                      className="text-destructive hover:bg-destructive/20 hover:text-destructive h-8 w-8 z-10 relative"
                       title="Delete Project"
                     >
                       <Trash2 className="w-4 h-4" />
