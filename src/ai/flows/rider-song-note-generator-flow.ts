@@ -1,7 +1,7 @@
 
 /**
  * @fileOverview An AI assistant that suggests technical stage notes.
- * Optimized for Client-Side execution in Electron environments.
+ * Optimized for Client-Side execution in Electron environments with Offline support.
  */
 
 import { z } from 'zod';
@@ -19,31 +19,34 @@ export type RiderSongNoteGeneratorInput = z.infer<typeof RiderSongNoteGeneratorI
 export type RiderSongNoteGeneratorOutput = z.infer<typeof RiderSongNoteGeneratorOutputSchema>;
 
 /**
- * Handles the technical note generation.
- * In a static Electron build, we avoid top-level Genkit imports to prevent build errors.
+ * Handles technical note generation.
+ * Includes a robust fallback for offline scenarios (e.g. touring on a pendrive).
  */
 export async function generateRiderSongNotes(input: RiderSongNoteGeneratorInput): Promise<RiderSongNoteGeneratorOutput> {
   try {
-    // Dynamic import to isolate Node.js dependencies from the main bundle
+    // Check for internet connection before attempting AI call
+    if (typeof window !== 'undefined' && !window.navigator.onLine) {
+      throw new Error('OFFLINE_MODE');
+    }
+
+    // Dynamic import to isolate Node.js dependencies during the build
     const { ai } = await import('@/ai/genkit');
     
-    const prompt = ai.definePrompt({
-      name: 'riderSongNoteGeneratorPrompt',
-      input: { schema: RiderSongNoteGeneratorInputSchema as any },
+    const { output } = await ai.generate({
+      prompt: `Suggest sound and lighting notes for a stage act of type: ${input.genre}. Be technical and professional.`,
       output: { schema: RiderSongNoteGeneratorOutputSchema as any },
-      prompt: `You are an expert stage technician. Suggest sound and light notes for: {{{genre}}}`,
     });
 
-    const { output } = await prompt(input);
-    return output || { 
-      soundNotes: "Standard technical sound check required.", 
-      lightNotes: "General wash lighting." 
-    };
+    return output || getOfflineFallback();
   } catch (error) {
-    console.warn("AI Generation failed locally:", error);
-    return {
-      soundNotes: "Please configure sound manually for this act.",
-      lightNotes: "Please configure lighting manually for this act."
-    };
+    console.warn("AI Generation unavailable. Using technical template.");
+    return getOfflineFallback();
   }
+}
+
+function getOfflineFallback(): RiderSongNoteGeneratorOutput {
+  return {
+    soundNotes: "Standard sound check: 48kHz, Main LR + Subs. Monitor levels at 60%.",
+    lightNotes: "General front wash (Warm). Backlight: Cold Blue. Haze: 20%."
+  };
 }

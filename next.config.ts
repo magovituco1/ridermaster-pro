@@ -2,9 +2,8 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  // Mandatory static export for Electron applications
+  // Static export is required for Electron local file:// loading
   output: 'export',
-  // Generate folders with index.html so routes work without a server (file://)
   trailingSlash: true,
   distDir: 'out',
   images: {
@@ -18,7 +17,7 @@ const nextConfig: NextConfig = {
   },
   webpack: (config, { isServer }) => {
     if (!isServer) {
-      // Prevents Electron/Next from trying to load Node modules in the browser bundle
+      // Prevent bundling Node.js modules that are missing in the browser environment
       config.resolve.fallback = {
         ...config.resolve.fallback,
         fs: false,
@@ -42,7 +41,8 @@ const nextConfig: NextConfig = {
         "undici": false,
       };
     }
-    // Ignore warnings and errors for modules that only work on the server (like Genkit/gRPC)
+    
+    // Suppress warnings related to Node-only packages like Genkit/gRPC
     config.ignoreWarnings = [
       { module: /@opentelemetry/ },
       { module: /@genkit-ai/ },
@@ -51,6 +51,7 @@ const nextConfig: NextConfig = {
       { module: /genkit/ },
       { module: /async_hooks/ }
     ];
+    
     return config;
   },
 };

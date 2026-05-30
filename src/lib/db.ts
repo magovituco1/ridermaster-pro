@@ -1,7 +1,10 @@
 
+/**
+ * Client-safe data management.
+ * Removed revalidatePath as it is not supported in static exports.
+ */
 import { Rider, RiderSummary } from './types';
 
-// Persist database in memory / local context
 const getGlobal = () => {
   if (typeof window !== 'undefined') return window as any;
   if (typeof global !== 'undefined') return global as any;
@@ -21,8 +24,7 @@ if (!g.riders) {
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
       songs: [
-        { id: 's1', orderNum: 1, songName: 'OPENING: THE AWAKENING', soundNotes: 'Progressive orchestral fade in. Powerful sub-bass.', lightNotes: 'Deep blue wash to cold white cenital.', extraNotes: 'Low fog at start.' },
-        { id: 's10', orderNum: 10, songName: 'THE FINAL ESCAPE', soundNotes: 'Epic in crescendo. Powerful brass.', lightNotes: 'All rig at 100% in movement.', extraNotes: 'Final pyrotechnics.' }
+        { id: 's1', orderNum: 1, songName: 'OPENING: THE AWAKENING', soundNotes: 'Progressive orchestral fade in.', lightNotes: 'Blue wash.', extraNotes: 'Low fog.' }
       ]
     }
   ];

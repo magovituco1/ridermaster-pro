@@ -1,11 +1,13 @@
 
-// This route is neutralized to satisfy Next.js 15 static export.
-// The actual app uses /rider/edit/?id=...
+/**
+ * Neutralized dynamic route to satisfy Next.js 15 static export.
+ * Redirects to the search-param based route in the client.
+ */
 
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  // We provide a dummy param so the build doesn't fail.
+  // Required for 'output: export' build
   return [{ id: 'production' }];
 }
 
