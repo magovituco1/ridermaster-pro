@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useMemo } from 'react';
@@ -18,7 +17,9 @@ import {
   MapPin, 
   Users,
   LayoutGrid,
-  FileText
+  FileText,
+  Music,
+  Mic2
 } from 'lucide-react';
 import { 
   AlertDialog,
@@ -123,36 +124,32 @@ export default function RiderViewPage() {
         {/* DOCUMENT CONTAINER */}
         <div className="bg-white text-black p-12 shadow-2xl rounded-sm print:shadow-none print:p-0 print-container">
           
-          {/* HEADER SECTION */}
-          <div className="flex items-center justify-between mb-8">
-            <div className="flex flex-col">
-              <h1 className="text-4xl font-black tracking-tighter uppercase mb-1">TECHNICAL RIDER</h1>
-              <div className="text-2xl font-black uppercase text-gray-800">{rider.showName}</div>
-            </div>
-            <div className="text-right flex flex-col items-end">
-              <div className="bg-black text-white px-3 py-1 text-[10px] font-bold uppercase tracking-widest mb-2">
-                REF: {id.slice(0, 8).toUpperCase()}
-              </div>
-              <span className="text-[10px] font-bold tracking-[0.4em] uppercase text-gray-500">RIDERMASTER PRO</span>
-            </div>
+          {/* HEADER LABEL */}
+          <div className="mb-4">
+            <p className="text-[10px] font-black tracking-[0.4em] uppercase text-gray-400">TECHNICAL RIDER</p>
           </div>
 
-          {/* SUPERIOR BLACK INFO LINE */}
-          <div className="bg-black text-white px-6 py-4 flex flex-wrap items-center justify-between gap-4 mb-10 border-b-4 border-primary print:border-primary">
+          {/* UNIFIED BLACK INFO STRIP */}
+          <div className="bg-black text-white px-6 py-4 flex flex-wrap items-center justify-between gap-6 mb-10 border-b-4 border-primary print:border-primary">
             <div className="flex items-center gap-2">
-              <Users className="w-4 h-4 text-primary" />
-              <span className="text-[9px] font-black uppercase text-gray-400 mr-1 tracking-widest">ARTIST:</span>
-              <span className="text-sm font-black uppercase">{rider.artistName}</span>
+              <Users className="w-3 h-3 text-primary" />
+              <span className="text-[8px] font-black uppercase text-gray-500 tracking-widest">ARTIST:</span>
+              <span className="text-xs font-black uppercase">{rider.artistName}</span>
             </div>
             <div className="flex items-center gap-2">
-              <Calendar className="w-4 h-4 text-primary" />
-              <span className="text-[9px] font-black uppercase text-gray-400 mr-1 tracking-widest">DATE:</span>
-              <span className="text-sm font-black uppercase">{rider.showDate}</span>
+              <Mic2 className="w-3 h-3 text-primary" />
+              <span className="text-[8px] font-black uppercase text-gray-500 tracking-widest">SHOW:</span>
+              <span className="text-xs font-black uppercase">{rider.showName}</span>
             </div>
             <div className="flex items-center gap-2">
-              <MapPin className="w-4 h-4 text-primary" />
-              <span className="text-[9px] font-black uppercase text-gray-400 mr-1 tracking-widest">VENUE:</span>
-              <span className="text-sm font-black uppercase">{rider.venue}</span>
+              <MapPin className="w-3 h-3 text-primary" />
+              <span className="text-[8px] font-black uppercase text-gray-500 tracking-widest">VENUE:</span>
+              <span className="text-xs font-black uppercase">{rider.venue}</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Calendar className="w-3 h-3 text-primary" />
+              <span className="text-[8px] font-black uppercase text-gray-500 tracking-widest">DATE:</span>
+              <span className="text-xs font-black uppercase">{rider.showDate}</span>
             </div>
           </div>
 
@@ -198,7 +195,7 @@ export default function RiderViewPage() {
           {/* FOOTER SECTION */}
           <div className="mt-12 pt-6 border-t border-gray-200 flex justify-between items-end">
             <div className="text-[8px] font-bold text-gray-400 uppercase tracking-[0.3em]">
-              OFFICIAL TECHNICAL DOCUMENT • RIDERMASTER V2.1
+              OFFICIAL TECHNICAL DOCUMENT
             </div>
             <div className="text-[10px] font-black uppercase">
               MAGO VITUCO PRODUCTIONS
