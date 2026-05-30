@@ -141,12 +141,12 @@ export default function HomePage() {
                 </CardContent>
 
                 <CardFooter className="pt-4 flex flex-col gap-2">
-                  <Link href={`/rider/${rider.id}`} className="w-full">
+                  <Link href={`/rider/view?id=${rider.id}`} className="w-full">
                     <Button variant="secondary" className="w-full justify-between hover:bg-primary hover:text-primary-foreground transition-all uppercase tracking-widest font-bold">
                       VIEW TECHNICALS <ChevronRight className="w-4 h-4" />
                     </Button>
                   </Link>
-                  <Link href={`/rider/${rider.id}/edit`} className="w-full">
+                  <Link href={`/rider/edit?id=${rider.id}`} className="w-full">
                     <Button variant="outline" className="w-full justify-between border-primary/50 text-primary hover:bg-primary hover:text-primary-foreground transition-all uppercase tracking-widest font-bold">
                       MODIFY PROJECT <Edit className="w-4 h-4" />
                     </Button>

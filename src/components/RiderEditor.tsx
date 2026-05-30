@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
@@ -76,7 +77,7 @@ export const RiderEditor = ({ initialRider }: RiderEditorProps) => {
         }
         if (!isBackground) {
           toast({ title: "Success", description: "Technical rider saved." });
-          router.push(`/rider/${riderId}`);
+          router.push(`/rider/view?id=${riderId}`);
         }
       })
       .catch(async (err) => {
@@ -167,7 +168,7 @@ export const RiderEditor = ({ initialRider }: RiderEditorProps) => {
 
       <div className="flex justify-end gap-4 pt-8 no-print">
         {formData.id && (
-          <Link href={`/rider/${formData.id}`}>
+          <Link href={`/rider/view?id=${formData.id}`}>
             <Button 
               variant="outline"
               className="border-primary/50 text-primary hover:bg-primary hover:text-primary-foreground min-w-[200px] h-14 font-black tracking-[0.2em] uppercase text-lg transition-all"
