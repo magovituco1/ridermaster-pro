@@ -1,12 +1,12 @@
 
 /**
- * @fileOverview Esta ruta dinámica está obsoleta para soportar 'output: export'.
- * Proporcionamos generateStaticParams vacío para que el compilador de Next.js ignore esta ruta.
+ * @fileOverview Esta ruta dinámica está obsoleta.
+ * Se mantiene con una implementación mínima para satisfacer al compilador de Next.js durante 'output: export'.
  */
 export function generateStaticParams() {
   return [];
 }
 
-export default function DeprecatedPage() {
+export default function ObsoleteRiderPage() {
   return null;
 }
