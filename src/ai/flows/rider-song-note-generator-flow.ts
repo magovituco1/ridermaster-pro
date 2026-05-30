@@ -10,6 +10,9 @@
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 
+// Removed 'use server' because it is not supported in static export builds.
+// The flow now runs in the client/renderer process of Electron.
+
 const RiderSongNoteGeneratorInputSchema = z.object({
   genre: z
     .string()

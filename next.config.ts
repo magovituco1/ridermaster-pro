@@ -34,13 +34,15 @@ const nextConfig: NextConfig = {
         child_process: false,
         dns: false,
         readline: false,
+        http2: false, // Added http2 fallback to fix Genkit/OpenTelemetry build errors
       };
     }
     // Ignore warnings and errors for modules that only work on the server
     config.ignoreWarnings = [
       { module: /@opentelemetry/ },
       { module: /@genkit-ai/ },
-      { module: /google-auth-library/ }
+      { module: /google-auth-library/ },
+      { module: /@grpc\/grpc-js/ }
     ];
     return config;
   },
