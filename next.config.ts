@@ -36,6 +36,8 @@ const nextConfig: NextConfig = {
         readline: false,
         http2: false,
         perf_hooks: false,
+        async_hooks: false,
+        canvas: false,
       };
     }
     // Ignore warnings and errors for modules that only work on the server (like Genkit/gRPC)
@@ -44,7 +46,8 @@ const nextConfig: NextConfig = {
       { module: /@genkit-ai/ },
       { module: /google-auth-library/ },
       { module: /@grpc\/grpc-js/ },
-      { module: /genkit/ }
+      { module: /genkit/ },
+      { module: /async_hooks/ }
     ];
     return config;
   },

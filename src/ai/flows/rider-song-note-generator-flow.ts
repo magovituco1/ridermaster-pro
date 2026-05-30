@@ -4,9 +4,10 @@
  * Optimized for Client-Side execution in Electron environments.
  */
 
-import { z } from 'genkit';
+import { z } from 'zod';
 
 // We define the schemas for type safety on the client
+// Using zod directly avoids top-level Genkit imports that trigger Node-only modules
 const RiderSongNoteGeneratorInputSchema = z.object({
   genre: z.string().describe('The musical genre of the song.'),
 });
@@ -25,12 +26,13 @@ export type RiderSongNoteGeneratorOutput = z.infer<typeof RiderSongNoteGenerator
  */
 export async function generateRiderSongNotes(input: RiderSongNoteGeneratorInput): Promise<RiderSongNoteGeneratorOutput> {
   // We import Genkit dynamically to prevent Webpack from failing during static pre-rendering
+  // and to ensure Node.js modules are only potentially loaded in the right context.
   const { ai } = await import('@/ai/genkit');
   
   const prompt = ai.definePrompt({
     name: 'riderSongNoteGeneratorPrompt',
-    input: { schema: RiderSongNoteGeneratorInputSchema },
-    output: { schema: RiderSongNoteGeneratorOutputSchema },
+    input: { schema: RiderSongNoteGeneratorInputSchema as any },
+    output: { schema: RiderSongNoteGeneratorOutputSchema as any },
     prompt: `You are an expert stage technician. Suggest sound and light notes for: {{{genre}}}`,
   });
 
