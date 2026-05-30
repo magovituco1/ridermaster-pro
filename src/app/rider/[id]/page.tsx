@@ -1,10 +1,9 @@
-// Esta página neutraliza el error de compilación en Next.js 15 con output: export
-// La aplicación utiliza /rider/view/?id=... por lo que esta ruta dinámica no es necesaria
+// Esta página satisface el requisito de exportación estática de Next.js 15.
+// No se usa en la aplicación real, ya que usamos /rider/view/?id=...
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  // Devolvemos al menos un ID de marcador para satisfacer al compilador de Next.js
-  return [{ id: 'placeholder' }];
+  return [{ id: 'default' }];
 }
 
 export default function Page() {

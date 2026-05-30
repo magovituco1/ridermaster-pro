@@ -1,7 +1,7 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  // Exportación estática obligatoria para aplicaciones Electron/Pendrive
+  // Exportación estática obligatoria para aplicaciones Electron
   output: 'export',
   // Genera carpetas con index.html para que las rutas funcionen sin servidor (file://)
   trailingSlash: true,
@@ -10,7 +10,7 @@ const nextConfig: NextConfig = {
     unoptimized: true,
   },
   typescript: {
-    // Ignoramos errores menores para asegurar que el build termine en entornos locales
+    // Evitamos bloqueos por errores menores en desarrollo local
     ignoreBuildErrors: true,
   },
   eslint: {
