@@ -72,6 +72,11 @@
   "build": {
     "appId": "com.ridermaster.app",
     "productName": "RiderMaster Pro",
+    "files": [
+      "out/**/*",
+      "electron/**/*",
+      "package.json"
+    ],
     "directories": {
       "output": "release"
     },

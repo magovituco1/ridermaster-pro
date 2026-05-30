@@ -2,14 +2,13 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  // 'export' es obligatorio para aplicaciones Electron que se distribuyen en pendrive
   output: 'export',
   trailingSlash: true,
   images: {
-    unoptimized: true, // Necesario para que las imágenes funcionen sin un servidor Next.js activo
+    unoptimized: true,
   },
   typescript: {
-    ignoreBuildErrors: true, // Acelera el empaquetado para distribución
+    ignoreBuildErrors: true,
   },
   eslint: {
     ignoreDuringBuilds: true,
