@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useMemo } from 'react';
@@ -37,7 +36,6 @@ export default function RiderViewPage() {
   const id = params.id as string;
   const db = useFirestore();
 
-  // Memoize document reference
   const riderRef = useMemo(() => {
     if (!db || !id) return null;
     return doc(db, 'riders', id);
@@ -115,30 +113,31 @@ export default function RiderViewPage() {
       </header>
 
       <main className="max-w-7xl mx-auto p-6 mt-8 print:mt-0 print:p-0 print-container">
-        <div className="hidden print:flex items-center justify-between mb-8 border-b-4 border-black pb-4">
+        {/* PRINT ONLY HEADER */}
+        <div className="hidden print:flex items-center justify-between mb-6 border-b-4 border-black pb-4">
           <div className="flex flex-col">
-            <h1 className="text-3xl font-black tracking-tighter text-black uppercase">RIDER MASTER TECHNICAL</h1>
-            <span className="text-[10px] font-bold tracking-[0.4em] uppercase text-gray-600">Pro-Grade Stage Management System</span>
+            <h1 className="text-2xl font-black tracking-tighter text-black uppercase">RIDER MASTER TECHNICAL</h1>
+            <span className="text-[8px] font-bold tracking-[0.4em] uppercase text-gray-600">Pro-Grade Stage Management System</span>
           </div>
           <div className="text-right">
-            <div className="text-xs font-bold uppercase">PROJECT ID: {id.toUpperCase()}</div>
-            <div className="text-[9px] font-mono mt-1 opacity-70 uppercase tracking-widest">Date Generated: {new Date().toLocaleDateString()}</div>
+            <div className="text-[10px] font-bold uppercase">PROJECT ID: {id.toUpperCase()}</div>
+            <div className="text-[8px] font-mono mt-1 opacity-70 uppercase tracking-widest">Generated: {new Date().toLocaleDateString()}</div>
           </div>
         </div>
 
-        <div className="mb-12 border-l-8 border-primary pl-8 py-8 bg-secondary/20 backdrop-blur-sm print:bg-white print:border-black print:text-black print:mb-8 print:pl-6 print:py-4">
+        <div className="mb-8 border-l-8 border-primary pl-8 py-6 bg-secondary/20 backdrop-blur-sm print:bg-white print:border-black print:text-black print:mb-6 print:pl-4 print:py-2">
           <div className="flex justify-between items-start">
-            <div className="space-y-4">
-              <h1 className="text-6xl font-black mb-2 tracking-tighter print:text-4xl print:mb-4">{rider.showName}</h1>
-              <div className="flex flex-wrap gap-10 items-center print:gap-8">
-                <div className="flex items-center gap-3 text-lg font-bold uppercase tracking-widest print:text-sm">
-                  <Users className="w-5 h-5 text-primary print:text-black" /> {rider.artistName}
+            <div className="space-y-4 print:space-y-2">
+              <h1 className="text-5xl font-black mb-2 tracking-tighter print:text-3xl print:mb-1">{rider.showName}</h1>
+              <div className="flex flex-wrap gap-10 items-center print:gap-6">
+                <div className="flex items-center gap-3 text-lg font-bold uppercase tracking-widest print:text-xs">
+                  <Users className="w-5 h-5 text-primary print:text-black print:w-4 print:h-4" /> {rider.artistName}
                 </div>
-                <div className="flex items-center gap-3 text-lg font-bold uppercase tracking-widest print:text-sm">
-                  <Calendar className="w-5 h-5 text-accent print:text-black" /> {rider.showDate}
+                <div className="flex items-center gap-3 text-lg font-bold uppercase tracking-widest print:text-xs">
+                  <Calendar className="w-5 h-5 text-accent print:text-black print:w-4 print:h-4" /> {rider.showDate}
                 </div>
-                <div className="flex items-center gap-3 text-lg font-bold uppercase tracking-widest print:text-sm">
-                  <MapPin className="w-5 h-5 text-accent print:text-black" /> {rider.venue}
+                <div className="flex items-center gap-3 text-lg font-bold uppercase tracking-widest print:text-xs">
+                  <MapPin className="w-5 h-5 text-accent print:text-black print:w-4 print:h-4" /> {rider.venue}
                 </div>
               </div>
             </div>
@@ -146,33 +145,33 @@ export default function RiderViewPage() {
         </div>
 
         <div className="space-y-6 print:space-y-4">
-          <h2 className="text-2xl font-black flex items-center gap-3 mb-8 no-print uppercase">
+          <h2 className="text-2xl font-black flex items-center gap-3 mb-6 no-print uppercase">
             <LayoutGrid className="w-6 h-6 text-primary" /> TECHNICAL SETLIST SPECIFICATIONS
           </h2>
           
-          <div className="hidden print:block text-sm font-black uppercase tracking-[0.3em] mb-4 border-b-2 border-black pb-1">
+          <div className="hidden print:block text-[10px] font-black uppercase tracking-[0.3em] mb-2 border-b-2 border-black pb-1">
             SETLIST TECHNICAL SPECIFICATIONS & CUES
           </div>
 
-          <div className="overflow-hidden border border-border rounded-lg bg-card/40 print:border-black print:rounded-none print:bg-white print:text-black">
-            <table className="w-full text-left border-collapse">
+          <div className="overflow-hidden border border-border rounded-lg bg-card/40 print:border-none print:rounded-none print:bg-white print:text-black">
+            <table className="w-full text-left border-collapse print:table">
               <thead>
-                <tr className="bg-secondary/50 border-b border-border text-xs font-black uppercase tracking-[0.2em] print:bg-gray-200 print:border-black">
-                  <th className="px-4 py-5 w-16 text-center print:py-3 print:border-r">POS</th>
-                  <th className="px-4 py-5 w-[20%] print:py-3 print:border-r">SONG / SEGMENT</th>
-                  <th className="px-4 py-5 w-[25%] print:py-3 print:border-r">SOUND CONFIG</th>
-                  <th className="px-4 py-5 w-[25%] print:py-3 print:border-r">LIGHTING CUES</th>
-                  <th className="px-4 py-5 print:py-3">FX / EXTRA NOTES</th>
+                <tr className="bg-secondary/50 border-b border-border text-xs font-black uppercase tracking-[0.2em] print:bg-gray-100 print:border-black">
+                  <th className="px-4 py-4 w-12 text-center print:py-2 print:border">POS</th>
+                  <th className="px-4 py-4 w-[20%] print:py-2 print:border">SONG / SEGMENT</th>
+                  <th className="px-4 py-4 w-[25%] print:py-2 print:border">SOUND CONFIG</th>
+                  <th className="px-4 py-4 w-[25%] print:py-2 print:border">LIGHTING CUES</th>
+                  <th className="px-4 py-4 print:py-2 print:border">FX / EXTRA NOTES</th>
                 </tr>
               </thead>
               <tbody>
                 {(rider.songs || []).map((song: any) => (
                   <tr key={song.id} className="border-b border-border/50 hover:bg-secondary/20 transition-colors print:border-black print:hover:bg-transparent">
-                    <td className="px-4 py-8 text-center font-mono text-primary font-bold text-lg print:py-4 print:border-r print:text-black print:text-sm">{song.orderNum}</td>
-                    <td className="px-4 py-8 font-black tracking-widest text-base uppercase print:py-4 print:border-r print:text-xs">{song.songName}</td>
-                    <td className="px-4 py-8 text-xs whitespace-pre-wrap text-muted-foreground print:py-4 print:border-r print:text-black print:text-[10pt] leading-relaxed">{song.soundNotes || 'NO NOTES'}</td>
-                    <td className="px-4 py-8 text-xs whitespace-pre-wrap text-muted-foreground print:py-4 print:border-r print:text-black print:text-[10pt] leading-relaxed">{song.lightNotes || 'NO NOTES'}</td>
-                    <td className="px-4 py-8 text-xs whitespace-pre-wrap text-muted-foreground print:py-4 print:text-black print:text-[10pt] leading-relaxed">{song.extraNotes || '-'}</td>
+                    <td className="px-4 py-6 text-center font-mono text-primary font-bold text-base print:py-2 print:border print:text-black print:text-xs">{song.orderNum}</td>
+                    <td className="px-4 py-6 font-black tracking-widest text-sm uppercase print:py-2 print:border print:text-[10px]">{song.songName}</td>
+                    <td className="px-4 py-6 text-xs whitespace-pre-wrap text-muted-foreground print:py-2 print:border print:text-black print:text-[9pt] leading-snug">{song.soundNotes || 'NO NOTES'}</td>
+                    <td className="px-4 py-6 text-xs whitespace-pre-wrap text-muted-foreground print:py-2 print:border print:text-black print:text-[9pt] leading-snug">{song.lightNotes || 'NO NOTES'}</td>
+                    <td className="px-4 py-6 text-xs whitespace-pre-wrap text-muted-foreground print:py-2 print:border print:text-black print:text-[9pt] leading-snug">{song.extraNotes || '-'}</td>
                   </tr>
                 ))}
               </tbody>

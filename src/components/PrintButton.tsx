@@ -6,7 +6,6 @@ import { Printer } from 'lucide-react';
 
 export const PrintButton = () => {
   const handlePrint = () => {
-    // Simple, reliable window.print trigger
     if (typeof window !== 'undefined') {
       window.print();
     }

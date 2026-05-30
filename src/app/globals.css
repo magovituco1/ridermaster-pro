@@ -51,7 +51,7 @@
 @media print {
   @page {
     size: A4 landscape !important;
-    margin: 10mm !important;
+    margin: 5mm !important;
   }
   
   html, body {
@@ -59,6 +59,7 @@
     color: black !important;
     overflow: visible !important;
     height: auto !important;
+    font-size: 10pt !important;
   }
 
   .no-print {
@@ -83,18 +84,24 @@
     border-collapse: collapse !important;
     border: 2px solid black !important;
     background: white !important;
+    page-break-inside: auto !important;
+  }
+
+  tr {
+    page-break-inside: avoid !important;
+    page-break-after: auto !important;
   }
 
   th, td {
     border: 1px solid black !important;
     color: black !important;
-    padding: 8px !important;
+    padding: 6px !important;
     background: transparent !important;
-    font-size: 10pt !important;
+    vertical-align: top !important;
   }
 
-  thead tr {
-    background-color: #f0f0f0 !important;
+  thead {
+    display: table-header-group !important;
   }
 
   * {

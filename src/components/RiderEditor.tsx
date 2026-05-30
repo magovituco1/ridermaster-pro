@@ -10,7 +10,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { SetlistEditor } from './SetlistEditor';
 import { useToast } from '@/hooks/use-toast';
-import { Save, Info } from 'lucide-react';
+import { Save, Info, LayoutDashboard } from 'lucide-react';
 import { errorEmitter } from '@/firebase/error-emitter';
 import { FirestorePermissionError } from '@/firebase/errors';
 
@@ -73,7 +73,7 @@ export const RiderEditor = ({ initialRider }: RiderEditorProps) => {
       <Card className="border-primary/20 bg-card/60 backdrop-blur-md stage-shadow">
         <CardHeader>
           <CardTitle className="text-sm font-bold flex items-center gap-2 text-primary tracking-widest uppercase">
-            <Info className="w-4 h-4" /> SHOW INFORMATION
+            <LayoutDashboard className="w-4 h-4" /> SHOW INFORMATION
           </CardTitle>
         </CardHeader>
         <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -87,7 +87,7 @@ export const RiderEditor = ({ initialRider }: RiderEditorProps) => {
             />
           </div>
           <div className="space-y-2">
-            <label className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground">Artist / Band</label>
+            <label className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground">Artist</label>
             <Input 
               placeholder="ARTIST NAME" 
               className="bg-background uppercase tracking-wider font-bold"
