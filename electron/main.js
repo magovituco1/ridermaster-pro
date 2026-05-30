@@ -20,7 +20,7 @@ function createWindow() {
   if (isDev) {
     win.loadURL('http://localhost:9002');
   } else {
-    // En producción cargamos el archivo index.html generado por Next.js
+    // Cargamos el archivo index.html de la carpeta out generada por Next.js
     win.loadFile(path.join(__dirname, '../out/index.html'));
   }
 
