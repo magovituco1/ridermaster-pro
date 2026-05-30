@@ -50,9 +50,9 @@
   background: white;
   width: 297mm;
   height: 210mm;
-  padding: 10mm 15mm;
+  padding: 8mm 12mm;
   margin: 2rem auto;
-  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+  box-shadow: 0 0 30px rgba(0,0,0,0.7);
   position: relative;
   display: flex;
   flex-direction: column;
@@ -79,15 +79,11 @@
     display: none !important;
   }
 
-  .print-only {
-    display: block !important;
-  }
-
   .a4-landscape-page {
     width: 297mm !important;
     height: 210mm !important;
     margin: 0 !important;
-    padding: 10mm 15mm !important;
+    padding: 8mm 12mm !important;
     box-shadow: none !important;
     border: none !important;
     page-break-after: always;
@@ -96,15 +92,11 @@
   }
 
   table {
-    page-break-inside: auto !important;
+    height: 100% !important;
+    border-collapse: collapse !important;
   }
 
   tr {
     page-break-inside: avoid !important;
-    page-break-after: auto !important;
-  }
-
-  thead {
-    display: table-header-group !important;
   }
 }

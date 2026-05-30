@@ -6,7 +6,6 @@ import { Printer } from 'lucide-react';
 
 export const PrintButton = () => {
   const handlePrint = () => {
-    // Orden directa al sistema para imprimir o guardar como PDF
     if (typeof window !== 'undefined') {
       window.print();
     }
