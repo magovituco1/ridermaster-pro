@@ -1,5 +1,5 @@
-// Esta página satisface el requisito de exportación estática de Next.js 15.
-// No se usa en la aplicación real, ya que usamos /rider/edit/?id=...
+// Ruta neutralizada para compatibilidad con Next.js 15 static export
+// La aplicación utiliza /rider/edit/?id=... para la edición dinámica
 export const dynamicParams = false;
 
 export function generateStaticParams() {
