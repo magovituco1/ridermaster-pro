@@ -39,7 +39,6 @@ export const RiderEditor = ({ initialRider }: RiderEditorProps) => {
     }
 
     setIsSaving(true);
-    // Ensure we have a valid ID or generate a new one
     const riderId = formData.id || doc(collection(db, 'riders')).id;
     const riderRef = doc(db, 'riders', riderId);
     
@@ -74,7 +73,7 @@ export const RiderEditor = ({ initialRider }: RiderEditorProps) => {
       <Card className="border-primary/20 bg-card/60 backdrop-blur-md stage-shadow">
         <CardHeader>
           <CardTitle className="text-sm font-bold flex items-center gap-2 text-primary tracking-widest uppercase">
-            <支配 className="w-4 h-4" /> SHOW INFORMATION
+            <Info className="w-4 h-4" /> SHOW INFORMATION
           </CardTitle>
         </CardHeader>
         <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-6">
