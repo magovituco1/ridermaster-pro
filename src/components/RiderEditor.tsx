@@ -10,7 +10,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { SetlistEditor } from './SetlistEditor';
 import { useToast } from '@/hooks/use-toast';
-import { Save, Info, LayoutDashboard } from 'lucide-react';
+import { Save, LayoutDashboard, ClipboardList } from 'lucide-react';
 import { errorEmitter } from '@/firebase/error-emitter';
 import { FirestorePermissionError } from '@/firebase/errors';
 
@@ -81,7 +81,7 @@ export const RiderEditor = ({ initialRider }: RiderEditorProps) => {
             <label className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground">Show / Tour Name</label>
             <Input 
               placeholder="E.G. WORLD TOUR 2025" 
-              className="bg-background uppercase tracking-wider font-bold"
+              className="bg-background uppercase tracking-wider font-bold border-primary/10 focus:border-primary"
               value={formData.showName}
               onChange={(e) => setFormData({ ...formData, showName: e.target.value })}
             />
@@ -90,7 +90,7 @@ export const RiderEditor = ({ initialRider }: RiderEditorProps) => {
             <label className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground">Artist</label>
             <Input 
               placeholder="ARTIST NAME" 
-              className="bg-background uppercase tracking-wider font-bold"
+              className="bg-background uppercase tracking-wider font-bold border-primary/10 focus:border-primary"
               value={formData.artistName}
               onChange={(e) => setFormData({ ...formData, artistName: e.target.value })}
             />
@@ -99,7 +99,7 @@ export const RiderEditor = ({ initialRider }: RiderEditorProps) => {
             <label className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground">Performance Date</label>
             <Input 
               type="date" 
-              className="bg-background uppercase tracking-wider font-bold"
+              className="bg-background uppercase tracking-wider font-bold border-primary/10 focus:border-primary"
               value={formData.showDate}
               onChange={(e) => setFormData({ ...formData, showDate: e.target.value })}
             />
@@ -108,7 +108,7 @@ export const RiderEditor = ({ initialRider }: RiderEditorProps) => {
             <label className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground">Venue</label>
             <Input 
               placeholder="VENUE / CITY" 
-              className="bg-background uppercase tracking-wider font-bold"
+              className="bg-background uppercase tracking-wider font-bold border-primary/10 focus:border-primary"
               value={formData.venue}
               onChange={(e) => setFormData({ ...formData, venue: e.target.value })}
             />
@@ -125,7 +125,7 @@ export const RiderEditor = ({ initialRider }: RiderEditorProps) => {
         <Button 
           onClick={handleSave} 
           disabled={isSaving}
-          className="bg-primary text-primary-foreground hover:bg-primary/90 min-w-[200px] h-14 font-black tracking-[0.2em] uppercase text-lg shadow-2xl"
+          className="bg-primary text-primary-foreground hover:bg-primary/90 min-w-[200px] h-14 font-black tracking-[0.2em] uppercase text-lg shadow-2xl transition-all hover:scale-105 active:scale-95"
         >
           {isSaving ? "PROCESSING..." : <><Save className="mr-2 w-5 h-5" /> SAVE RIDER</>}
         </Button>

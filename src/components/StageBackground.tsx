@@ -1,4 +1,3 @@
-
 'use client';
 
 import React from 'react';
@@ -18,23 +17,24 @@ export const StageBackground = () => {
         />
       </div>
       
-      <div className="absolute inset-0 bg-gradient-to-b from-background/95 via-background/80 to-background" />
-      <div className="absolute inset-0 bg-black/50 backdrop-blur-[4px]" />
+      {/* Dark overlay to ensure text legibility as seen in the RiderMaster aesthetic */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/95 via-black/80 to-black" />
+      <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px]" />
 
-      <svg className="absolute inset-0 w-full h-full opacity-15" xmlns="http://www.w3.org/2000/svg">
+      <svg className="absolute inset-0 w-full h-full opacity-20" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <linearGradient id="beam" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity="0.4" />
-            <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity="0" />
+            <stop offset="0%" stopColor="#D4AF37" stopOpacity="0.3" />
+            <stop offset="100%" stopColor="#D4AF37" stopOpacity="0" />
           </linearGradient>
         </defs>
         
         <g className="animate-pulse">
-          <path d="M15% 0 L25% 100% L5% 100% Z" fill="url(#beam)" transform="rotate(-10 15% 0)">
-            <animateTransform attributeName="transform" type="rotate" from="-15 15% 0" to="5 15% 0" dur="12s" repeatCount="indefinite" />
+          <path d="M10% 0 L20% 100% L0% 100% Z" fill="url(#beam)">
+            <animateTransform attributeName="transform" type="rotate" from="-10 10% 0" to="10 10% 0" dur="10s" repeatCount="indefinite" />
           </path>
-          <path d="M85% 0 L95% 100% L75% 100% Z" fill="url(#beam)" transform="rotate(10 85% 0)">
-            <animateTransform attributeName="transform" type="rotate" from="15 85% 0" to="-5 85% 0" dur="15s" repeatCount="indefinite" />
+          <path d="M90% 0 L100% 100% L80% 100% Z" fill="url(#beam)">
+            <animateTransform attributeName="transform" type="rotate" from="10 90% 0" to="-10 90% 0" dur="12s" repeatCount="indefinite" />
           </path>
         </g>
       </svg>
