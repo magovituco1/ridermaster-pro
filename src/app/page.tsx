@@ -98,10 +98,6 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {riders?.map((rider: any) => (
               <Card key={rider.id} className="border-border bg-card/60 hover:bg-card/90 transition-all duration-300 stage-shadow group relative overflow-hidden h-full flex flex-col">
-                <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-30 transition-opacity">
-                  <Music size={80} />
-                </div>
-                
                 <CardHeader className="pb-2">
                   <div className="flex justify-between items-start mb-2">
                     <Badge variant="outline" className="border-primary text-primary font-bold">LIVE SHOW</Badge>
@@ -110,7 +106,6 @@ export default function HomePage() {
                       variant="ghost" 
                       size="icon" 
                       className="text-destructive hover:bg-destructive/20 hover:text-destructive h-8 w-8 z-10 relative"
-                      title="Delete Project"
                     >
                       <Trash2 className="w-4 h-4" />
                     </Button>

@@ -10,7 +10,6 @@ function createWindow() {
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
-      title: 'RIDERMASTER PRO',
     },
     title: 'RIDERMASTER PRO',
     show: false
@@ -21,7 +20,7 @@ function createWindow() {
   if (isDev) {
     win.loadURL('http://localhost:9002');
   } else {
-    // Carga el archivo principal exportado por Next.js
+    // En producción cargamos el archivo index.html generado por Next.js
     win.loadFile(path.join(__dirname, '../out/index.html'));
   }
 
