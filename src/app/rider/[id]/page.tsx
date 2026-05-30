@@ -1,5 +1,5 @@
-// Ruta dinámica neutralizada para permitir exportación estática en Next.js 15
-// Se utiliza navegación por searchParams (?id=...) en las rutas estables /rider/view/
+// Esta página satisface el requisito de Next.js 15 para exportación estática.
+// Como la aplicación usa parámetros de búsqueda (?id=...), esta ruta dinámica no se utiliza en ejecución.
 export function generateStaticParams() {
   return [];
 }
