@@ -71,7 +71,6 @@ export const RiderEditor = ({ initialRider }: RiderEditorProps) => {
     if (!assignedId.current) {
       const newDocRef = doc(collection(firestore, 'riders'));
       assignedId.current = newDocRef.id;
-      // Actualizamos el estado para que el botón de Preview aparezca inmediatamente
       setCurrentId(newDocRef.id);
     }
 
@@ -186,7 +185,6 @@ export const RiderEditor = ({ initialRider }: RiderEditorProps) => {
       />
 
       <div className="flex justify-end gap-4 pt-10 no-print">
-        {/* Botón de Preview que se habilita en tiempo real */}
         {currentId ? (
           <Link href={`/rider/view/?id=${currentId}`}>
             <Button 
