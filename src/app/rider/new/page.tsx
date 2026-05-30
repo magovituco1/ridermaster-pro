@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { RiderEditor } from '@/components/RiderEditor';
 import { StageBackground } from '@/components/StageBackground';
@@ -12,7 +13,7 @@ export default function NewRiderPage() {
       <header className="border-b border-border bg-background/80 backdrop-blur-md sticky top-0 z-50 px-6 py-4 flex items-center justify-between">
         <RiderMasterLogo />
         <Link href="/" className="text-muted-foreground hover:text-foreground flex items-center gap-2 text-xs font-bold uppercase tracking-widest transition-colors">
-          <ArrowLeft className="w-4 h-4" /> BACK TO REGISTRY
+          <ArrowLeft className="w-4 h-4" /> BACK TO RIDERS
         </Link>
       </header>
 

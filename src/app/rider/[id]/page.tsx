@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useMemo } from 'react';
@@ -74,7 +75,7 @@ export default function RiderViewPage() {
         <StageBackground />
         <h1 className="text-2xl font-black mb-4 uppercase text-white">RIDER NOT FOUND</h1>
         <Link href="/">
-          <Button variant="outline">BACK TO REGISTRY</Button>
+          <Button variant="outline">BACK TO RIDERS</Button>
         </Link>
       </div>
     );
@@ -94,7 +95,7 @@ export default function RiderViewPage() {
         <div className="flex items-center gap-6">
           <RiderMasterLogo />
           <Link href="/" className="text-muted-foreground hover:text-foreground flex items-center gap-2 text-xs font-bold uppercase tracking-widest transition-colors">
-            <ArrowLeft className="w-4 h-4" /> REGISTRY
+            <ArrowLeft className="w-4 h-4" /> RIDERS
           </Link>
         </div>
         <div className="flex items-center gap-3">

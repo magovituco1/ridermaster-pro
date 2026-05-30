@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useEffect } from 'react';
@@ -41,7 +42,7 @@ export default function Error({
             onClick={() => window.location.href = '/'}
             className="text-muted-foreground font-bold tracking-widest uppercase"
           >
-            RETURN TO REGISTRY
+            RETURN TO RIDERS
           </Button>
         </div>
         
