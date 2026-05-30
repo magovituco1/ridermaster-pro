@@ -26,7 +26,7 @@ export const RiderEditor = ({ initialRider }: RiderEditorProps) => {
   const [isSaving, setIsSaving] = useState(false);
   const [isAutoSaving, setIsAutoSaving] = useState(false);
   
-  // Usamos una referencia para el ID para evitar duplicados por generación múltiple
+  // Referencia para mantener el mismo ID durante toda la edición y evitar duplicados
   const assignedId = useRef<string | null>(initialRider?.id || null);
   
   const [formData, setFormData] = useState<Partial<Rider>>(initialRider || {
@@ -40,13 +40,11 @@ export const RiderEditor = ({ initialRider }: RiderEditorProps) => {
   const lastSavedData = useRef(JSON.stringify(initialRider || {}));
   const autoSaveTimer = useRef<NodeJS.Timeout | null>(null);
 
-  // Lógica de Auto-guardado
   useEffect(() => {
     const currentData = JSON.stringify(formData);
     if (currentData === lastSavedData.current) return;
     
-    // Solo auto-guardar si tenemos los datos mínimos
-    if (!formData.showName?.trim() || !formData.artistName?.trim()) return;
+    if (!formData.showName?.trim() && !formData.artistName?.trim()) return;
 
     if (autoSaveTimer.current) clearTimeout(autoSaveTimer.current);
 
@@ -63,13 +61,14 @@ export const RiderEditor = ({ initialRider }: RiderEditorProps) => {
   const performSave = (isBackground: boolean = false) => {
     if (!firestore) return;
 
-    // Aseguramos un ID estable para evitar duplicados
+    // Asignamos un ID único si es nuevo y no tiene uno
     if (!assignedId.current) {
-      assignedId.current = doc(collection(firestore, 'riders')).id;
-      setFormData(prev => ({ ...prev, id: assignedId.current! }));
+      const newId = doc(collection(firestore, 'riders')).id;
+      assignedId.current = newId;
+      setFormData(prev => ({ ...prev, id: newId }));
     }
 
-    const riderId = assignedId.current;
+    const riderId = assignedId.current!;
     const riderRef = doc(firestore, 'riders', riderId);
     
     const savePayload = {

@@ -12,7 +12,6 @@ import {
   MapPin, 
   Plus, 
   ChevronRight, 
-  Music,
   Users,
   Trash2,
   Edit,

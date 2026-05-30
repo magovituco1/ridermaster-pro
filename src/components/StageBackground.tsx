@@ -2,24 +2,27 @@
 
 import React from 'react';
 import Image from 'next/image';
+import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 export const StageBackground = () => {
+  const bgImage = PlaceHolderImages.find(img => img.id === 'stage-background');
+  
   return (
     <div className="fixed inset-0 -z-10 overflow-hidden bg-black no-print">
-      <div className="absolute inset-0 opacity-40">
+      <div className="absolute inset-0 opacity-60">
         <Image 
-          src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=2000&auto=format&fit=crop"
+          src={bgImage?.imageUrl || "https://picsum.photos/seed/ridergear/1920/1080"}
           alt="RiderMaster Tech Stage"
           fill
-          className="object-cover object-right grayscale-[0.2]"
+          className="object-cover object-right grayscale-[0.3]"
           priority
-          data-ai-hint="concert stage"
+          data-ai-hint={bgImage?.imageHint || "stage production"}
         />
       </div>
       
       {/* Degradado oscuro profundo para legibilidad en la parte izquierda */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black via-black/85 to-transparent" />
-      <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px]" />
+      <div className="absolute inset-0 bg-gradient-to-r from-black via-black/90 to-transparent" />
+      <div className="absolute inset-0 bg-black/40 backdrop-blur-[1px]" />
 
       {/* Haces de luz dinámicos sutiles en la zona derecha */}
       <svg className="absolute inset-0 w-full h-full opacity-20 pointer-events-none" xmlns="http://www.w3.org/2000/svg">
@@ -30,7 +33,6 @@ export const StageBackground = () => {
           </linearGradient>
         </defs>
         <path d="M75% 0 L90% 100% L60% 100% Z" fill="url(#beam)" className="animate-pulse" />
-        <path d="M88% 0 L98% 100% L78% 100% Z" fill="url(#beam)" className="animate-pulse" style={{ animationDelay: '1s' }} />
       </svg>
     </div>
   );
