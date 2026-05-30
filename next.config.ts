@@ -1,8 +1,8 @@
-
 import type {NextConfig} from 'next';
 
 const nextConfig: NextConfig = {
-  output: 'export', // Habilita la exportación estática necesaria para Electron
+  output: 'export', 
+  trailingSlash: true,
   typescript: {
     ignoreBuildErrors: true,
   },

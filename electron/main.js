@@ -1,4 +1,3 @@
-
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
 
@@ -10,24 +9,25 @@ function createWindow() {
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
-      preload: path.join(__dirname, 'preload.js'), // Opcional para APIs nativas
+      preload: path.join(__dirname, 'preload.js'),
     },
     title: 'RIDERMASTER PRO',
-    icon: path.join(__dirname, '../public/favicon.ico')
+    show: false
   });
 
-  // En desarrollo carga el servidor local, en producción carga el index.html exportado
   const isDev = process.env.NODE_ENV === 'development';
   
   if (isDev) {
     win.loadURL('http://localhost:9002');
   } else {
-    // Apunta al archivo index.html dentro de la carpeta 'out' de Next.js
     win.loadFile(path.join(__dirname, '../out/index.html'));
   }
 
-  // Ocultar menú superior para una experiencia más de "app"
   win.setMenuBarVisibility(false);
+  
+  win.once('ready-to-show', () => {
+    win.show();
+  });
 }
 
 app.whenReady().then(() => {
