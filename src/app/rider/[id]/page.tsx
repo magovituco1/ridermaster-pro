@@ -1,13 +1,19 @@
 
-// Este archivo debe ser eliminado manualmente o ignorado. 
-// Las rutas dinámicas con [id] no son compatibles con 'output: export' sin generateStaticParams.
-// La lógica ha sido movida a src/app/rider/view/page.tsx y src/app/rider/edit/page.tsx usando searchParams (?id=...).
-
-export const dynamic = 'force-static';
-export async function generateStaticParams() {
-  return []; // Devuelve un array vacío para evitar errores durante el build si el archivo persiste.
-}
+'use client';
+/**
+ * @fileOverview Esta ruta dinámica está obsoleta para soportar 'output: export'.
+ * La lógica se ha movido a /rider/view?id=...
+ */
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function DeprecatedPage() {
+  const router = useRouter();
+  
+  useEffect(() => {
+    // Redirección de seguridad por si alguien accede a la ruta antigua
+    router.replace('/');
+  }, [router]);
+
   return null;
 }

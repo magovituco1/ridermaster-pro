@@ -1,12 +1,18 @@
 
-// Este archivo debe ser eliminado manualmente o ignorado.
-// La lógica ha sido movida a src/app/rider/edit/page.tsx usando searchParams (?id=...).
-
-export const dynamic = 'force-static';
-export async function generateStaticParams() {
-  return []; // Devuelve un array vacío para evitar errores durante el build si el archivo persiste.
-}
+'use client';
+/**
+ * @fileOverview Esta ruta dinámica está obsoleta para soportar 'output: export'.
+ * La lógica se ha movido a /rider/edit?id=...
+ */
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function DeprecatedEditPage() {
+  const router = useRouter();
+  
+  useEffect(() => {
+    router.replace('/');
+  }, [router]);
+
   return null;
 }

@@ -1,32 +1,19 @@
 
-import type {NextConfig} from 'next';
+import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  output: 'export', 
+  // 'export' es obligatorio para aplicaciones Electron que se distribuyen en pendrive
+  output: 'export',
   trailingSlash: true,
+  images: {
+    unoptimized: true, // Necesario para que las imágenes funcionen sin un servidor Next.js activo
+  },
   typescript: {
-    ignoreBuildErrors: true,
+    ignoreBuildErrors: true, // Acelera el empaquetado para distribución
   },
   eslint: {
     ignoreDuringBuilds: true,
-  },
-  images: {
-    unoptimized: true,
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'images.unsplash.com',
-        port: '',
-        pathname: '/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'picsum.photos',
-        port: '',
-        pathname: '/**',
-      },
-    ],
-  },
+  }
 };
 
 export default nextConfig;
