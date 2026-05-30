@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useMemo } from 'react';
@@ -24,6 +25,8 @@ import {
   AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
@@ -65,7 +68,7 @@ export default function RiderViewPage() {
 
   const handleDelete = async () => {
     if (!db) return;
-    await deleteDoc(doc(db, 'riders', id));
+    deleteDoc(doc(db, 'riders', id));
     router.push('/');
   };
 
@@ -135,7 +138,7 @@ export default function RiderViewPage() {
           </div>
 
           {/* SUPERIOR BLACK INFO LINE */}
-          <div className="bg-black text-white px-6 py-4 flex flex-wrap items-center justify-between gap-4 mb-10 border-b-4 border-primary">
+          <div className="bg-black text-white px-6 py-4 flex flex-wrap items-center justify-between gap-4 mb-10 border-b-4 border-primary print:border-primary">
             <div className="flex items-center gap-2">
               <Users className="w-4 h-4 text-primary" />
               <span className="text-[9px] font-black uppercase text-gray-400 mr-1 tracking-widest">ARTIST:</span>
