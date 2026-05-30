@@ -13,7 +13,31 @@ const nextConfig: NextConfig = {
   },
   eslint: {
     ignoreDuringBuilds: true,
-  }
+  },
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      // Evita que Webpack intente resolver módulos de Node.js en el cliente
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        fs: false,
+        net: false,
+        tls: false,
+        crypto: false,
+        os: false,
+        path: false,
+        stream: false,
+        http: false,
+        https: false,
+        zlib: false,
+      };
+    }
+    // Ignora explícitamente los módulos de telemetría de Genkit que rompen el build estático
+    config.ignoreWarnings = [
+      { module: /@opentelemetry/ },
+      { module: /@genkit-ai/ }
+    ];
+    return config;
+  },
 };
 
 export default nextConfig;
