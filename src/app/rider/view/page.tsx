@@ -194,6 +194,16 @@ function RiderViewContent() {
                 </tbody>
               </table>
             </div>
+
+            {/* Official Footer for Printing */}
+            <div className="mt-2 pt-1 flex justify-between items-center border-t border-black/10 shrink-0">
+              <div className="flex items-center gap-1">
+                <span className="text-[7px] font-black tracking-widest text-black">RIDERMASTER</span>
+                <span className="text-[6px] font-medium text-gray-400 uppercase">by</span>
+                <span className="text-[7px] font-bold text-accent tracking-tighter">MAGO VITUCO PRODUCTIONS</span>
+              </div>
+              <p className="text-[6px] font-mono text-gray-400 uppercase tracking-[0.2em]">Validated Production Document</p>
+            </div>
           </div>
         ))}
       </main>
