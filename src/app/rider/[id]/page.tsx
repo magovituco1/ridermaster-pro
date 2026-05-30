@@ -18,8 +18,6 @@ import {
   MapPin, 
   Users,
   LayoutGrid,
-  FileText,
-  Music,
   Mic2
 } from 'lucide-react';
 import { 
@@ -120,52 +118,52 @@ export default function RiderViewPage() {
         <div className="bg-white text-black p-12 shadow-2xl rounded-sm print:shadow-none print:p-0 print-container">
           
           <div className="mb-2">
-            <p className="text-[9px] font-black tracking-[0.4em] uppercase text-gray-400">TECHNICAL RIDER</p>
+            <p className="text-[7px] font-black tracking-[0.4em] uppercase text-gray-400">TECHNICAL RIDER</p>
           </div>
 
-          <div className="bg-black text-white px-6 py-4 flex items-center justify-between gap-6 mb-10 border-b-4 border-primary print:border-primary">
-            <div className="flex items-center gap-2">
-              <Users className="w-3 h-3 text-primary" />
-              <span className="text-[8px] font-black uppercase text-gray-500 tracking-widest">ARTIST:</span>
-              <span className="text-[10px] font-black uppercase">{rider.artistName}</span>
+          <div className="bg-black text-white px-6 py-4 flex items-center justify-between gap-4 mb-8 border-b-4 border-primary print:border-primary">
+            <div className="flex items-center gap-1.5 overflow-hidden">
+              <Users className="w-3 h-3 text-primary flex-shrink-0" />
+              <span className="text-[7px] font-black uppercase text-gray-500 tracking-widest">ARTIST:</span>
+              <span className="text-[9px] font-black uppercase truncate">{rider.artistName}</span>
             </div>
-            <div className="flex items-center gap-2">
-              <Mic2 className="w-3 h-3 text-primary" />
-              <span className="text-[8px] font-black uppercase text-gray-500 tracking-widest">SHOW:</span>
-              <span className="text-[10px] font-black uppercase">{rider.showName}</span>
+            <div className="flex items-center gap-1.5 overflow-hidden">
+              <Mic2 className="w-3 h-3 text-primary flex-shrink-0" />
+              <span className="text-[7px] font-black uppercase text-gray-500 tracking-widest">SHOW:</span>
+              <span className="text-[9px] font-black uppercase truncate">{rider.showName}</span>
             </div>
-            <div className="flex items-center gap-2">
-              <MapPin className="w-3 h-3 text-primary" />
-              <span className="text-[8px] font-black uppercase text-gray-500 tracking-widest">VENUE:</span>
-              <span className="text-[10px] font-black uppercase">{rider.venue}</span>
+            <div className="flex items-center gap-1.5 overflow-hidden">
+              <MapPin className="w-3 h-3 text-primary flex-shrink-0" />
+              <span className="text-[7px] font-black uppercase text-gray-500 tracking-widest">VENUE:</span>
+              <span className="text-[9px] font-black uppercase truncate">{rider.venue}</span>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5 flex-shrink-0">
               <Calendar className="w-3 h-3 text-primary" />
-              <span className="text-[8px] font-black uppercase text-gray-500 tracking-widest">DATE:</span>
-              <span className="text-[10px] font-black uppercase">{rider.showDate}</span>
+              <span className="text-[7px] font-black uppercase text-gray-500 tracking-widest">DATE:</span>
+              <span className="text-[9px] font-black uppercase">{rider.showDate}</span>
             </div>
           </div>
 
           <div className="space-y-4">
             <h2 className="text-lg font-black flex items-center gap-2 uppercase border-b-2 border-black pb-2">
-              <LayoutGrid className="w-5 h-5" /> TECHNICAL SETLIST & CUES
+              <LayoutGrid className="w-5 h-5" /> TECHNICAL RIDER
             </h2>
             
             <div className="overflow-hidden">
-              <table className="w-full text-left border-collapse table-fixed">
+              <table className="w-full text-left border-collapse table-fixed border-2 border-black">
                 <thead>
-                  <tr className="bg-gray-100 border-y border-black text-[10px] font-black uppercase tracking-widest">
-                    <th className="px-3 py-3 w-12 text-center border-x border-black">#</th>
+                  <tr className="bg-gray-100 border-b-2 border-black text-[9px] font-black uppercase tracking-widest">
+                    <th className="px-3 py-3 w-12 text-center border-r border-black">#</th>
                     <th className="px-3 py-3 w-1/4 border-r border-black">SONG TITLE</th>
                     <th className="px-3 py-3 w-1/4 border-r border-black">SOUND SPEC</th>
                     <th className="px-3 py-3 w-1/4 border-r border-black">LIGHTING CUES</th>
                     <th className="px-3 py-3 border-r border-black">NOTES / FX</th>
                   </tr>
                 </thead>
-                <tbody className="text-[10px] uppercase font-medium">
+                <tbody className="text-[9px] uppercase font-medium">
                   {(rider.songs || []).map((song: any) => (
                     <tr key={song.id} className="border-b border-black">
-                      <td className="px-3 py-4 text-center font-bold border-x border-black bg-gray-50">{song.orderNum}</td>
+                      <td className="px-3 py-4 text-center font-bold border-r border-black bg-gray-50">{song.orderNum}</td>
                       <td className="px-3 py-4 font-black border-r border-black leading-tight">{song.songName}</td>
                       <td className="px-3 py-4 border-r border-black whitespace-pre-wrap leading-relaxed">{song.soundNotes || '-'}</td>
                       <td className="px-3 py-4 border-r border-black whitespace-pre-wrap leading-relaxed">{song.lightNotes || '-'}</td>
@@ -178,11 +176,11 @@ export default function RiderViewPage() {
           </div>
 
           <div className="mt-12 pt-6 border-t border-gray-200 flex justify-between items-end">
-            <div className="text-[8px] font-bold text-gray-400 uppercase tracking-[0.3em]">
+            <div className="text-[7px] font-bold text-gray-400 uppercase tracking-[0.3em]">
               OFFICIAL TECHNICAL DOCUMENT
             </div>
-            <div className="text-[10px] font-black uppercase">
-              MAGO VITUCO PRODUCTIONS
+            <div className="text-[9px] font-black uppercase">
+              RIDERMASTER by Mago Vituco Productions
             </div>
           </div>
         </div>
