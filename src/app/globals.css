@@ -49,8 +49,8 @@
 .a4-landscape-page {
   background: white;
   width: 297mm;
-  min-height: 210mm;
-  padding: 20mm;
+  height: 210mm;
+  padding: 10mm 15mm;
   margin: 2rem auto;
   box-shadow: 0 0 20px rgba(0,0,0,0.5);
   position: relative;
@@ -87,7 +87,7 @@
     width: 297mm !important;
     height: 210mm !important;
     margin: 0 !important;
-    padding: 15mm !important;
+    padding: 10mm 15mm !important;
     box-shadow: none !important;
     border: none !important;
     page-break-after: always;
