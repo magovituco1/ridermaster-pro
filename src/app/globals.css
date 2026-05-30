@@ -55,8 +55,9 @@
   box-shadow: 0 0 20px rgba(0,0,0,0.5);
   position: relative;
   display: flex;
-  flex-col: column;
+  flex-direction: column;
   color: black;
+  overflow: hidden;
 }
 
 @media print {
@@ -83,13 +84,15 @@
   }
 
   .a4-landscape-page {
-    width: 100% !important;
-    min-height: 100% !important;
+    width: 297mm !important;
+    height: 210mm !important;
     margin: 0 !important;
     padding: 15mm !important;
     box-shadow: none !important;
     border: none !important;
     page-break-after: always;
+    display: flex !important;
+    flex-direction: column !important;
   }
 
   table {
