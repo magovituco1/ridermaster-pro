@@ -1,7 +1,7 @@
 import type {Metadata, Viewport} from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster"
-import { initializeFirebase, FirebaseClientProvider } from '@/firebase';
+import { FirebaseClientProvider } from '@/firebase';
 
 export const metadata: Metadata = {
   title: 'RiderMaster v2.0 | Technical Rider Management',
@@ -23,10 +23,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // We no longer initialize here to avoid server-side execution errors.
-  // The FirebaseClientProvider handles initialization on the client.
-  const { firebaseApp, firestore, auth } = initializeFirebase();
-
   return (
     <html lang="en" className="dark">
       <head>
