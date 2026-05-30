@@ -1,5 +1,5 @@
 import React from 'react';
-import { getRiders } from '@/lib/db';
+import { getRiders, deleteRider } from '@/lib/db';
 import { RiderMasterLogo } from '@/components/RiderMasterLogo';
 import { StageBackground } from '@/components/StageBackground';
 import { Button } from '@/components/ui/button';
@@ -10,13 +10,19 @@ import {
   Plus, 
   ChevronRight, 
   Music,
-  Users
+  Users,
+  Trash2
 } from 'lucide-react';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 
 export default async function HomePage() {
   const riders = await getRiders();
+
+  async function handleDelete(id: string) {
+    'use server';
+    await deleteRider(id);
+  }
 
   return (
     <div className="relative min-h-screen">
@@ -47,7 +53,17 @@ export default async function HomePage() {
               <CardHeader className="pb-2">
                 <div className="flex justify-between items-start mb-2">
                   <Badge variant="outline" className="border-primary text-primary font-bold">LIVE SHOW</Badge>
-                  <span className="text-[10px] text-muted-foreground font-mono">ID: {rider.id.toUpperCase()}</span>
+                  <form action={handleDelete.bind(null, rider.id)}>
+                    <Button 
+                      type="submit" 
+                      variant="ghost" 
+                      size="icon" 
+                      className="text-destructive hover:bg-destructive/10 hover:text-destructive h-8 w-8 z-10 relative"
+                      title="Delete Project"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </Button>
+                  </form>
                 </div>
                 <CardTitle className="text-2xl font-black group-hover:text-primary transition-colors">{rider.showName}</CardTitle>
                 <div className="flex items-center gap-2 text-muted-foreground text-sm font-bold uppercase tracking-wider">
@@ -66,7 +82,7 @@ export default async function HomePage() {
                 </div>
                 
                 <div className="pt-4 border-t border-border flex justify-between items-center">
-                  <span className="text-xs font-bold text-muted-foreground">{rider.songCount} SONGS REGISTERED</span>
+                  <span className="text-xs font-bold text-muted-foreground uppercase tracking-widest">{rider.songCount} SONGS REGISTERED</span>
                 </div>
               </CardContent>
 
