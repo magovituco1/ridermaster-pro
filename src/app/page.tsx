@@ -61,9 +61,7 @@ export default function HomePage() {
         { id: 's7', orderNum: 7, songName: 'LA GRAN ILUSIÓN', soundNotes: 'Staccato de cuerdas. Mucha compresión.', lightNotes: 'Estrobos en momentos de impacto.', extraNotes: 'CO2 Jets activos.' },
         { id: 's8', orderNum: 8, songName: 'LECTURA DE PENSAMIENTO', soundNotes: 'Micrófono con delay corto.', lightNotes: 'Punto de luz cenital cerrado.', extraNotes: '' },
         { id: 's9', orderNum: 9, songName: 'SUEÑO ORIENTAL', soundNotes: 'Cítaras y percusión exótica.', lightNotes: 'Ciclorama en verde y oro.', extraNotes: 'Incienso/Aroma opcional.' },
-        { id: 's10', orderNum: 10, songName: 'EL ESCAPE FINAL', soundNotes: 'In crescendo épico. Metales potentes.', lightNotes: 'Todo el rig al 100% en movimiento.', extraNotes: 'Pirotecnia final.' },
-        { id: 's11', orderNum: 11, songName: 'DESPEDIDA Y CIERRE', soundNotes: 'Música de salida. Fade out suave.', lightNotes: 'Bajos a azul noche.', extraNotes: '' },
-        { id: 's12', orderNum: 12, songName: 'BIS / CRÉDITOS', soundNotes: 'Mix de los temas principales.', lightNotes: 'Luz de trabajo para salida de público.', extraNotes: '' }
+        { id: 's10', orderNum: 10, songName: 'EL ESCAPE FINAL', soundNotes: 'In crescendo épico. Metales potentes.', lightNotes: 'Todo el rig al 100% en movimiento.', extraNotes: 'Pirotecnia final.' }
       ]
     };
 
@@ -86,8 +84,8 @@ export default function HomePage() {
 
       <main className="max-w-7xl mx-auto p-6 space-y-8">
         <div className="flex flex-col gap-2">
-          <h1 className="text-4xl font-black text-primary uppercase tracking-widest">RIDERS</h1>
-          <p className="text-muted-foreground font-medium tracking-wide">ACTIVE TECHNICAL RIDERS FOR UPCOMING SHOWS</p>
+          <h1 className="text-4xl font-black text-primary uppercase tracking-widest">TECHNICAL RIDERS</h1>
+          <p className="text-muted-foreground font-medium tracking-wide">ACTIVE TOURS & PRODUCTIONS</p>
         </div>
 
         {loading ? (
@@ -100,7 +98,7 @@ export default function HomePage() {
               <Card key={rider.id} className="border-border bg-card/60 hover:bg-card/90 transition-all duration-300 stage-shadow group relative overflow-hidden h-full flex flex-col">
                 <CardHeader className="pb-2">
                   <div className="flex justify-between items-start mb-2">
-                    <Badge variant="outline" className="border-primary text-primary font-bold">LIVE SHOW</Badge>
+                    <Badge variant="outline" className="border-primary text-primary font-bold uppercase text-[10px]">PRODUCTION READY</Badge>
                     <Button 
                       onClick={() => handleDelete(rider.id)}
                       variant="ghost" 
@@ -110,8 +108,8 @@ export default function HomePage() {
                       <Trash2 className="w-4 h-4" />
                     </Button>
                   </div>
-                  <CardTitle className="text-2xl font-black group-hover:text-primary transition-colors">{rider.showName}</CardTitle>
-                  <div className="flex items-center gap-2 text-muted-foreground text-sm font-bold uppercase tracking-wider">
+                  <CardTitle className="text-2xl font-black group-hover:text-primary transition-colors truncate">{rider.showName}</CardTitle>
+                  <div className="flex items-center gap-2 text-muted-foreground text-xs font-bold uppercase tracking-wider">
                     <Users className="w-3 h-3" /> {rider.artistName}
                   </div>
                 </CardHeader>
@@ -128,26 +126,26 @@ export default function HomePage() {
                 </CardContent>
 
                 <CardFooter className="pt-4 flex flex-col gap-2">
-                  <Link href={`/rider/view?id=${rider.id}`} className="w-full">
-                    <Button variant="secondary" className="w-full justify-between hover:bg-primary hover:text-primary-foreground transition-all uppercase tracking-widest font-bold">
-                      VIEW TECHNICALS <ChevronRight className="w-4 h-4" />
+                  <Link href={`/rider/view/?id=${rider.id}`} className="w-full">
+                    <Button variant="secondary" className="w-full justify-between hover:bg-primary hover:text-primary-foreground transition-all uppercase tracking-widest font-bold text-xs">
+                      OPEN TECH RIDER <ChevronRight className="w-4 h-4" />
                     </Button>
                   </Link>
-                  <Link href={`/rider/edit?id=${rider.id}`} className="w-full">
-                    <Button variant="outline" className="w-full justify-between border-primary/50 text-primary hover:bg-primary hover:text-primary-foreground transition-all uppercase tracking-widest font-bold">
-                      MODIFY PROJECT <Edit className="w-4 h-4" />
+                  <Link href={`/rider/edit/?id=${rider.id}`} className="w-full">
+                    <Button variant="outline" className="w-full justify-between border-primary/50 text-primary hover:bg-primary hover:text-primary-foreground transition-all uppercase tracking-widest font-bold text-xs">
+                      MODIFY SPECS <Edit className="w-4 h-4" />
                     </Button>
                   </Link>
                 </CardFooter>
               </Card>
             ))}
             
-            <Link href="/rider/new" className="h-full">
-              <div className="h-full min-h-[350px] border-2 border-dashed border-border rounded-lg flex flex-col items-center justify-center gap-4 group hover:border-primary/50 transition-colors bg-card/20">
+            <Link href="/rider/new" className="h-full min-h-[300px]">
+              <div className="h-full border-2 border-dashed border-border rounded-lg flex flex-col items-center justify-center gap-4 group hover:border-primary/50 transition-colors bg-card/20">
                 <div className="p-4 rounded-full bg-secondary group-hover:bg-primary/20 transition-colors">
                   <Plus className="w-8 h-8 text-muted-foreground group-hover:text-primary" />
                 </div>
-                <span className="text-muted-foreground font-bold tracking-widest uppercase group-hover:text-primary">ADD NEW TECHNICAL RIDER</span>
+                <span className="text-muted-foreground font-bold tracking-widest uppercase group-hover:text-primary text-xs">CREATE NEW PRODUCTION</span>
               </div>
             </Link>
 
@@ -156,9 +154,9 @@ export default function HomePage() {
                 <Button 
                   onClick={seedDemoData}
                   variant="ghost" 
-                  className="text-accent hover:text-accent/80 font-black tracking-[0.3em] uppercase text-xs gap-2"
+                  className="text-accent hover:text-accent/80 font-black tracking-[0.3em] uppercase text-[10px] gap-2"
                 >
-                  <Sparkles className="w-4 h-4" /> SEED DEMO DATA (GIRA MÁGICA)
+                  <Sparkles className="w-4 h-4" /> RECOVER DEMO DATA (MAGO VITUCO)
                 </Button>
               </div>
             )}

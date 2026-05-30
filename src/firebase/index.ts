@@ -1,3 +1,4 @@
+
 'use client';
 import { initializeApp, getApps, getApp } from 'firebase/app';
 import { getFirestore, enableIndexedDbPersistence } from 'firebase/firestore';
@@ -14,7 +15,11 @@ export function initializeFirebase() {
   if (typeof window !== 'undefined' && !isPersistenceEnabled) {
     isPersistenceEnabled = true;
     enableIndexedDbPersistence(firestore).catch((err) => {
-      console.warn('Firestore persistence not enabled:', err.code);
+      if (err.code === 'failed-precondition') {
+        console.warn('Persistence failed-precondition: Multiple tabs open.');
+      } else if (err.code === 'unimplemented') {
+        console.warn('Persistence unimplemented: Browser does not support it.');
+      }
     });
   }
 
