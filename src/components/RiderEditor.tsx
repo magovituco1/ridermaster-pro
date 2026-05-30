@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
@@ -26,6 +25,10 @@ export const RiderEditor = ({ initialRider }: RiderEditorProps) => {
   const { toast } = useToast();
   const [isSaving, setIsSaving] = useState(false);
   const [isAutoSaving, setIsAutoSaving] = useState(false);
+  
+  // Usamos una referencia para el ID para evitar duplicados por generación múltiple
+  const assignedId = useRef<string | null>(initialRider?.id || null);
+  
   const [formData, setFormData] = useState<Partial<Rider>>(initialRider || {
     showName: '',
     artistName: '',
@@ -41,7 +44,9 @@ export const RiderEditor = ({ initialRider }: RiderEditorProps) => {
   useEffect(() => {
     const currentData = JSON.stringify(formData);
     if (currentData === lastSavedData.current) return;
-    if (!formData.showName || !formData.artistName) return;
+    
+    // Solo auto-guardar si tenemos los datos mínimos
+    if (!formData.showName?.trim() || !formData.artistName?.trim()) return;
 
     if (autoSaveTimer.current) clearTimeout(autoSaveTimer.current);
 
@@ -58,7 +63,13 @@ export const RiderEditor = ({ initialRider }: RiderEditorProps) => {
   const performSave = (isBackground: boolean = false) => {
     if (!firestore) return;
 
-    const riderId = formData.id || doc(collection(firestore, 'riders')).id;
+    // Aseguramos un ID estable para evitar duplicados
+    if (!assignedId.current) {
+      assignedId.current = doc(collection(firestore, 'riders')).id;
+      setFormData(prev => ({ ...prev, id: assignedId.current! }));
+    }
+
+    const riderId = assignedId.current;
     const riderRef = doc(firestore, 'riders', riderId);
     
     const savePayload = {
@@ -73,10 +84,6 @@ export const RiderEditor = ({ initialRider }: RiderEditorProps) => {
     setDoc(riderRef, savePayload, { merge: true })
       .then(() => {
         lastSavedData.current = JSON.stringify(savePayload);
-        if (!formData.id) {
-          // Actualizar estado inmediatamente para habilitar el botón de Preview
-          setFormData(prev => ({ ...prev, id: riderId }));
-        }
         if (!isBackground) {
           toast({ title: "Document Saved", description: "Technical specifications updated successfully." });
           router.push(`/rider/view/?id=${riderId}`);
@@ -97,7 +104,7 @@ export const RiderEditor = ({ initialRider }: RiderEditorProps) => {
   };
 
   const handleManualSave = () => {
-    if (!formData.showName || !formData.artistName) {
+    if (!formData.showName?.trim() || !formData.artistName?.trim()) {
       toast({ 
         title: "Missing Fields", 
         description: "Show Name and Artist are required to save.", 
@@ -173,8 +180,8 @@ export const RiderEditor = ({ initialRider }: RiderEditorProps) => {
       />
 
       <div className="flex justify-end gap-4 pt-10 no-print">
-        {formData.id ? (
-          <Link href={`/rider/view/?id=${formData.id}`}>
+        {assignedId.current ? (
+          <Link href={`/rider/view/?id=${assignedId.current}`}>
             <Button 
               variant="outline"
               className="border-primary/50 text-primary hover:bg-primary hover:text-primary-foreground min-w-[180px] h-14 font-black tracking-[0.2em] uppercase text-sm transition-all"
