@@ -44,7 +44,7 @@ export default function RiderViewPage() {
 
   const { data: rider, loading } = useDoc(riderRef);
 
-  // Lógica de paginación: máximo 10 entradas por página A4
+  // Lógica de segmentación: 10 entradas por página A4 horizontal
   const pageChunks = useMemo(() => {
     if (!rider) return [[]];
     const songs = rider.songs || [];
@@ -132,7 +132,7 @@ export default function RiderViewPage() {
         {pageChunks.map((chunk, pageIndex) => (
           <div key={pageIndex} className="a4-landscape-page flex flex-col">
             
-            {/* Cabecera mínima superior */}
+            {/* Cabecera superior mínima */}
             <div className="mb-1 flex justify-between items-end">
               <p className="text-[8px] font-black tracking-[0.4em] uppercase text-gray-400">TECHNICAL RIDER</p>
               <p className="text-[8px] font-bold text-gray-300">PAGE {pageIndex + 1} / {pageChunks.length}</p>
@@ -162,7 +162,7 @@ export default function RiderViewPage() {
               </div>
             </div>
 
-            {/* Cuerpo Técnico */}
+            {/* Cuerpo del Rider */}
             <div className="flex-grow">
               <h2 className="text-sm font-black flex items-center gap-2 uppercase border-b-2 border-black pb-1 mb-4">
                 <LayoutGrid className="w-4 h-4" /> TECHNICAL RIDER
@@ -202,7 +202,7 @@ export default function RiderViewPage() {
               </div>
             </div>
 
-            {/* Firma corporativa al final de la página */}
+            {/* Firma al pie de página */}
             <div className="mt-8 pt-4 border-t border-gray-100 flex justify-between items-end">
               <div className="text-[7px] font-bold text-gray-300 uppercase tracking-[0.4em]">
                 OFFICIAL TECHNICAL DOCUMENT • MAGO VITUCO PRODUCTIONS
