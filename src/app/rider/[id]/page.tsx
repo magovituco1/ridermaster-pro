@@ -4,9 +4,9 @@ import { notFound, redirect } from 'next/navigation';
 import { StageBackground } from '@/components/StageBackground';
 import { RiderMasterLogo } from '@/components/RiderMasterLogo';
 import { Button } from '@/components/ui/button';
+import { PrintButton } from '@/components/PrintButton';
 import Link from 'next/link';
 import { 
-  Printer, 
   Edit, 
   Trash2, 
   ArrowLeft, 
@@ -82,9 +82,7 @@ export default async function RiderViewPage({ params }: { params: { id: string }
             </Button>
           </Link>
           
-          <Button onClick={() => window.print()} className="bg-primary text-primary-foreground font-bold tracking-widest uppercase text-xs">
-            <Printer className="w-4 h-4 mr-2" /> PRINT LANDSCAPE
-          </Button>
+          <PrintButton />
         </div>
       </header>
 
