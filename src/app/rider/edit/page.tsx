@@ -8,6 +8,7 @@ import { useSearchParams } from 'next/navigation';
 import { RiderEditor } from '@/components/RiderEditor';
 import { StageBackground } from '@/components/StageBackground';
 import { RiderMasterLogo } from '@/components/RiderMasterLogo';
+import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 
@@ -37,9 +38,9 @@ function EditRiderContent() {
       <div className="min-h-screen flex items-center justify-center bg-background">
         <StageBackground />
         <div className="text-center">
-          <h1 className="text-2xl font-black mb-4">RIDER NOT FOUND</h1>
+          <h1 className="text-2xl font-black mb-4 uppercase tracking-widest">RIDER NOT FOUND</h1>
           <Link href="/">
-            <Button variant="outline">BACK TO RIDERS</Button>
+            <Button variant="outline" className="uppercase font-bold tracking-widest">BACK TO RIDERS</Button>
           </Link>
         </div>
       </div>
@@ -58,7 +59,7 @@ function EditRiderContent() {
 
       <main className="max-w-5xl mx-auto p-6 mt-8">
         <div className="mb-10 text-center">
-          <h1 className="text-4xl font-black mb-2">MODIFY RIDER</h1>
+          <h1 className="text-4xl font-black mb-2 uppercase tracking-widest text-primary">MODIFY RIDER</h1>
           <p className="text-muted-foreground uppercase tracking-[0.2em] text-sm">UPDATING TECHNICAL SPECIFICATIONS FOR: {rider.showName}</p>
         </div>
         
@@ -70,7 +71,7 @@ function EditRiderContent() {
 
 export default function EditRiderPage() {
   return (
-    <Suspense fallback={<div>Loading Editor...</div>}>
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-black text-primary font-bold uppercase tracking-widest">LOADING EDITOR...</div>}>
       <EditRiderContent />
     </Suspense>
   );

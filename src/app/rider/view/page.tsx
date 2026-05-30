@@ -45,7 +45,7 @@ function RiderViewContent() {
 
   const { data: rider, loading } = useDoc(riderRef);
 
-  // Lógica de segmentación fija de 10 cues para A4 Horizontal
+  // Lógica de segmentación fija de 10 entradas para A4 Horizontal
   const pageChunks = useMemo(() => {
     if (!rider) return [[]];
     const songs = rider.songs || [];
@@ -73,9 +73,9 @@ function RiderViewContent() {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-background p-6">
         <StageBackground />
-        <h1 className="text-2xl font-black mb-4 uppercase text-white">RIDER NOT FOUND</h1>
+        <h1 className="text-2xl font-black mb-4 uppercase text-white tracking-widest">RIDER NOT FOUND</h1>
         <Link href="/">
-          <Button variant="outline">BACK TO RIDERS</Button>
+          <Button variant="outline" className="uppercase font-bold tracking-widest">BACK TO RIDERS</Button>
         </Link>
       </div>
     );
@@ -107,14 +107,14 @@ function RiderViewContent() {
             </AlertDialogTrigger>
             <AlertDialogContent className="bg-card border-border">
               <AlertDialogHeader>
-                <AlertDialogTitle className="text-primary tracking-widest uppercase">DATA REMOVAL</AlertDialogTitle>
-                <AlertDialogDescription className="text-muted-foreground">
+                <AlertDialogTitle className="text-primary tracking-widest uppercase font-black">DATA REMOVAL</AlertDialogTitle>
+                <AlertDialogDescription className="text-muted-foreground font-medium">
                   Permanently remove this Technical Rider? This action is irreversible.
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
-                <AlertDialogCancel className="bg-secondary">ABORT</AlertDialogCancel>
-                <AlertDialogAction onClick={handleDelete} className="bg-destructive text-destructive-foreground">CONFIRM</AlertDialogAction>
+                <AlertDialogCancel className="bg-secondary uppercase font-bold text-xs tracking-widest">ABORT</AlertDialogCancel>
+                <AlertDialogAction onClick={handleDelete} className="bg-destructive text-destructive-foreground uppercase font-bold text-xs tracking-widest">CONFIRM</AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
@@ -133,13 +133,11 @@ function RiderViewContent() {
         {pageChunks.map((chunk, pageIndex) => (
           <div key={pageIndex} className="a4-landscape-page">
             
-            {/* Cabecera superior mínima */}
             <div className="mb-1 flex justify-between items-end">
               <p className="text-[8px] font-black tracking-[0.4em] uppercase text-gray-400">TECHNICAL RIDER</p>
               <p className="text-[8px] font-bold text-gray-300">PAGE {pageIndex + 1} / {pageChunks.length}</p>
             </div>
 
-            {/* Franja técnica negra unificada */}
             <div className="bg-black text-white px-4 py-1.5 flex items-center justify-between gap-6 mb-4 border-b-2 border-primary shrink-0">
               <div className="flex items-center gap-2 min-w-0">
                 <Users className="w-3 h-3 text-primary flex-shrink-0" />
@@ -163,12 +161,10 @@ function RiderViewContent() {
               </div>
             </div>
 
-            {/* Título de sección */}
             <h2 className="text-[11px] font-black flex items-center gap-2 uppercase border-b-2 border-black pb-1 mb-2 shrink-0">
               <LayoutGrid className="w-3 h-3" /> TECHNICAL RIDER
             </h2>
             
-            {/* Tabla Técnica de Tamaño Fijo */}
             <div className="flex-grow flex flex-col overflow-hidden">
               <table className="w-full text-left border-collapse table-fixed border-2 border-black h-full">
                 <thead>
@@ -191,7 +187,6 @@ function RiderViewContent() {
                     </tr>
                   ))}
                   
-                  {/* Filas vacías para completar siempre 10 y mantener el diseño */}
                   {Array.from({ length: Math.max(0, 10 - chunk.length) }).map((_, i) => (
                     <tr key={`empty-${i}`} className="border-b border-black h-[calc(100%/10.5)] opacity-20">
                       <td className="px-2 border-r border-black"></td>
@@ -205,7 +200,6 @@ function RiderViewContent() {
               </table>
             </div>
 
-            {/* Firma Corporativa */}
             <div className="mt-3 pt-2 border-t border-gray-100 flex justify-between items-end shrink-0">
               <div className="text-[7px] font-bold text-gray-300 uppercase tracking-[0.4em]">
                 OFFICIAL TECHNICAL DOCUMENT
@@ -223,7 +217,7 @@ function RiderViewContent() {
 
 export default function RiderViewPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-black text-primary font-bold">CARGANDO TÉCNICOS...</div>}>
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-black text-primary font-bold uppercase tracking-widest">CALIBRATING STAGE...</div>}>
       <RiderViewContent />
     </Suspense>
   );

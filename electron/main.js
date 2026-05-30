@@ -21,8 +21,7 @@ function createWindow() {
   if (isDev) {
     win.loadURL('http://localhost:9002');
   } else {
-    // En producción cargamos el archivo estático generado por Next.js
-    // El archivo principal es out/index.html
+    // Carga el archivo principal exportado por Next.js
     win.loadFile(path.join(__dirname, '../out/index.html'));
   }
 

@@ -67,12 +67,8 @@ export default function HomePage() {
       ]
     };
 
-    try {
-      await setDoc(doc(db, 'riders', demoId), demoRider);
-      toast({ title: "Demo Loaded", description: "Gira Mágica 2025 is now active." });
-    } catch (e) {
-      toast({ title: "Error", description: "Could not load demo data.", variant: "destructive" });
-    }
+    setDoc(doc(db, 'riders', demoId), demoRider);
+    toast({ title: "Demo Loaded", description: "Gira Mágica 2025 is now active." });
   };
 
   return (
@@ -90,7 +86,7 @@ export default function HomePage() {
 
       <main className="max-w-7xl mx-auto p-6 space-y-8">
         <div className="flex flex-col gap-2">
-          <h1 className="text-4xl font-black text-primary">RIDERS</h1>
+          <h1 className="text-4xl font-black text-primary uppercase tracking-widest">RIDERS</h1>
           <p className="text-muted-foreground font-medium tracking-wide">ACTIVE TECHNICAL RIDERS FOR UPCOMING SHOWS</p>
         </div>
 
@@ -133,10 +129,6 @@ export default function HomePage() {
                     <div className="flex items-center gap-2 text-xs font-medium">
                       <MapPin className="w-3 h-3 text-accent" /> {rider.venue}
                     </div>
-                  </div>
-                  
-                  <div className="pt-4 border-t border-border flex justify-between items-center">
-                    <span className="text-xs font-bold text-muted-foreground uppercase tracking-widest">{(rider.songs?.length || 0)} CUES REGISTERED</span>
                   </div>
                 </CardContent>
 
