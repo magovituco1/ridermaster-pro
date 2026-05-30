@@ -16,7 +16,8 @@ import {
   Calendar, 
   MapPin, 
   Users,
-  LayoutGrid
+  LayoutGrid,
+  FileText
 } from 'lucide-react';
 import { 
   AlertDialog,
@@ -56,7 +57,7 @@ export default function RiderViewPage() {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-background p-6">
         <StageBackground />
-        <h1 className="text-2xl font-black mb-4">RIDER NOT FOUND</h1>
+        <h1 className="text-2xl font-black mb-4 uppercase">RIDER NOT FOUND</h1>
         <Link href="/">
           <Button variant="outline">BACK TO REGISTRY</Button>
         </Link>
@@ -112,63 +113,108 @@ export default function RiderViewPage() {
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto p-6 mt-8 print:mt-0 print:p-0 print-container">
-        {/* PRINT HEADER */}
-        <div className="hidden print:flex items-center justify-between mb-8 border-b-4 border-black pb-4">
-          <div className="flex flex-col">
-            <h1 className="text-3xl font-black tracking-tighter text-black uppercase">TECHNICAL RIDER</h1>
-            <span className="text-[10px] font-bold tracking-[0.4em] uppercase text-gray-600">RiderMaster Stage Management</span>
-          </div>
-          <div className="text-right">
-            <div className="text-[10px] font-bold uppercase">ID: {id.slice(0, 8).toUpperCase()}</div>
-            <div className="text-[8px] font-mono mt-1 opacity-70">DATE: {new Date().toLocaleDateString()}</div>
-          </div>
+      <main className="max-w-7xl mx-auto p-6 mt-8 print:mt-0 print:p-0">
+        <div className="no-print mb-6 flex items-center gap-2 text-primary">
+          <FileText className="w-5 h-5" />
+          <span className="text-xs font-black uppercase tracking-widest">DOCUMENT PREVIEW / EXPORT MODE</span>
         </div>
 
-        {/* SHOW INFO SUMMARY */}
-        <div className="mb-8 border-l-8 border-primary pl-8 py-6 bg-secondary/20 backdrop-blur-sm print:bg-white print:border-black print:text-black print:pl-4 print:py-2 print:mb-6">
-          <h1 className="text-5xl font-black mb-4 tracking-tighter print:text-3xl print:mb-2">{rider.showName}</h1>
-          <div className="flex flex-wrap gap-10 items-center print:gap-6">
-            <div className="flex items-center gap-3 text-lg font-bold uppercase tracking-widest print:text-xs">
-              <Users className="w-5 h-5 text-primary print:text-black" /> {rider.artistName}
-            </div>
-            <div className="flex items-center gap-3 text-lg font-bold uppercase tracking-widest print:text-xs">
-              <Calendar className="w-5 h-5 text-accent print:text-black" /> {rider.showDate}
-            </div>
-            <div className="flex items-center gap-3 text-lg font-bold uppercase tracking-widest print:text-xs">
-              <MapPin className="w-5 h-5 text-accent print:text-black" /> {rider.venue}
-            </div>
-          </div>
-        </div>
-
-        <div className="space-y-6 print:space-y-4">
-          <h2 className="text-2xl font-black flex items-center gap-3 no-print uppercase">
-            <LayoutGrid className="w-6 h-6 text-primary" /> TECHNICAL SETLIST
-          </h2>
+        {/* DOCUMENT CONTAINER */}
+        <div className="bg-white text-black p-8 sm:p-12 shadow-2xl rounded-sm print:shadow-none print:p-0 print-container">
           
-          <div className="overflow-hidden border border-border rounded-lg bg-card/40 print:border-none print:rounded-none print:bg-white print:text-black">
-            <table className="w-full text-left border-collapse print:table">
-              <thead>
-                <tr className="bg-secondary/50 border-b border-border text-xs font-black uppercase tracking-[0.2em] print:bg-gray-100 print:border-black">
-                  <th className="px-4 py-4 w-12 text-center print:border">POS</th>
-                  <th className="px-4 py-4 w-1/4 print:border">SONG / SEGMENT</th>
-                  <th className="px-4 py-4 w-1/4 print:border">SOUND CONFIG</th>
-                  <th className="px-4 py-4 w-1/4 print:border">LIGHTING CUES</th>
-                  <th className="px-4 py-4 print:border">FX / NOTES</th>
-                </tr>
-              </thead>
-              <tbody>
-                {(rider.songs || []).map((song: any) => (
-                  <tr key={song.id} className="border-b border-border/50 hover:bg-secondary/20 print:border-black">
-                    <td className="px-4 py-6 text-center font-mono text-primary font-bold print:border print:text-black print:text-xs print:py-2">{song.orderNum}</td>
-                    <td className="px-4 py-6 font-black tracking-widest text-sm uppercase print:border print:text-[10px] print:py-2">{song.songName}</td>
-                    <td className="px-4 py-6 text-xs whitespace-pre-wrap text-muted-foreground print:border print:text-black print:py-2">{song.soundNotes || '-'}</td>
-                    <td className="px-4 py-6 text-xs whitespace-pre-wrap text-muted-foreground print:border print:text-black print:py-2">{song.lightNotes || '-'}</td>
-                    <td className="px-4 py-6 text-xs whitespace-pre-wrap text-muted-foreground print:border print:text-black print:py-2">{song.extraNotes || '-'}</td>
+          {/* HEADER SECTION */}
+          <div className="flex items-center justify-between mb-10 border-b-4 border-black pb-6">
+            <div className="flex flex-col">
+              <h1 className="text-4xl font-black tracking-tighter uppercase mb-1">TECHNICAL RIDER</h1>
+              <span className="text-[10px] font-bold tracking-[0.4em] uppercase text-gray-500">RIDERMASTER STAGE MANAGEMENT</span>
+            </div>
+            <div className="text-right flex flex-col items-end">
+              <div className="bg-black text-white px-3 py-1 text-[10px] font-bold uppercase tracking-widest mb-2">
+                ID: {id.slice(0, 8).toUpperCase()}
+              </div>
+              <div className="text-[10px] font-bold uppercase text-gray-800">
+                GENERATED: {new Date().toLocaleDateString()}
+              </div>
+            </div>
+          </div>
+
+          {/* SHOW INFO SUMMARY */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12 border-2 border-black p-6">
+            <div className="space-y-4">
+              <div>
+                <label className="text-[9px] font-black uppercase text-gray-400 block mb-1">SHOW / TOUR NAME</label>
+                <div className="text-2xl font-black uppercase border-b border-gray-200 pb-2">{rider.showName}</div>
+              </div>
+              <div>
+                <label className="text-[9px] font-black uppercase text-gray-400 block mb-1">ARTIST</label>
+                <div className="text-xl font-bold uppercase flex items-center gap-2">
+                  <Users className="w-4 h-4 text-gray-400" /> {rider.artistName}
+                </div>
+              </div>
+            </div>
+            <div className="space-y-4">
+              <div>
+                <label className="text-[9px] font-black uppercase text-gray-400 block mb-1">DATE</label>
+                <div className="text-xl font-bold uppercase flex items-center gap-2 border-b border-gray-200 pb-2">
+                  <Calendar className="w-4 h-4 text-gray-400" /> {rider.showDate}
+                </div>
+              </div>
+              <div>
+                <label className="text-[9px] font-black uppercase text-gray-400 block mb-1">VENUE / LOCATION</label>
+                <div className="text-xl font-bold uppercase flex items-center gap-2">
+                  <MapPin className="w-4 h-4 text-gray-400" /> {rider.venue}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* TABLE SECTION */}
+          <div className="space-y-4">
+            <h2 className="text-lg font-black flex items-center gap-2 uppercase border-b-2 border-black pb-2">
+              <LayoutGrid className="w-5 h-5" /> TECHNICAL SETLIST & CUES
+            </h2>
+            
+            <div className="overflow-hidden">
+              <table className="w-full text-left border-collapse table-fixed">
+                <thead>
+                  <tr className="bg-gray-100 border-y border-black text-[10px] font-black uppercase tracking-widest">
+                    <th className="px-3 py-3 w-12 text-center border-x border-black">#</th>
+                    <th className="px-3 py-3 w-1/4 border-r border-black">SONG TITLE</th>
+                    <th className="px-3 py-3 w-1/4 border-r border-black">SOUND SPEC</th>
+                    <th className="px-3 py-3 w-1/4 border-r border-black">LIGHTING CUES</th>
+                    <th className="px-3 py-3 border-r border-black">NOTES / FX</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody className="text-[10px] uppercase font-medium">
+                  {(rider.songs || []).map((song: any) => (
+                    <tr key={song.id} className="border-b border-black">
+                      <td className="px-3 py-4 text-center font-bold border-x border-black bg-gray-50">{song.orderNum}</td>
+                      <td className="px-3 py-4 font-black border-r border-black leading-tight">{song.songName}</td>
+                      <td className="px-3 py-4 border-r border-black whitespace-pre-wrap leading-relaxed">{song.soundNotes || '-'}</td>
+                      <td className="px-3 py-4 border-r border-black whitespace-pre-wrap leading-relaxed">{song.lightNotes || '-'}</td>
+                      <td className="px-3 py-4 border-r border-black whitespace-pre-wrap leading-relaxed">{song.extraNotes || '-'}</td>
+                    </tr>
+                  ))}
+                  {(!rider.songs || rider.songs.length === 0) && (
+                    <tr className="border-b border-black">
+                      <td colSpan={5} className="px-3 py-8 text-center text-gray-400 font-bold uppercase tracking-widest italic">
+                        NO TECHNICAL DATA RECORDED FOR THIS SHOW
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* FOOTER SECTION */}
+          <div className="mt-12 pt-6 border-t border-gray-200 flex justify-between items-end">
+            <div className="text-[8px] font-bold text-gray-400 uppercase tracking-[0.3em]">
+              OFFICIAL TECHNICAL DOCUMENT • RIDERMASTER V2.0
+            </div>
+            <div className="text-[10px] font-black uppercase">
+              MAGO VITUCO PRODUCTIONS
+            </div>
           </div>
         </div>
       </main>
