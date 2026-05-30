@@ -1,9 +1,11 @@
 
+'use client';
+
 /**
- * @fileOverview Esta ruta dinámica está obsoleta.
- * Se mantiene con una implementación mínima para satisfacer al compilador de Next.js durante 'output: export'.
+ * @fileOverview Esta ruta dinámica está obsoleta para soportar 'output: export'.
+ * Se usa generateStaticParams() con un array vacío para evitar errores de compilación.
  */
-export function generateStaticParams() {
+export async function generateStaticParams() {
   return [];
 }
 
