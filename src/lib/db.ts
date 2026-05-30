@@ -1,12 +1,19 @@
+
 import { Rider, RiderSummary } from './types';
 
-// Persist database in memory across module reloads in development
-// Note: In static export / Electron, this will reset on refresh.
-// The app primarily uses Firestore for persistent data.
-const globalForDb = global as unknown as { riders: Rider[] };
+// Persist database in memory / local context
+// En Electron con exportación estática, esto se comporta como un almacenamiento temporal.
+// La persistencia real ocurre en Firestore.
+const getGlobal = () => {
+  if (typeof window !== 'undefined') return window as any;
+  if (typeof global !== 'undefined') return global as any;
+  return {} as any;
+};
 
-if (!globalForDb.riders) {
-  globalForDb.riders = [
+const g = getGlobal();
+
+if (!g.riders) {
+  g.riders = [
     {
       id: 'demo-1',
       showName: 'GIRA MÁGICA 2025',
@@ -23,17 +30,17 @@ if (!globalForDb.riders) {
   ];
 }
 
-const riders = globalForDb.riders;
+const riders = g.riders;
 
 export async function getRiders(): Promise<RiderSummary[]> {
-  return riders.map(({ songs, ...rest }) => ({
+  return riders.map(({ songs, ...rest }: any) => ({
     ...rest,
     songCount: songs.length
   }));
 }
 
 export async function getRider(id: string): Promise<Rider | null> {
-  const rider = riders.find(r => r.id === id);
+  const rider = riders.find((r: any) => r.id === id);
   if (!rider) return null;
   return JSON.parse(JSON.stringify(rider));
 }
@@ -42,7 +49,7 @@ export async function saveRider(riderData: Partial<Rider>): Promise<Rider> {
   const now = new Date().toISOString();
   
   if (riderData.id) {
-    const index = riders.findIndex(r => r.id === riderData.id);
+    const index = riders.findIndex((r: any) => r.id === riderData.id);
     if (index !== -1) {
       riders[index] = {
         ...riders[index],
@@ -69,7 +76,7 @@ export async function saveRider(riderData: Partial<Rider>): Promise<Rider> {
 }
 
 export async function deleteRider(id: string): Promise<void> {
-  const index = riders.findIndex(r => r.id === id);
+  const index = riders.findIndex((r: any) => r.id === id);
   if (index !== -1) {
     riders.splice(index, 1);
   }

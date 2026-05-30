@@ -1,3 +1,4 @@
+
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
@@ -18,7 +19,7 @@ const nextConfig: NextConfig = {
   },
   webpack: (config, { isServer }) => {
     if (!isServer) {
-      // Evita que Electron intente cargar módulos de Node que no existen en el navegador
+      // Evita que Electron intente cargar módulos de Node que no existen en el navegador durante el build de Next.js
       config.resolve.fallback = {
         ...config.resolve.fallback,
         fs: false,
@@ -31,12 +32,16 @@ const nextConfig: NextConfig = {
         http: false,
         https: false,
         zlib: false,
+        child_process: false,
+        dns: false,
+        readline: false,
       };
     }
-    // Ignora telemetría y logs de Genkit que requieren conexión en tiempo de compilación
+    // Ignora advertencias y errores de módulos que solo funcionan en servidor
     config.ignoreWarnings = [
       { module: /@opentelemetry/ },
-      { module: /@genkit-ai/ }
+      { module: /@genkit-ai/ },
+      { module: /google-auth-library/ }
     ];
     return config;
   },
