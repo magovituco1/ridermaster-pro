@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Rider, Song } from '@/lib/types';
+import { Rider } from '@/lib/types';
 import { saveRider } from '@/lib/db';
 import { useRouter } from 'next/navigation';
 import { Input } from '@/components/ui/input';
@@ -35,8 +35,9 @@ export const RiderEditor = ({ initialRider }: RiderEditorProps) => {
     setIsSaving(true);
     try {
       const saved = await saveRider(formData);
-      toast({ title: "Rider Saved", description: "All technical notes stored successfully." });
+      toast({ title: "Success", description: "Rider saved successfully." });
       router.push(`/rider/${saved.id}`);
+      router.refresh();
     } catch (error) {
       toast({ title: "Error", description: "Failed to save rider.", variant: "destructive" });
     } finally {
@@ -49,7 +50,7 @@ export const RiderEditor = ({ initialRider }: RiderEditorProps) => {
       <Card className="border-primary/20 bg-card/60 backdrop-blur-md stage-shadow">
         <CardHeader>
           <CardTitle className="text-sm font-bold flex items-center gap-2 text-primary tracking-widest">
-            <Info className="w-4 h-4" /> CORE METADATA
+            <Info className="w-4 h-4" /> SHOW INFORMATION
           </CardTitle>
         </CardHeader>
         <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -103,7 +104,7 @@ export const RiderEditor = ({ initialRider }: RiderEditorProps) => {
           disabled={isSaving}
           className="bg-primary text-primary-foreground hover:bg-primary/90 min-w-[200px] h-14 font-black tracking-[0.2em] uppercase text-lg shadow-2xl"
         >
-          {isSaving ? "STAGING..." : <><Save className="mr-2 w-5 h-5" /> PERSIST RIDER</>}
+          {isSaving ? "SAVING..." : <><Save className="mr-2 w-5 h-5" /> SAVE RIDER</>}
         </Button>
       </div>
     </div>
