@@ -37,8 +37,10 @@ export const RiderEditor = ({ initialRider }: RiderEditorProps) => {
   const lastSavedData = useRef(JSON.stringify(initialRider || {}));
   const autoSaveTimer = useRef<NodeJS.Timeout | null>(null);
 
+  // Lógica de Auto-guardado
   useEffect(() => {
     const currentData = JSON.stringify(formData);
+    // Solo guardamos si hay cambios reales y tenemos los datos mínimos
     if (currentData === lastSavedData.current) return;
     if (!formData.showName || !formData.artistName) return;
 
@@ -57,6 +59,7 @@ export const RiderEditor = ({ initialRider }: RiderEditorProps) => {
   const performSave = (isBackground: boolean = false) => {
     if (!firestore) return;
 
+    // Generar un ID si es nuevo
     const riderId = formData.id || doc(collection(firestore, 'riders')).id;
     const riderRef = doc(firestore, 'riders', riderId);
     
@@ -96,7 +99,11 @@ export const RiderEditor = ({ initialRider }: RiderEditorProps) => {
 
   const handleManualSave = () => {
     if (!formData.showName || !formData.artistName) {
-      toast({ title: "Validation Error", description: "Show Name and Artist are required.", variant: "destructive" });
+      toast({ 
+        title: "Validation Error", 
+        description: "Show Name and Artist are required.", 
+        variant: "destructive" 
+      });
       return;
     }
     performSave(false);
