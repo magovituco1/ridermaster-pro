@@ -15,7 +15,8 @@ import {
   ChevronRight, 
   Music,
   Users,
-  Trash2
+  Trash2,
+  Edit
 } from 'lucide-react';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -23,7 +24,6 @@ import { Badge } from '@/components/ui/badge';
 export default function HomePage() {
   const db = useFirestore();
   
-  // Memoize collection reference to prevent infinite loading loops
   const ridersRef = useMemo(() => {
     if (!db) return null;
     return collection(db, 'riders');
@@ -101,10 +101,15 @@ export default function HomePage() {
                   </div>
                 </CardContent>
 
-                <CardFooter className="pt-4">
+                <CardFooter className="pt-4 flex flex-col gap-2">
                   <Link href={`/rider/${rider.id}`} className="w-full">
                     <Button variant="secondary" className="w-full justify-between hover:bg-primary hover:text-primary-foreground transition-all uppercase tracking-widest font-bold">
                       VIEW TECHNICALS <ChevronRight className="w-4 h-4" />
+                    </Button>
+                  </Link>
+                  <Link href={`/rider/${rider.id}/edit`} className="w-full">
+                    <Button variant="outline" className="w-full justify-between border-primary/50 text-primary hover:bg-primary hover:text-primary-foreground transition-all uppercase tracking-widest font-bold">
+                      MODIFY PROJECT <Edit className="w-4 h-4" />
                     </Button>
                   </Link>
                 </CardFooter>
@@ -112,7 +117,7 @@ export default function HomePage() {
             ))}
             
             <Link href="/rider/new" className="h-full">
-              <div className="h-full min-h-[300px] border-2 border-dashed border-border rounded-lg flex flex-col items-center justify-center gap-4 group hover:border-primary/50 transition-colors bg-card/20">
+              <div className="h-full min-h-[350px] border-2 border-dashed border-border rounded-lg flex flex-col items-center justify-center gap-4 group hover:border-primary/50 transition-colors bg-card/20">
                 <div className="p-4 rounded-full bg-secondary group-hover:bg-primary/20 transition-colors">
                   <Plus className="w-8 h-8 text-muted-foreground group-hover:text-primary" />
                 </div>

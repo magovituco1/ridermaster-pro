@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useMemo } from 'react';
@@ -121,39 +122,35 @@ export default function RiderViewPage() {
           <span className="text-xs font-black uppercase tracking-widest">TECHNICAL DOCUMENT PREVIEW</span>
         </div>
 
-        {/* DOCUMENT CONTAINER */}
         <div className="bg-white text-black p-12 shadow-2xl rounded-sm print:shadow-none print:p-0 print-container">
           
-          {/* HEADER LABEL */}
-          <div className="mb-4">
-            <p className="text-[10px] font-black tracking-[0.4em] uppercase text-gray-400">TECHNICAL RIDER</p>
+          <div className="mb-2">
+            <p className="text-[9px] font-black tracking-[0.4em] uppercase text-gray-400">TECHNICAL RIDER</p>
           </div>
 
-          {/* UNIFIED BLACK INFO STRIP */}
-          <div className="bg-black text-white px-6 py-4 flex flex-wrap items-center justify-between gap-6 mb-10 border-b-4 border-primary print:border-primary">
+          <div className="bg-black text-white px-6 py-4 flex items-center justify-between gap-6 mb-10 border-b-4 border-primary print:border-primary">
             <div className="flex items-center gap-2">
               <Users className="w-3 h-3 text-primary" />
               <span className="text-[8px] font-black uppercase text-gray-500 tracking-widest">ARTIST:</span>
-              <span className="text-xs font-black uppercase">{rider.artistName}</span>
+              <span className="text-[10px] font-black uppercase">{rider.artistName}</span>
             </div>
             <div className="flex items-center gap-2">
               <Mic2 className="w-3 h-3 text-primary" />
               <span className="text-[8px] font-black uppercase text-gray-500 tracking-widest">SHOW:</span>
-              <span className="text-xs font-black uppercase">{rider.showName}</span>
+              <span className="text-[10px] font-black uppercase">{rider.showName}</span>
             </div>
             <div className="flex items-center gap-2">
               <MapPin className="w-3 h-3 text-primary" />
               <span className="text-[8px] font-black uppercase text-gray-500 tracking-widest">VENUE:</span>
-              <span className="text-xs font-black uppercase">{rider.venue}</span>
+              <span className="text-[10px] font-black uppercase">{rider.venue}</span>
             </div>
             <div className="flex items-center gap-2">
               <Calendar className="w-3 h-3 text-primary" />
               <span className="text-[8px] font-black uppercase text-gray-500 tracking-widest">DATE:</span>
-              <span className="text-xs font-black uppercase">{rider.showDate}</span>
+              <span className="text-[10px] font-black uppercase">{rider.showDate}</span>
             </div>
           </div>
 
-          {/* TABLE SECTION */}
           <div className="space-y-4">
             <h2 className="text-lg font-black flex items-center gap-2 uppercase border-b-2 border-black pb-2">
               <LayoutGrid className="w-5 h-5" /> TECHNICAL SETLIST & CUES
@@ -180,19 +177,11 @@ export default function RiderViewPage() {
                       <td className="px-3 py-4 border-r border-black whitespace-pre-wrap leading-relaxed">{song.extraNotes || '-'}</td>
                     </tr>
                   ))}
-                  {(!rider.songs || rider.songs.length === 0) && (
-                    <tr className="border-b border-black">
-                      <td colSpan={5} className="px-3 py-12 text-center text-gray-400 font-bold uppercase tracking-[0.3em] italic">
-                        NO TECHNICAL DATA REGISTERED FOR THIS SHOW
-                      </td>
-                    </tr>
-                  )}
                 </tbody>
               </table>
             </div>
           </div>
 
-          {/* FOOTER SECTION */}
           <div className="mt-12 pt-6 border-t border-gray-200 flex justify-between items-end">
             <div className="text-[8px] font-bold text-gray-400 uppercase tracking-[0.3em]">
               OFFICIAL TECHNICAL DOCUMENT
