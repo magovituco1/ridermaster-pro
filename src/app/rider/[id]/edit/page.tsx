@@ -3,7 +3,8 @@
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return [];
+  // Devolvemos al menos un ID de marcador para satisfacer al compilador de Next.js
+  return [{ id: 'placeholder' }];
 }
 
 export default function Page() {
