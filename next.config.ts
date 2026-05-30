@@ -38,6 +38,8 @@ const nextConfig: NextConfig = {
         perf_hooks: false,
         async_hooks: false,
         canvas: false,
+        "inspector": false,
+        "undici": false,
       };
     }
     // Ignore warnings and errors for modules that only work on the server (like Genkit/gRPC)

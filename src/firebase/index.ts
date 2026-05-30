@@ -13,7 +13,7 @@ export function initializeFirebase() {
   const firestore = getFirestore(firebaseApp);
   const auth = getAuth(firebaseApp);
 
-  // Persistence is only for client-side browsers
+  // Persistence is only for client-side browsers and avoids hanging in SSR
   if (typeof window !== 'undefined' && !isPersistenceEnabled) {
     isPersistenceEnabled = true;
     enableIndexedDbPersistence(firestore).catch((err) => {

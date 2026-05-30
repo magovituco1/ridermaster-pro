@@ -1,19 +1,14 @@
 
-// This route is legacy. App uses /rider/view/?id=...
-// Optimized for static export in Next.js 15.
-// We maintain this as a Server Component with empty params to satisfy the 'output: export' build requirement.
+// This route is neutralized to satisfy Next.js 15 static export.
+// The actual app uses /rider/view/?id=...
 
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  // We provide a dummy param to satisfy NextJS build requirements for dynamic routes in static export mode
-  return [{ id: 'legacy-placeholder' }];
+  // We provide a dummy param so the build doesn't fail.
+  return [{ id: 'production' }];
 }
 
 export default function Page() {
-  return (
-    <div className="min-h-screen bg-black flex items-center justify-center">
-      <p className="text-primary font-bold uppercase tracking-widest text-xs">Syncing production data...</p>
-    </div>
-  );
+  return null;
 }
