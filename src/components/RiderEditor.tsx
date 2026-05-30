@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
@@ -26,7 +27,8 @@ export const RiderEditor = ({ initialRider }: RiderEditorProps) => {
   const [isSaving, setIsSaving] = useState(false);
   const [isAutoSaving, setIsAutoSaving] = useState(false);
   
-  // Referencia para mantener el mismo ID durante toda la edición y evitar duplicados
+  // Estado para controlar la UI (botón de preview) y Ref para la lógica de guardado
+  const [currentId, setCurrentId] = useState<string | null>(initialRider?.id || null);
   const assignedId = useRef<string | null>(initialRider?.id || null);
   
   const [formData, setFormData] = useState<Partial<Rider>>(initialRider || {
@@ -44,6 +46,7 @@ export const RiderEditor = ({ initialRider }: RiderEditorProps) => {
     const currentData = JSON.stringify(formData);
     if (currentData === lastSavedData.current) return;
     
+    // Solo auto-guardamos si hay algo de contenido
     if (!formData.showName?.trim() && !formData.artistName?.trim()) return;
 
     if (autoSaveTimer.current) clearTimeout(autoSaveTimer.current);
@@ -65,7 +68,7 @@ export const RiderEditor = ({ initialRider }: RiderEditorProps) => {
     if (!assignedId.current) {
       const newId = doc(collection(firestore, 'riders')).id;
       assignedId.current = newId;
-      setFormData(prev => ({ ...prev, id: newId }));
+      setCurrentId(newId); // Esto activa el botón de preview en la UI
     }
 
     const riderId = assignedId.current!;
@@ -179,8 +182,8 @@ export const RiderEditor = ({ initialRider }: RiderEditorProps) => {
       />
 
       <div className="flex justify-end gap-4 pt-10 no-print">
-        {assignedId.current ? (
-          <Link href={`/rider/view/?id=${assignedId.current}`}>
+        {currentId ? (
+          <Link href={`/rider/view/?id=${currentId}`}>
             <Button 
               variant="outline"
               className="border-primary/50 text-primary hover:bg-primary hover:text-primary-foreground min-w-[180px] h-14 font-black tracking-[0.2em] uppercase text-sm transition-all"

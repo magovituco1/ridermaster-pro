@@ -1,10 +1,11 @@
+
 {
   "placeholderImages": [
     {
       "id": "stage-background",
-      "description": "RiderMaster Professional Stage Gear and Lights",
-      "imageUrl": "https://picsum.photos/seed/ridergear/1920/1080",
-      "imageHint": "stage production"
+      "description": "Professional Concert Stage Lighting and Gear",
+      "imageUrl": "https://picsum.photos/seed/ridermaster-stage/1920/1080",
+      "imageHint": "concert stage"
     }
   ]
 }

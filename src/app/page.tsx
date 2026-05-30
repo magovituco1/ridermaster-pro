@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useMemo } from 'react';
@@ -53,12 +54,6 @@ export default function HomePage() {
         { id: 's1', orderNum: 1, songName: 'APERTURA: EL DESPERTAR', soundNotes: 'Fade in orquestal progresivo. Sub-graves potentes.', lightNotes: 'Wash azul oscuro a cenital blanco frío.', extraNotes: 'Humo bajo al inicio.' },
         { id: 's2', orderNum: 2, songName: 'LAS CARTAS VOLADORAS', soundNotes: 'Música rítmica tempo 120bpm. Reverb hall.', lightNotes: 'Chases rápidos ámbar y blanco.', extraNotes: 'Cañón de seguimiento al artista.' },
         { id: 's3', orderNum: 3, songName: 'DESAPARICIÓN EN EL AIRE', soundNotes: 'Silencio dramático. Golpe de timbal final.', lightNotes: 'Blackout total excepto puntual en centro.', extraNotes: 'Flash de magnesio.' },
-        { id: 's4', orderNum: 4, songName: 'MANTALISMO EXTREMO', soundNotes: 'Ambiente de misterio. Pads de sintetizador.', lightNotes: 'Luz roja suave lateral.', extraNotes: '' },
-        { id: 's5', orderNum: 5, songName: 'EL COFRE DE LOS DESEOS', soundNotes: 'Piano solo melódico.', lightNotes: 'Filtros cálidos (rosas/ámbares).', extraNotes: '' },
-        { id: 's6', orderNum: 6, songName: 'INTERMEDIO CÓMICO', soundNotes: 'Música jazz alegre.', lightNotes: 'Luz general de sala al 50%.', extraNotes: '' },
-        { id: 's7', orderNum: 7, songName: 'LA GRAN ILUSIÓN', soundNotes: 'Staccato de cuerdas. Mucha compresión.', lightNotes: 'Estrobos en momentos de impacto.', extraNotes: 'CO2 Jets activos.' },
-        { id: 's8', orderNum: 8, songName: 'LECTURA DE PENSAMIENTO', soundNotes: 'Micrófono con delay corto.', lightNotes: 'Punto de luz cenital cerrado.', extraNotes: '' },
-        { id: 's9', orderNum: 9, songName: 'SUEÑO ORIENTAL', soundNotes: 'Cítaras y percusión exótica.', lightNotes: 'Ciclorama en verde y oro.', extraNotes: 'Incienso/Aroma opcional.' },
         { id: 's10', orderNum: 10, songName: 'EL ESCAPE FINAL', soundNotes: 'In crescendo épico. Metales potentes.', lightNotes: 'Todo el rig al 100% en movimiento.', extraNotes: 'Pirotecnia final.' }
       ]
     };
