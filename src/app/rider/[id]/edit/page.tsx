@@ -1,18 +1,38 @@
+'use client';
+
 import React from 'react';
-import { getRider } from '@/lib/db';
+import { useDoc, useFirestore } from '@/firebase';
+import { doc } from 'firebase/firestore';
+import { useParams } from 'next/navigation';
 import { RiderEditor } from '@/components/RiderEditor';
 import { StageBackground } from '@/components/StageBackground';
 import { RiderMasterLogo } from '@/components/RiderMasterLogo';
-import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 
-export default async function EditRiderPage({ params }: { params: { id: string } }) {
-  const { id } = await params;
-  const rider = await getRider(id);
+export default function EditRiderPage() {
+  const params = useParams();
+  const id = params.id as string;
+  const db = useFirestore();
+  const riderRef = db ? doc(db, 'riders', id) : null;
+  const { data: rider, loading } = useDoc(riderRef);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <StageBackground />
+        <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+      </div>
+    );
+  }
 
   if (!rider) {
-    notFound();
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <StageBackground />
+        <h1 className="text-2xl font-black">RIDER NOT FOUND</h1>
+      </div>
+    );
   }
 
   return (

@@ -1,0 +1,41 @@
+{
+  "entities": {
+    "Rider": {
+      "title": "Rider",
+      "description": "Technical specifications for a show or tour",
+      "type": "object",
+      "properties": {
+        "showName": { "type": "string" },
+        "artistName": { "type": "string" },
+        "showDate": { "type": "string", "format": "date" },
+        "venue": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" },
+        "songs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "orderNum": { "type": "number" },
+              "songName": { "type": "string" },
+              "soundNotes": { "type": "string" },
+              "lightNotes": { "type": "string" },
+              "extraNotes": { "type": "string" }
+            }
+          }
+        }
+      },
+      "required": ["showName", "artistName", "showDate"]
+    }
+  },
+  "auth": {
+    "providers": ["google.com"]
+  },
+  "firestore": {
+    "/riders/{riderId}": {
+      "schema": "Rider",
+      "description": "Store technical riders for shows"
+    }
+  }
+}

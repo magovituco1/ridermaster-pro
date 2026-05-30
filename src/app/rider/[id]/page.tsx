@@ -1,6 +1,9 @@
+'use client';
+
 import React from 'react';
-import { getRider, deleteRider } from '@/lib/db';
-import { notFound, redirect } from 'next/navigation';
+import { useDoc, useFirestore } from '@/firebase';
+import { doc, deleteDoc } from 'firebase/firestore';
+import { useParams, useRouter } from 'next/navigation';
 import { StageBackground } from '@/components/StageBackground';
 import { RiderMasterLogo } from '@/components/RiderMasterLogo';
 import { Button } from '@/components/ui/button';
@@ -27,25 +30,45 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 
-export default async function RiderViewPage({ params }: { params: { id: string } }) {
-  const { id } = await params;
-  const rider = await getRider(id);
+export default function RiderViewPage() {
+  const params = useParams();
+  const router = useRouter();
+  const id = params.id as string;
+  const db = useFirestore();
+  const riderRef = db ? doc(db, 'riders', id) : null;
+  const { data: rider, loading } = useDoc(riderRef);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <StageBackground />
+        <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+      </div>
+    );
+  }
 
   if (!rider) {
-    notFound();
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center bg-background p-6">
+        <StageBackground />
+        <h1 className="text-2xl font-black mb-4">RIDER NOT FOUND</h1>
+        <Link href="/">
+          <Button variant="outline">BACK TO REGISTRY</Button>
+        </Link>
+      </div>
+    );
   }
 
-  async function handleDelete() {
-    'use server';
-    await deleteRider(id);
-    redirect('/');
-  }
+  const handleDelete = async () => {
+    if (!db) return;
+    await deleteDoc(doc(db, 'riders', id));
+    router.push('/');
+  };
 
   return (
     <div className="relative min-h-screen pb-20 print:pb-0">
       <StageBackground />
       
-      {/* Navbar - Hidden when printing */}
       <header className="no-print border-b border-border bg-background/80 backdrop-blur-md sticky top-0 z-50 px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-6">
           <RiderMasterLogo />
@@ -69,9 +92,7 @@ export default async function RiderViewPage({ params }: { params: { id: string }
               </AlertDialogHeader>
               <AlertDialogFooter>
                 <AlertDialogCancel className="bg-secondary">ABORT</AlertDialogCancel>
-                <form action={handleDelete}>
-                  <AlertDialogAction type="submit" className="bg-destructive text-destructive-foreground">CONFIRM DELETION</AlertDialogAction>
-                </form>
+                <AlertDialogAction onClick={handleDelete} className="bg-destructive text-destructive-foreground">CONFIRM DELETION</AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
@@ -87,19 +108,17 @@ export default async function RiderViewPage({ params }: { params: { id: string }
       </header>
 
       <main className="max-w-7xl mx-auto p-6 mt-8 print:mt-0 print:p-0 print-container">
-        {/* Print Only Header Logo */}
         <div className="hidden print:flex items-center justify-between mb-8 border-b-4 border-black pb-4">
           <div className="flex flex-col">
             <h1 className="text-3xl font-black tracking-tighter text-black uppercase">RIDER MASTER TECHNICAL</h1>
             <span className="text-[10px] font-bold tracking-[0.4em] uppercase text-gray-600">Pro-Grade Stage Management System</span>
           </div>
           <div className="text-right">
-            <div className="text-xs font-bold uppercase">PROJECT ID: {rider.id.toUpperCase()}</div>
+            <div className="text-xs font-bold uppercase">PROJECT ID: {id.toUpperCase()}</div>
             <div className="text-[9px] font-mono mt-1 opacity-70 uppercase tracking-widest">Date Generated: {new Date().toLocaleDateString()}</div>
           </div>
         </div>
 
-        {/* Show Information Section (TOP) */}
         <div className="mb-12 border-l-8 border-primary pl-8 py-8 bg-secondary/20 backdrop-blur-sm print:bg-white print:border-black print:text-black print:mb-8 print:pl-6 print:py-4">
           <div className="flex justify-between items-start">
             <div className="space-y-4">
@@ -116,14 +135,9 @@ export default async function RiderViewPage({ params }: { params: { id: string }
                 </div>
               </div>
             </div>
-            <div className="text-right no-print">
-              <div className="text-[10px] font-mono text-muted-foreground uppercase">Created: {new Date(rider.createdAt).toLocaleDateString()}</div>
-              <div className="text-[10px] font-mono text-muted-foreground uppercase">Last Sync: {new Date(rider.updatedAt).toLocaleTimeString()}</div>
-            </div>
           </div>
         </div>
 
-        {/* Technical Table Section (BOTTOM) */}
         <div className="space-y-6 print:space-y-4">
           <h2 className="text-2xl font-black flex items-center gap-3 mb-8 no-print uppercase">
             <LayoutGrid className="w-6 h-6 text-primary" /> TECHNICAL SETLIST SPECIFICATIONS
@@ -145,7 +159,7 @@ export default async function RiderViewPage({ params }: { params: { id: string }
                 </tr>
               </thead>
               <tbody>
-                {rider.songs.map((song) => (
+                {(rider.songs || []).map((song: any) => (
                   <tr key={song.id} className="border-b border-border/50 hover:bg-secondary/20 transition-colors print:border-black print:hover:bg-transparent">
                     <td className="px-4 py-8 text-center font-mono text-primary font-bold text-lg print:py-4 print:border-r print:text-black print:text-sm">{song.orderNum}</td>
                     <td className="px-4 py-8 font-black tracking-widest text-base uppercase print:py-4 print:border-r print:text-xs">{song.songName}</td>
@@ -154,20 +168,9 @@ export default async function RiderViewPage({ params }: { params: { id: string }
                     <td className="px-4 py-8 text-xs whitespace-pre-wrap text-muted-foreground print:py-4 print:text-black print:text-[10pt] leading-relaxed">{song.extraNotes || '-'}</td>
                   </tr>
                 ))}
-                {rider.songs.length === 0 && (
-                  <tr>
-                    <td colSpan={5} className="px-4 py-20 text-center text-muted-foreground italic uppercase tracking-widest print:text-black">No technical cues configured for this setlist.</td>
-                  </tr>
-                )}
               </tbody>
             </table>
           </div>
-        </div>
-
-        {/* Footer for Print */}
-        <div className="mt-12 hidden print:flex justify-between items-center text-[9pt] border-t-2 border-gray-400 pt-4 italic">
-          <p>CONFIDENTIAL STAGE DOCUMENT - PROPERTY OF PRODUCTION TEAM</p>
-          <p>RiderMaster Technical v2.0 - Page 1 of 1</p>
         </div>
       </main>
     </div>

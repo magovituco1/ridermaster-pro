@@ -2,7 +2,8 @@
 
 import React, { useState } from 'react';
 import { Rider } from '@/lib/types';
-import { saveRider } from '@/lib/db';
+import { useFirestore } from '@/firebase';
+import { doc, setDoc, collection } from 'firebase/firestore';
 import { useRouter } from 'next/navigation';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -10,6 +11,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { SetlistEditor } from './SetlistEditor';
 import { toast } from '@/hooks/use-toast';
 import { Save, Info } from 'lucide-react';
+import { errorEmitter } from '@/firebase/error-emitter';
+import { FirestorePermissionError } from '@/firebase/errors';
 
 interface RiderEditorProps {
   initialRider?: Rider;
@@ -17,6 +20,7 @@ interface RiderEditorProps {
 
 export const RiderEditor = ({ initialRider }: RiderEditorProps) => {
   const router = useRouter();
+  const db = useFirestore();
   const [isSaving, setIsSaving] = useState(false);
   const [formData, setFormData] = useState<Partial<Rider>>(initialRider || {
     showName: '',
@@ -27,29 +31,48 @@ export const RiderEditor = ({ initialRider }: RiderEditorProps) => {
   });
 
   const handleSave = async () => {
+    if (!db) return;
     if (!formData.showName || !formData.artistName) {
       toast({ title: "Validation Error", description: "Show Name and Artist are required.", variant: "destructive" });
       return;
     }
 
     setIsSaving(true);
-    try {
-      const saved = await saveRider(formData);
-      toast({ title: "Success", description: "Rider saved successfully." });
-      router.push(`/rider/${saved.id}`);
-      router.refresh();
-    } catch (error) {
-      toast({ title: "Error", description: "Failed to save rider.", variant: "destructive" });
-    } finally {
-      setIsSaving(false);
-    }
+    // Ensure we have a valid ID
+    const riderId = formData.id || doc(collection(db, 'riders')).id;
+    const riderRef = doc(db, 'riders', riderId);
+    
+    const savePayload = {
+      ...formData,
+      id: riderId,
+      updatedAt: new Date().toISOString(),
+      createdAt: formData.createdAt || new Date().toISOString(),
+    };
+
+    setDoc(riderRef, savePayload, { merge: true })
+      .then(() => {
+        toast({ title: "Success", description: "Rider saved successfully." });
+        router.push(`/rider/${riderId}`);
+      })
+      .catch(async (err) => {
+        const permissionError = new FirestorePermissionError({
+          path: riderRef.path,
+          operation: 'write',
+          requestResourceData: savePayload,
+        });
+        errorEmitter.emit('permission-error', permissionError);
+        toast({ title: "Error", description: "Failed to save rider.", variant: "destructive" });
+      })
+      .finally(() => {
+        setIsSaving(false);
+      });
   };
 
   return (
     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
       <Card className="border-primary/20 bg-card/60 backdrop-blur-md stage-shadow">
         <CardHeader>
-          <CardTitle className="text-sm font-bold flex items-center gap-2 text-primary tracking-widest">
+          <CardTitle className="text-sm font-bold flex items-center gap-2 text-primary tracking-widest uppercase">
             <Info className="w-4 h-4" /> SHOW INFORMATION
           </CardTitle>
         </CardHeader>
