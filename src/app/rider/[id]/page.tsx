@@ -24,8 +24,6 @@ import {
   AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
@@ -57,7 +55,7 @@ export default function RiderViewPage() {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-background p-6">
         <StageBackground />
-        <h1 className="text-2xl font-black mb-4 uppercase">RIDER NOT FOUND</h1>
+        <h1 className="text-2xl font-black mb-4 uppercase text-white">RIDER NOT FOUND</h1>
         <Link href="/">
           <Button variant="outline">BACK TO REGISTRY</Button>
         </Link>
@@ -116,55 +114,42 @@ export default function RiderViewPage() {
       <main className="max-w-7xl mx-auto p-6 mt-8 print:mt-0 print:p-0">
         <div className="no-print mb-6 flex items-center gap-2 text-primary">
           <FileText className="w-5 h-5" />
-          <span className="text-xs font-black uppercase tracking-widest">DOCUMENT PREVIEW / EXPORT MODE</span>
+          <span className="text-xs font-black uppercase tracking-widest">TECHNICAL DOCUMENT PREVIEW</span>
         </div>
 
         {/* DOCUMENT CONTAINER */}
-        <div className="bg-white text-black p-8 sm:p-12 shadow-2xl rounded-sm print:shadow-none print:p-0 print-container">
+        <div className="bg-white text-black p-12 shadow-2xl rounded-sm print:shadow-none print:p-0 print-container">
           
           {/* HEADER SECTION */}
-          <div className="flex items-center justify-between mb-10 border-b-4 border-black pb-6">
+          <div className="flex items-center justify-between mb-8">
             <div className="flex flex-col">
               <h1 className="text-4xl font-black tracking-tighter uppercase mb-1">TECHNICAL RIDER</h1>
-              <span className="text-[10px] font-bold tracking-[0.4em] uppercase text-gray-500">RIDERMASTER STAGE MANAGEMENT</span>
+              <div className="text-2xl font-black uppercase text-gray-800">{rider.showName}</div>
             </div>
             <div className="text-right flex flex-col items-end">
               <div className="bg-black text-white px-3 py-1 text-[10px] font-bold uppercase tracking-widest mb-2">
-                ID: {id.slice(0, 8).toUpperCase()}
+                REF: {id.slice(0, 8).toUpperCase()}
               </div>
-              <div className="text-[10px] font-bold uppercase text-gray-800">
-                GENERATED: {new Date().toLocaleDateString()}
-              </div>
+              <span className="text-[10px] font-bold tracking-[0.4em] uppercase text-gray-500">RIDERMASTER PRO</span>
             </div>
           </div>
 
-          {/* SHOW INFO SUMMARY */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12 border-2 border-black p-6">
-            <div className="space-y-4">
-              <div>
-                <label className="text-[9px] font-black uppercase text-gray-400 block mb-1">SHOW / TOUR NAME</label>
-                <div className="text-2xl font-black uppercase border-b border-gray-200 pb-2">{rider.showName}</div>
-              </div>
-              <div>
-                <label className="text-[9px] font-black uppercase text-gray-400 block mb-1">ARTIST</label>
-                <div className="text-xl font-bold uppercase flex items-center gap-2">
-                  <Users className="w-4 h-4 text-gray-400" /> {rider.artistName}
-                </div>
-              </div>
+          {/* SUPERIOR BLACK INFO LINE */}
+          <div className="bg-black text-white px-6 py-4 flex flex-wrap items-center justify-between gap-4 mb-10 border-b-4 border-primary">
+            <div className="flex items-center gap-2">
+              <Users className="w-4 h-4 text-primary" />
+              <span className="text-[9px] font-black uppercase text-gray-400 mr-1 tracking-widest">ARTIST:</span>
+              <span className="text-sm font-black uppercase">{rider.artistName}</span>
             </div>
-            <div className="space-y-4">
-              <div>
-                <label className="text-[9px] font-black uppercase text-gray-400 block mb-1">DATE</label>
-                <div className="text-xl font-bold uppercase flex items-center gap-2 border-b border-gray-200 pb-2">
-                  <Calendar className="w-4 h-4 text-gray-400" /> {rider.showDate}
-                </div>
-              </div>
-              <div>
-                <label className="text-[9px] font-black uppercase text-gray-400 block mb-1">VENUE / LOCATION</label>
-                <div className="text-xl font-bold uppercase flex items-center gap-2">
-                  <MapPin className="w-4 h-4 text-gray-400" /> {rider.venue}
-                </div>
-              </div>
+            <div className="flex items-center gap-2">
+              <Calendar className="w-4 h-4 text-primary" />
+              <span className="text-[9px] font-black uppercase text-gray-400 mr-1 tracking-widest">DATE:</span>
+              <span className="text-sm font-black uppercase">{rider.showDate}</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <MapPin className="w-4 h-4 text-primary" />
+              <span className="text-[9px] font-black uppercase text-gray-400 mr-1 tracking-widest">VENUE:</span>
+              <span className="text-sm font-black uppercase">{rider.venue}</span>
             </div>
           </div>
 
@@ -197,8 +182,8 @@ export default function RiderViewPage() {
                   ))}
                   {(!rider.songs || rider.songs.length === 0) && (
                     <tr className="border-b border-black">
-                      <td colSpan={5} className="px-3 py-8 text-center text-gray-400 font-bold uppercase tracking-widest italic">
-                        NO TECHNICAL DATA RECORDED FOR THIS SHOW
+                      <td colSpan={5} className="px-3 py-12 text-center text-gray-400 font-bold uppercase tracking-[0.3em] italic">
+                        NO TECHNICAL DATA REGISTERED FOR THIS SHOW
                       </td>
                     </tr>
                   )}
@@ -210,7 +195,7 @@ export default function RiderViewPage() {
           {/* FOOTER SECTION */}
           <div className="mt-12 pt-6 border-t border-gray-200 flex justify-between items-end">
             <div className="text-[8px] font-bold text-gray-400 uppercase tracking-[0.3em]">
-              OFFICIAL TECHNICAL DOCUMENT • RIDERMASTER V2.0
+              OFFICIAL TECHNICAL DOCUMENT • RIDERMASTER V2.1
             </div>
             <div className="text-[10px] font-black uppercase">
               MAGO VITUCO PRODUCTIONS
