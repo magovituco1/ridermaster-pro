@@ -1,7 +1,6 @@
-
 /**
- * @fileOverview Esta ruta dinámica está obsoleta para soportar 'output: export'.
- * Se mantiene como Server Component para evitar conflictos con generateStaticParams.
+ * @fileOverview Esta ruta dinámica está obsoleta.
+ * Se mantiene como Server Component con generateStaticParams vacío para permitir 'output: export'.
  */
 export async function generateStaticParams() {
   return [];
