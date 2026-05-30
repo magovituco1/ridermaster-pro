@@ -9,9 +9,13 @@ export const PrintButton = () => {
     e.preventDefault();
     e.stopPropagation();
     
-    // Direct call to trigger browser print dialog
+    // Direct browser print call
     if (typeof window !== 'undefined') {
-      window.print();
+      try {
+        window.print();
+      } catch (err) {
+        console.error("Print failed:", err);
+      }
     }
   };
 
@@ -19,7 +23,7 @@ export const PrintButton = () => {
     <Button 
       onClick={handlePrint} 
       type="button"
-      className="bg-primary text-primary-foreground font-black tracking-widest uppercase text-xs hover:bg-primary/90 shadow-lg relative z-[60]"
+      className="bg-primary text-primary-foreground font-black tracking-widest uppercase text-xs hover:bg-primary/90 shadow-lg relative z-[100]"
     >
       <Printer className="w-4 h-4 mr-2" /> PRINT LANDSCAPE / PDF
     </Button>

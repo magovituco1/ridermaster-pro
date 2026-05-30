@@ -62,7 +62,7 @@ export default async function RiderViewPage({ params }: { params: { id: string }
             </AlertDialogTrigger>
             <AlertDialogContent className="bg-card border-border">
               <AlertDialogHeader>
-                <AlertDialogTitle className="text-primary tracking-widest">DATA INTEGRITY WARNING</AlertDialogTitle>
+                <AlertDialogTitle className="text-primary tracking-widest uppercase">DATA INTEGRITY WARNING</AlertDialogTitle>
                 <AlertDialogDescription className="text-muted-foreground">
                   You are about to permanently remove this Technical Rider. This action cannot be undone.
                 </AlertDialogDescription>
@@ -88,19 +88,19 @@ export default async function RiderViewPage({ params }: { params: { id: string }
 
       <main className="max-w-7xl mx-auto p-6 mt-8 print:mt-0 print:p-0 print-container">
         {/* Print Only Header Logo */}
-        <div className="hidden print:flex items-center justify-between mb-10 border-b-4 border-black pb-4">
+        <div className="hidden print:flex items-center justify-between mb-8 border-b-4 border-black pb-4">
           <div className="flex flex-col">
             <h1 className="text-3xl font-black tracking-tighter text-black uppercase">RIDER MASTER TECHNICAL</h1>
             <span className="text-[10px] font-bold tracking-[0.4em] uppercase text-gray-600">Pro-Grade Stage Management System</span>
           </div>
           <div className="text-right">
             <div className="text-xs font-bold uppercase">PROJECT ID: {rider.id.toUpperCase()}</div>
-            <div className="text-[9px] font-mono mt-1 opacity-70">DATE GENERATED: {new Date().toLocaleString()}</div>
+            <div className="text-[9px] font-mono mt-1 opacity-70 uppercase tracking-widest">Date Generated: {new Date().toLocaleDateString()}</div>
           </div>
         </div>
 
         {/* Show Information Section (TOP) */}
-        <div className="mb-12 border-l-8 border-primary pl-8 py-8 bg-secondary/20 backdrop-blur-sm print:bg-white print:border-black print:text-black print:mb-10 print:pl-6 print:py-4">
+        <div className="mb-12 border-l-8 border-primary pl-8 py-8 bg-secondary/20 backdrop-blur-sm print:bg-white print:border-black print:text-black print:mb-8 print:pl-6 print:py-4">
           <div className="flex justify-between items-start">
             <div className="space-y-4">
               <h1 className="text-6xl font-black mb-2 tracking-tighter print:text-4xl print:mb-4">{rider.showName}</h1>
@@ -125,7 +125,7 @@ export default async function RiderViewPage({ params }: { params: { id: string }
 
         {/* Technical Table Section (BOTTOM) */}
         <div className="space-y-6 print:space-y-4">
-          <h2 className="text-2xl font-black flex items-center gap-3 mb-8 no-print">
+          <h2 className="text-2xl font-black flex items-center gap-3 mb-8 no-print uppercase">
             <LayoutGrid className="w-6 h-6 text-primary" /> TECHNICAL SETLIST SPECIFICATIONS
           </h2>
           

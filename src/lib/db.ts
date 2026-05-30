@@ -3,7 +3,7 @@
 import { Rider, RiderSummary, Song } from './types';
 import { revalidatePath } from 'next/cache';
 
-// Mock DB in-memory for the environment (simulating PostgreSQL / Retool DB)
+// Mock DB in-memory for the environment
 let riders: Rider[] = [
   {
     id: '1',
@@ -29,12 +29,15 @@ export async function getRiders(): Promise<RiderSummary[]> {
 
 export async function getRider(id: string): Promise<Rider | null> {
   const rider = riders.find(r => r.id === id);
-  return rider ? JSON.parse(JSON.stringify(rider)) : null;
+  if (!rider) return null;
+  // Ensure we return a clean object for RSC
+  return JSON.parse(JSON.stringify(rider));
 }
 
 export async function saveRider(riderData: Partial<Rider>): Promise<Rider> {
   const now = new Date().toISOString();
   
+  // If it has an ID, we update
   if (riderData.id) {
     const index = riders.findIndex(r => r.id === riderData.id);
     if (index !== -1) {
@@ -49,6 +52,7 @@ export async function saveRider(riderData: Partial<Rider>): Promise<Rider> {
     }
   }
 
+  // Otherwise, we create
   const newRider: Rider = {
     id: Math.random().toString(36).substring(7),
     showName: riderData.showName || 'Untitled Show',
