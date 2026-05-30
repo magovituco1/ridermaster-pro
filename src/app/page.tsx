@@ -1,6 +1,7 @@
+
 'use client';
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useCollection, useFirestore } from '@/firebase';
 import { collection, deleteDoc, doc } from 'firebase/firestore';
 import { RiderMasterLogo } from '@/components/RiderMasterLogo';
@@ -21,7 +22,13 @@ import { Badge } from '@/components/ui/badge';
 
 export default function HomePage() {
   const db = useFirestore();
-  const ridersRef = db ? collection(db, 'riders') : null;
+  
+  // Memoize collection reference to prevent infinite loading loops
+  const ridersRef = useMemo(() => {
+    if (!db) return null;
+    return collection(db, 'riders');
+  }, [db]);
+
   const { data: riders, loading } = useCollection(ridersRef);
 
   const handleDelete = (id: string) => {

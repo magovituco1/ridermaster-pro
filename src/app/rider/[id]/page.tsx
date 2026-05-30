@@ -1,6 +1,7 @@
+
 'use client';
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useDoc, useFirestore } from '@/firebase';
 import { doc, deleteDoc } from 'firebase/firestore';
 import { useParams, useRouter } from 'next/navigation';
@@ -35,7 +36,13 @@ export default function RiderViewPage() {
   const router = useRouter();
   const id = params.id as string;
   const db = useFirestore();
-  const riderRef = db ? doc(db, 'riders', id) : null;
+
+  // Memoize document reference
+  const riderRef = useMemo(() => {
+    if (!db || !id) return null;
+    return doc(db, 'riders', id);
+  }, [db, id]);
+
   const { data: rider, loading } = useDoc(riderRef);
 
   if (loading) {
@@ -108,7 +115,6 @@ export default function RiderViewPage() {
       </header>
 
       <main className="max-w-7xl mx-auto p-6 mt-8 print:mt-0 print:p-0 print-container">
-        {/* Cabecera de impresión exclusiva */}
         <div className="hidden print:flex items-center justify-between mb-8 border-b-4 border-black pb-4">
           <div className="flex flex-col">
             <h1 className="text-3xl font-black tracking-tighter text-black uppercase">RIDER MASTER TECHNICAL</h1>
@@ -120,7 +126,6 @@ export default function RiderViewPage() {
           </div>
         </div>
 
-        {/* Sección de datos del show (Siempre arriba) */}
         <div className="mb-12 border-l-8 border-primary pl-8 py-8 bg-secondary/20 backdrop-blur-sm print:bg-white print:border-black print:text-black print:mb-8 print:pl-6 print:py-4">
           <div className="flex justify-between items-start">
             <div className="space-y-4">
@@ -140,7 +145,6 @@ export default function RiderViewPage() {
           </div>
         </div>
 
-        {/* Tabla Técnica del Setlist (Debajo de los datos del show) */}
         <div className="space-y-6 print:space-y-4">
           <h2 className="text-2xl font-black flex items-center gap-3 mb-8 no-print uppercase">
             <LayoutGrid className="w-6 h-6 text-primary" /> TECHNICAL SETLIST SPECIFICATIONS

@@ -1,11 +1,12 @@
+
 import type {Metadata, Viewport} from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster"
 import { FirebaseClientProvider } from '@/firebase';
 
 export const metadata: Metadata = {
-  title: 'RiderMaster v2.0 | Technical Rider Management',
-  description: 'Pro-grade management for musicians and stage technicians.',
+  title: 'RIDERMASTER | Pro-Grade Stage Technicals',
+  description: 'Technical Rider Management for professional stage productions.',
   manifest: '/manifest.json',
   appleWebApp: {
     capable: true,
