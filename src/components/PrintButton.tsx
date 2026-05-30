@@ -1,3 +1,4 @@
+
 'use client';
 
 import React from 'react';
@@ -7,7 +8,10 @@ import { Printer } from 'lucide-react';
 export const PrintButton = () => {
   const handlePrint = () => {
     if (typeof window !== 'undefined') {
-      window.print();
+      // Usamos un pequeño delay para asegurar que el thread principal esté libre
+      setTimeout(() => {
+        window.print();
+      }, 50);
     }
   };
 
