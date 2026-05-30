@@ -1,5 +1,7 @@
-// Esta página satisface el requisito de Next.js 15 para exportación estática.
-// Como la aplicación usa parámetros de búsqueda (?id=...), esta ruta dinámica no se utiliza en ejecución.
+// Esta página neutraliza el error de compilación en Next.js 15 con output: export
+// La aplicación utiliza /rider/view/?id=... por lo que esta ruta dinámica no es necesaria
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return [];
 }
