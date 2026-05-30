@@ -74,6 +74,7 @@ export const RiderEditor = ({ initialRider }: RiderEditorProps) => {
       .then(() => {
         lastSavedData.current = JSON.stringify(savePayload);
         if (!formData.id) {
+          // Actualizar estado inmediatamente para habilitar el botón de Preview
           setFormData(prev => ({ ...prev, id: riderId }));
         }
         if (!isBackground) {
