@@ -15,7 +15,6 @@ const nextConfig: NextConfig = {
   },
   webpack: (config, { isServer }) => {
     if (!isServer) {
-      // Evita que Webpack intente resolver módulos de Node.js en el cliente
       config.resolve.fallback = {
         ...config.resolve.fallback,
         fs: false,
@@ -30,7 +29,7 @@ const nextConfig: NextConfig = {
         zlib: false,
       };
     }
-    // Ignora explícitamente los módulos de telemetría de Genkit que rompen el build estático
+    // Ignora módulos que causan problemas en exportación estática
     config.ignoreWarnings = [
       { module: /@opentelemetry/ },
       { module: /@genkit-ai/ }

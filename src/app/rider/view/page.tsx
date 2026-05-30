@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useMemo, Suspense } from 'react';
@@ -45,14 +44,11 @@ function RiderViewContent() {
 
   const { data: rider, loading } = useDoc(riderRef);
 
-  // Segmentación fija de 10 entradas para A4 Horizontal
   const pageChunks = useMemo(() => {
     if (!rider) return [[]];
     const songs = rider.songs || [];
     const itemsPerPage = 10;
-    
     if (songs.length === 0) return [[]];
-    
     const chunks = [];
     for (let i = 0; i < songs.length; i += itemsPerPage) {
       chunks.push(songs.slice(i, i + itemsPerPage));
@@ -73,9 +69,9 @@ function RiderViewContent() {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-background p-6">
         <StageBackground />
-        <h1 className="text-2xl font-black mb-4 uppercase text-white tracking-widest">PROJECT NOT FOUND</h1>
+        <h1 className="text-2xl font-black mb-4 uppercase text-white tracking-widest">RIDER NO ENCONTRADO</h1>
         <Link href="/">
-          <Button variant="outline" className="uppercase font-bold tracking-widest text-xs">BACK TO DASHBOARD</Button>
+          <Button variant="outline" className="uppercase font-bold tracking-widest text-xs">VOLVER AL PANEL</Button>
         </Link>
       </div>
     );
@@ -102,26 +98,26 @@ function RiderViewContent() {
           <AlertDialog>
             <AlertDialogTrigger asChild>
               <Button variant="ghost" className="text-destructive hover:bg-destructive/10 uppercase font-bold tracking-widest text-[10px]">
-                <Trash2 className="w-4 h-4 mr-2" /> DELETE PROJECT
+                <Trash2 className="w-4 h-4 mr-2" /> ELIMINAR PROYECTO
               </Button>
             </AlertDialogTrigger>
             <AlertDialogContent className="bg-card border-border">
               <AlertDialogHeader>
-                <AlertDialogTitle className="text-primary tracking-widest uppercase font-black">CONFIRM DELETION</AlertDialogTitle>
+                <AlertDialogTitle className="text-primary tracking-widest uppercase font-black">CONFIRMAR BORRADO</AlertDialogTitle>
                 <AlertDialogDescription className="text-muted-foreground font-medium">
-                  This technical rider will be permanently removed from all production records.
+                  Este rider técnico será eliminado permanentemente de los registros de producción.
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
-                <AlertDialogCancel className="bg-secondary uppercase font-bold text-xs tracking-widest">CANCEL</AlertDialogCancel>
-                <AlertDialogAction onClick={handleDelete} className="bg-destructive text-destructive-foreground uppercase font-bold text-xs tracking-widest">DELETE PERMANENTLY</AlertDialogAction>
+                <AlertDialogCancel className="bg-secondary uppercase font-bold text-xs tracking-widest">CANCELAR</AlertDialogCancel>
+                <AlertDialogAction onClick={handleDelete} className="bg-destructive text-destructive-foreground uppercase font-bold text-xs tracking-widest">ELIMINAR PARA SIEMPRE</AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
           
           <Link href={`/rider/edit/?id=${id}`}>
             <Button variant="outline" className="border-primary/50 text-primary uppercase font-bold tracking-widest text-[10px]">
-              <Edit className="w-4 h-4 mr-2" /> MODIFY SPECS
+              <Edit className="w-4 h-4 mr-2" /> MODIFICAR SPECS
             </Button>
           </Link>
           
@@ -132,16 +128,15 @@ function RiderViewContent() {
       <main className="flex flex-col items-center py-12 print:p-0 print:py-0">
         {pageChunks.map((chunk, pageIndex) => (
           <div key={pageIndex} className="a4-landscape-page">
-            
             <div className="mb-1 flex justify-between items-end">
               <p className="text-[7px] font-black tracking-[0.5em] uppercase text-gray-400">OFFICIAL TECHNICAL RIDER</p>
-              <p className="text-[7px] font-bold text-gray-300">DOCUMENT PAGE {pageIndex + 1} / {pageChunks.length}</p>
+              <p className="text-[7px] font-bold text-gray-300">PÁGINA {pageIndex + 1} / {pageChunks.length}</p>
             </div>
 
             <div className="bg-black text-white px-4 py-2 flex items-center justify-between gap-6 mb-4 border-b-2 border-primary shrink-0">
               <div className="flex items-center gap-2 min-w-0">
                 <Users className="w-3 h-3 text-primary flex-shrink-0" />
-                <span className="text-[6px] font-black uppercase text-gray-500 tracking-tighter">ARTIST:</span>
+                <span className="text-[6px] font-black uppercase text-gray-500 tracking-tighter">ARTISTA:</span>
                 <span className="text-[9px] font-black uppercase truncate">{rider.artistName}</span>
               </div>
               <div className="flex items-center gap-2 min-w-0">
@@ -151,18 +146,18 @@ function RiderViewContent() {
               </div>
               <div className="flex items-center gap-2 min-w-0">
                 <MapPin className="w-3 h-3 text-primary flex-shrink-0" />
-                <span className="text-[6px] font-black uppercase text-gray-500 tracking-tighter">VENUE:</span>
+                <span className="text-[6px] font-black uppercase text-gray-500 tracking-tighter">LUGAR:</span>
                 <span className="text-[9px] font-black uppercase truncate">{rider.venue}</span>
               </div>
               <div className="flex items-center gap-2 flex-shrink-0">
                 <Calendar className="w-3 h-3 text-primary flex-shrink-0" />
-                <span className="text-[6px] font-black uppercase text-gray-500 tracking-tighter">DATE:</span>
+                <span className="text-[6px] font-black uppercase text-gray-500 tracking-tighter">FECHA:</span>
                 <span className="text-[9px] font-black uppercase">{rider.showDate}</span>
               </div>
             </div>
 
             <h2 className="text-[10px] font-black flex items-center gap-2 uppercase border-b-2 border-black pb-1 mb-2 shrink-0">
-              <LayoutGrid className="w-3 h-3" /> STAGE CONFIGURATION & CUE LIST
+              <LayoutGrid className="w-3 h-3" /> CONFIGURACIÓN DE ESCENARIO & CUE LIST
             </h2>
             
             <div className="flex-grow flex flex-col overflow-hidden">
@@ -170,43 +165,24 @@ function RiderViewContent() {
                 <thead>
                   <tr className="bg-gray-100 border-b-2 border-black text-[8px] font-black uppercase tracking-widest h-8">
                     <th className="px-2 w-8 text-center border-r border-black">#</th>
-                    <th className="px-2 w-[18%] border-r border-black">SONG / ACT</th>
-                    <th className="px-2 w-[27%] border-r border-black">SOUND SPECIFICATIONS</th>
-                    <th className="px-2 w-[27%] border-r border-black">LIGHTING & VISUAL CUES</th>
-                    <th className="px-2 border-r border-black">TECH NOTES / FX</th>
+                    <th className="px-2 w-[18%] border-r border-black">CANCION / ACTO</th>
+                    <th className="px-2 w-[27%] border-r border-black">ESPECIFICACIONES SONIDO</th>
+                    <th className="px-2 w-[27%] border-r border-black">ILUMINACIÓN & CUES</th>
+                    <th className="px-2 border-r border-black">NOTAS TÉCNICAS / FX</th>
                   </tr>
                 </thead>
                 <tbody className="text-[8px] uppercase font-bold">
                   {chunk.map((song: any) => (
                     <tr key={song.id} className="border-b border-black h-[calc(100%/10.5)]">
                       <td className="px-2 text-center border-r border-black bg-gray-50">{song.orderNum}</td>
-                      <td className="px-2 font-black border-r border-black leading-tight truncate py-1">{song.songName || 'UNTITLED ACT'}</td>
+                      <td className="px-2 font-black border-r border-black leading-tight truncate py-1">{song.songName || 'ACTO SIN TÍTULO'}</td>
                       <td className="px-2 border-r border-black whitespace-pre-wrap leading-tight py-1 overflow-hidden">{song.soundNotes || '-'}</td>
                       <td className="px-2 border-r border-black whitespace-pre-wrap leading-tight py-1 overflow-hidden">{song.lightNotes || '-'}</td>
                       <td className="px-2 border-r border-black whitespace-pre-wrap leading-tight py-1 overflow-hidden">{song.extraNotes || '-'}</td>
                     </tr>
                   ))}
-                  
-                  {Array.from({ length: Math.max(0, 10 - chunk.length) }).map((_, i) => (
-                    <tr key={`empty-${i}`} className="border-b border-black h-[calc(100%/10.5)] opacity-10">
-                      <td className="px-2 border-r border-black"></td>
-                      <td className="px-2 border-r border-black"></td>
-                      <td className="px-2 border-r border-black"></td>
-                      <td className="px-2 border-r border-black"></td>
-                      <td className="px-2 border-r border-black"></td>
-                    </tr>
-                  ))}
                 </tbody>
               </table>
-            </div>
-
-            <div className="mt-3 pt-2 border-t border-gray-100 flex justify-between items-end shrink-0">
-              <div className="text-[6px] font-bold text-gray-300 uppercase tracking-[0.5em]">
-                CERTIFIED PRODUCTION DOCUMENT
-              </div>
-              <div className="text-[9px] font-black uppercase text-black tracking-tighter">
-                RIDERMASTER <span className="text-gray-400 font-bold lowercase italic">by</span> MAGO VITUCO PRODUCTIONS
-              </div>
             </div>
           </div>
         ))}
@@ -217,7 +193,7 @@ function RiderViewContent() {
 
 export default function RiderViewPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-black text-primary font-bold uppercase tracking-widest">SYNCING STAGE DATA...</div>}>
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-black text-primary font-bold uppercase tracking-widest">SINCRONIZANDO DATOS...</div>}>
       <RiderViewContent />
     </Suspense>
   );
