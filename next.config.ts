@@ -39,6 +39,18 @@ const nextConfig: NextConfig = {
         canvas: false,
         "inspector": false,
         "undici": false,
+        "node:async_hooks": false,
+        "node:events": false,
+        "node:util": false,
+        "node:path": false,
+        "node:os": false,
+        "node:crypto": false,
+        "node:buffer": false,
+        "node:stream": false,
+        "node:url": false,
+        "node:http": false,
+        "node:https": false,
+        "node:zlib": false,
       };
     }
     
@@ -49,7 +61,8 @@ const nextConfig: NextConfig = {
       { module: /google-auth-library/ },
       { module: /@grpc\/grpc-js/ },
       { module: /genkit/ },
-      { module: /async_hooks/ }
+      { module: /async_hooks/ },
+      { module: /node:/ }
     ];
     
     return config;

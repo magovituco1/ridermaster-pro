@@ -30,8 +30,7 @@ export async function generateRiderSongNotes(input: RiderSongNoteGeneratorInput)
     }
 
     // Dynamic import to isolate Node.js dependencies during the build
-    // Note: In a pure static export, Genkit (Node-based) might not be fully functional in the browser.
-    // This dynamic import prevents build-time failures.
+    // This prevents build-time failures for static exports.
     const { ai } = await import('@/ai/genkit');
     
     const { output } = await ai.generate({
