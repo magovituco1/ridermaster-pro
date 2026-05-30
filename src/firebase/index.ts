@@ -4,18 +4,24 @@ import { getFirestore, enableIndexedDbPersistence } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 import { firebaseConfig } from './config';
 
+// Global flag to prevent multiple persistence enablement attempts
+let isPersistenceEnabled = false;
+
 export function initializeFirebase() {
   const firebaseApp = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
   const firestore = getFirestore(firebaseApp);
   const auth = getAuth(firebaseApp);
 
-  // Enable offline persistence for Desktop App experience
-  if (typeof window !== 'undefined') {
+  // Enable offline persistence only once on the client
+  if (typeof window !== 'undefined' && !isPersistenceEnabled) {
+    isPersistenceEnabled = true;
     enableIndexedDbPersistence(firestore).catch((err) => {
       if (err.code === 'failed-precondition') {
-        console.warn('Persistence failed: Multiple tabs open.');
+        // Multiple tabs open, persistence can only be enabled in one tab at a time.
+        console.warn('Firestore persistence failed: Multiple tabs open.');
       } else if (err.code === 'unimplemented') {
-        console.warn('Persistence not supported by browser.');
+        // The current browser does not support all of the features required to enable persistence
+        console.warn('Firestore persistence is not supported by this browser.');
       }
     });
   }
