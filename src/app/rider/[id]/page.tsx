@@ -1,4 +1,3 @@
-
 /**
  * Neutralized dynamic route to satisfy Next.js 15 static export.
  * This route is now inert. The app uses search-param based routes (?id=...).
