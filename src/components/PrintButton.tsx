@@ -16,7 +16,7 @@ export const PrintButton = () => {
       onClick={handlePrint} 
       className="bg-primary text-primary-foreground font-black tracking-widest uppercase text-xs hover:bg-primary/90 shadow-lg"
     >
-      <Printer className="w-4 h-4 mr-2" /> PRINT LANDSCAPE / PDF
+      <Printer className="w-4 h-4 mr-2" /> PDF / PRINT A4
     </Button>
   );
 };

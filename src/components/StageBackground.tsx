@@ -5,38 +5,31 @@ import Image from 'next/image';
 
 export const StageBackground = () => {
   return (
-    <div className="fixed inset-0 -z-10 overflow-hidden bg-[#050505] no-print">
-      <div className="absolute inset-0 opacity-40">
+    <div className="fixed inset-0 -z-10 overflow-hidden bg-black no-print">
+      <div className="absolute inset-0 opacity-50">
         <Image 
-          src="https://images.unsplash.com/photo-1514525253361-bee8718a3427?q=80&w=2000&auto=format&fit=crop"
-          alt="Technical Stage Background"
+          src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=2000&auto=format&fit=crop"
+          alt="Stage Lighting Background"
           fill
-          className="object-cover object-center grayscale-[0.3] contrast-[1.1]"
+          className="object-cover object-center grayscale-[0.2]"
           priority
-          data-ai-hint="concert stage"
+          data-ai-hint="stage lights"
         />
       </div>
       
-      {/* Dark overlay to ensure text legibility as seen in the RiderMaster aesthetic */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/95 via-black/80 to-black" />
-      <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px]" />
+      {/* Dark gradient for text legibility */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black via-black/80 to-black" />
+      <div className="absolute inset-0 bg-black/40 backdrop-blur-[1px]" />
 
-      <svg className="absolute inset-0 w-full h-full opacity-20" xmlns="http://www.w3.org/2000/svg">
+      <svg className="absolute inset-0 w-full h-full opacity-10" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <linearGradient id="beam" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#D4AF37" stopOpacity="0.3" />
+            <stop offset="0%" stopColor="#D4AF37" stopOpacity="0.4" />
             <stop offset="100%" stopColor="#D4AF37" stopOpacity="0" />
           </linearGradient>
         </defs>
-        
-        <g className="animate-pulse">
-          <path d="M10% 0 L20% 100% L0% 100% Z" fill="url(#beam)">
-            <animateTransform attributeName="transform" type="rotate" from="-10 10% 0" to="10 10% 0" dur="10s" repeatCount="indefinite" />
-          </path>
-          <path d="M90% 0 L100% 100% L80% 100% Z" fill="url(#beam)">
-            <animateTransform attributeName="transform" type="rotate" from="10 90% 0" to="-10 90% 0" dur="12s" repeatCount="indefinite" />
-          </path>
-        </g>
+        <path d="M5% 0 L15% 100% L-5% 100% Z" fill="url(#beam)" className="animate-pulse" />
+        <path d="M95% 0 L105% 100% L85% 100% Z" fill="url(#beam)" className="animate-pulse" />
       </svg>
     </div>
   );

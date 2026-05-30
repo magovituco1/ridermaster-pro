@@ -10,7 +10,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { SetlistEditor } from './SetlistEditor';
 import { useToast } from '@/hooks/use-toast';
-import { Save, LayoutDashboard, ClipboardList } from 'lucide-react';
+import { Save, LayoutDashboard } from 'lucide-react';
 import { errorEmitter } from '@/firebase/error-emitter';
 import { FirestorePermissionError } from '@/firebase/errors';
 
@@ -61,7 +61,7 @@ export const RiderEditor = ({ initialRider }: RiderEditorProps) => {
           requestResourceData: savePayload,
         });
         errorEmitter.emit('permission-error', permissionError);
-        toast({ title: "Save Failed", description: "Check permissions and connection.", variant: "destructive" });
+        toast({ title: "Save Failed", description: "Check permissions.", variant: "destructive" });
       })
       .finally(() => {
         setIsSaving(false);
@@ -125,7 +125,7 @@ export const RiderEditor = ({ initialRider }: RiderEditorProps) => {
         <Button 
           onClick={handleSave} 
           disabled={isSaving}
-          className="bg-primary text-primary-foreground hover:bg-primary/90 min-w-[200px] h-14 font-black tracking-[0.2em] uppercase text-lg shadow-2xl transition-all hover:scale-105 active:scale-95"
+          className="bg-primary text-primary-foreground hover:bg-primary/90 min-w-[200px] h-14 font-black tracking-[0.2em] uppercase text-lg shadow-2xl transition-all"
         >
           {isSaving ? "PROCESSING..." : <><Save className="mr-2 w-5 h-5" /> SAVE RIDER</>}
         </Button>

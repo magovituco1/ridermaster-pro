@@ -1,12 +1,11 @@
-
 import type {Metadata, Viewport} from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster"
 import { FirebaseClientProvider } from '@/firebase';
 
 export const metadata: Metadata = {
-  title: 'RIDERMASTER | Pro-Grade Stage Technicals',
-  description: 'Technical Rider Management for professional stage productions.',
+  title: 'RIDERMASTER | Technical Rider Management',
+  description: 'Pro-grade stage management for professional tours.',
   manifest: '/manifest.json',
   appleWebApp: {
     capable: true,
@@ -36,8 +35,8 @@ export default function RootLayout({
           {children}
           <Toaster />
           
-          <footer className="fixed bottom-6 right-8 pointer-events-none no-print z-[100] opacity-90 transition-opacity">
-            <p className="text-[10px] font-bold tracking-[0.2em] uppercase flex items-center gap-1">
+          <footer className="fixed bottom-6 right-8 pointer-events-none no-print z-[100] opacity-90">
+            <p className="text-[10px] font-bold tracking-[0.3em] uppercase flex items-center gap-1">
               <span className="text-primary">RIDERMASTER</span> 
               <span className="text-muted-foreground/60">by</span> 
               <span className="text-accent">MAGO VITUCO PRODUCTIONS</span>
