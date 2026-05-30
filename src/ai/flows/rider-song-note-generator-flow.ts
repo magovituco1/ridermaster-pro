@@ -15,8 +15,7 @@ export type RiderSongNoteGeneratorOutput = z.infer<typeof RiderSongNoteGenerator
 
 /**
  * AI logic adapted for Electron / Static Export.
- * Uses dynamic import to prevent bundling server-side Genkit into the client bundle
- * if it causes fatal Webpack errors.
+ * Uses dynamic import to prevent bundling server-side Genkit into the client bundle.
  */
 export async function generateRiderSongNotes(input: RiderSongNoteGeneratorInput): Promise<RiderSongNoteGeneratorOutput> {
   try {
@@ -25,15 +24,21 @@ export async function generateRiderSongNotes(input: RiderSongNoteGeneratorInput)
       return getOfflineFallback();
     }
 
-    // Dynamic import to isolate Genkit Node-side modules
-    const { ai } = await import('@/ai/genkit');
+    // Dynamic import to isolate Genkit Node-side modules from Webpack bundle
+    const genkitModule = await import('@/ai/genkit').catch(() => null);
+    
+    if (!genkitModule || !genkitModule.ai) {
+      return getOfflineFallback();
+    }
+
+    const { ai } = genkitModule;
     
     const { output } = await ai.generate({
       prompt: `Suggest technical sound and lighting notes for a stage act of genre: ${input.genre}. Be professional and specific.`,
       output: { schema: RiderSongNoteGeneratorOutputSchema as any },
     });
 
-    return output || getOfflineFallback();
+    return (output as any) || getOfflineFallback();
   } catch (error) {
     console.warn('AI Flow encountered a module resolution error, using fallback:', error);
     return getOfflineFallback();
