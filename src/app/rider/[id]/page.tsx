@@ -1,6 +1,6 @@
 
-// Archivo neutralizado para permitir export: output en Next.js 15
-// Esta ruta no se utiliza activamente, el app usa /rider/view/?id=...
+// This route is deprecated. App uses /rider/view/?id=...
+// Neutralized for static export compatibility.
 
 export const dynamicParams = false;
 

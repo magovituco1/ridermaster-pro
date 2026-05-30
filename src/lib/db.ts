@@ -2,8 +2,6 @@
 import { Rider, RiderSummary } from './types';
 
 // Persist database in memory / local context
-// En Electron con exportación estática, esto se comporta como un almacenamiento temporal.
-// La persistencia real ocurre en Firestore.
 const getGlobal = () => {
   if (typeof window !== 'undefined') return window as any;
   if (typeof global !== 'undefined') return global as any;
@@ -16,15 +14,15 @@ if (!g.riders) {
   g.riders = [
     {
       id: 'demo-1',
-      showName: 'GIRA MÁGICA 2025',
-      artistName: 'MAGO VITUCO',
+      showName: 'MAGIC TOUR 2025',
+      artistName: 'WIZARD VITUCO',
       showDate: '2025-05-20',
-      venue: 'GRAN TEATRO CENTRAL',
+      venue: 'GRAND CENTRAL THEATRE',
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
       songs: [
-        { id: 's1', orderNum: 1, songName: 'APERTURA: EL DESPERTAR', soundNotes: 'Fade in orquestal progresivo. Sub-graves potentes.', lightNotes: 'Wash azul oscuro a cenital blanco frío.', extraNotes: 'Humo bajo al inicio.' },
-        { id: 's10', orderNum: 10, songName: 'EL ESCAPE FINAL', soundNotes: 'In crescendo épico. Metales potentes.', lightNotes: 'Todo el rig al 100% en movimiento.', extraNotes: 'Pirotecnia final.' }
+        { id: 's1', orderNum: 1, songName: 'OPENING: THE AWAKENING', soundNotes: 'Progressive orchestral fade in. Powerful sub-bass.', lightNotes: 'Deep blue wash to cold white cenital.', extraNotes: 'Low fog at start.' },
+        { id: 's10', orderNum: 10, songName: 'THE FINAL ESCAPE', soundNotes: 'Epic in crescendo. Powerful brass.', lightNotes: 'All rig at 100% in movement.', extraNotes: 'Final pyrotechnics.' }
       ]
     }
   ];

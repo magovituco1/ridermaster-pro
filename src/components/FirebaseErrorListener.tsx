@@ -1,3 +1,4 @@
+
 'use client';
 import { useEffect } from 'react';
 import { errorEmitter } from '@/firebase/error-emitter';
@@ -14,8 +15,6 @@ export const FirebaseErrorListener = () => {
         title: "Security Violation",
         description: `Access denied to stage technicals. Method: ${error.context.operation.toUpperCase()}`,
       });
-      // In production, we would throw this to the Next.js error boundary
-      // throw error; 
     };
 
     errorEmitter.on('permission-error', handlePermissionError);

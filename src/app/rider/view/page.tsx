@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useMemo, Suspense } from 'react';
@@ -69,9 +70,9 @@ function RiderViewContent() {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-background p-6">
         <StageBackground />
-        <h1 className="text-2xl font-black mb-4 uppercase text-white tracking-widest">RIDER NO ENCONTRADO</h1>
+        <h1 className="text-2xl font-black mb-4 uppercase text-white tracking-widest">RIDER NOT FOUND</h1>
         <Link href="/">
-          <Button variant="outline" className="uppercase font-bold tracking-widest text-xs">VOLVER AL PANEL</Button>
+          <Button variant="outline" className="uppercase font-bold tracking-widest text-xs">BACK TO DASHBOARD</Button>
         </Link>
       </div>
     );
@@ -98,26 +99,26 @@ function RiderViewContent() {
           <AlertDialog>
             <AlertDialogTrigger asChild>
               <Button variant="ghost" className="text-destructive hover:bg-destructive/10 uppercase font-bold tracking-widest text-[10px]">
-                <Trash2 className="w-4 h-4 mr-2" /> ELIMINAR PROYECTO
+                <Trash2 className="w-4 h-4 mr-2" /> DELETE PROJECT
               </Button>
             </AlertDialogTrigger>
             <AlertDialogContent className="bg-card border-border">
               <AlertDialogHeader>
-                <AlertDialogTitle className="text-primary tracking-widest uppercase font-black">CONFIRMAR BORRADO</AlertDialogTitle>
+                <AlertDialogTitle className="text-primary tracking-widest uppercase font-black">CONFIRM DELETION</AlertDialogTitle>
                 <AlertDialogDescription className="text-muted-foreground font-medium">
-                  Este rider técnico será eliminado permanentemente de los registros de producción.
+                  This technical rider will be permanently deleted from production records.
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
-                <AlertDialogCancel className="bg-secondary uppercase font-bold text-xs tracking-widest">CANCELAR</AlertDialogCancel>
-                <AlertDialogAction onClick={handleDelete} className="bg-destructive text-destructive-foreground uppercase font-bold text-xs tracking-widest">ELIMINAR PARA SIEMPRE</AlertDialogAction>
+                <AlertDialogCancel className="bg-secondary uppercase font-bold text-xs tracking-widest">CANCEL</AlertDialogCancel>
+                <AlertDialogAction onClick={handleDelete} className="bg-destructive text-destructive-foreground uppercase font-bold text-xs tracking-widest">DELETE FOREVER</AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
           
           <Link href={`/rider/edit/?id=${id}`}>
             <Button variant="outline" className="border-primary/50 text-primary uppercase font-bold tracking-widest text-[10px]">
-              <Edit className="w-4 h-4 mr-2" /> MODIFICAR SPECS
+              <Edit className="w-4 h-4 mr-2" /> MODIFY SPECS
             </Button>
           </Link>
           
@@ -130,13 +131,13 @@ function RiderViewContent() {
           <div key={pageIndex} className="a4-landscape-page">
             <div className="mb-1 flex justify-between items-end">
               <p className="text-[7px] font-black tracking-[0.5em] uppercase text-gray-400">OFFICIAL TECHNICAL RIDER</p>
-              <p className="text-[7px] font-bold text-gray-300">PÁGINA {pageIndex + 1} / {pageChunks.length}</p>
+              <p className="text-[7px] font-bold text-gray-300">PAGE {pageIndex + 1} / {pageChunks.length}</p>
             </div>
 
             <div className="bg-black text-white px-4 py-2 flex items-center justify-between gap-6 mb-4 border-b-2 border-primary shrink-0">
               <div className="flex items-center gap-2 min-w-0">
                 <Users className="w-3 h-3 text-primary flex-shrink-0" />
-                <span className="text-[6px] font-black uppercase text-gray-500 tracking-tighter">ARTISTA:</span>
+                <span className="text-[6px] font-black uppercase text-gray-500 tracking-tighter">ARTIST:</span>
                 <span className="text-[9px] font-black uppercase truncate">{rider.artistName}</span>
               </div>
               <div className="flex items-center gap-2 min-w-0">
@@ -146,18 +147,18 @@ function RiderViewContent() {
               </div>
               <div className="flex items-center gap-2 min-w-0">
                 <MapPin className="w-3 h-3 text-primary flex-shrink-0" />
-                <span className="text-[6px] font-black uppercase text-gray-500 tracking-tighter">LUGAR:</span>
+                <span className="text-[6px] font-black uppercase text-gray-500 tracking-tighter">VENUE:</span>
                 <span className="text-[9px] font-black uppercase truncate">{rider.venue}</span>
               </div>
               <div className="flex items-center gap-2 flex-shrink-0">
                 <Calendar className="w-3 h-3 text-primary flex-shrink-0" />
-                <span className="text-[6px] font-black uppercase text-gray-500 tracking-tighter">FECHA:</span>
+                <span className="text-[6px] font-black uppercase text-gray-500 tracking-tighter">DATE:</span>
                 <span className="text-[9px] font-black uppercase">{rider.showDate}</span>
               </div>
             </div>
 
             <h2 className="text-[10px] font-black flex items-center gap-2 uppercase border-b-2 border-black pb-1 mb-2 shrink-0">
-              <LayoutGrid className="w-3 h-3" /> CONFIGURACIÓN DE ESCENARIO & CUE LIST
+              <LayoutGrid className="w-3 h-3" /> STAGE CONFIGURATION & CUE LIST
             </h2>
             
             <div className="flex-grow flex flex-col overflow-hidden">
@@ -165,17 +166,17 @@ function RiderViewContent() {
                 <thead>
                   <tr className="bg-gray-100 border-b-2 border-black text-[8px] font-black uppercase tracking-widest h-8">
                     <th className="px-2 w-8 text-center border-r border-black">#</th>
-                    <th className="px-2 w-[18%] border-r border-black">CANCION / ACTO</th>
-                    <th className="px-2 w-[27%] border-r border-black">ESPECIFICACIONES SONIDO</th>
-                    <th className="px-2 w-[27%] border-r border-black">ILUMINACIÓN & CUES</th>
-                    <th className="px-2 border-r border-black">NOTAS TÉCNICAS / FX</th>
+                    <th className="px-2 w-[18%] border-r border-black">SONG / ACT</th>
+                    <th className="px-2 w-[27%] border-r border-black">SOUND SPECIFICATIONS</th>
+                    <th className="px-2 w-[27%] border-r border-black">LIGHTING & CUES</th>
+                    <th className="px-2 border-r border-black">TECHNICAL NOTES / FX</th>
                   </tr>
                 </thead>
                 <tbody className="text-[8px] uppercase font-bold">
                   {chunk.map((song: any) => (
                     <tr key={song.id} className="border-b border-black h-[calc(100%/10.5)]">
                       <td className="px-2 text-center border-r border-black bg-gray-50">{song.orderNum}</td>
-                      <td className="px-2 font-black border-r border-black leading-tight truncate py-1">{song.songName || 'ACTO SIN TÍTULO'}</td>
+                      <td className="px-2 font-black border-r border-black leading-tight py-1">{song.songName || 'UNTITLED ACT'}</td>
                       <td className="px-2 border-r border-black whitespace-pre-wrap leading-tight py-1 overflow-hidden">{song.soundNotes || '-'}</td>
                       <td className="px-2 border-r border-black whitespace-pre-wrap leading-tight py-1 overflow-hidden">{song.lightNotes || '-'}</td>
                       <td className="px-2 border-r border-black whitespace-pre-wrap leading-tight py-1 overflow-hidden">{song.extraNotes || '-'}</td>
@@ -193,7 +194,7 @@ function RiderViewContent() {
 
 export default function RiderViewPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-black text-primary font-bold uppercase tracking-widest">SINCRONIZANDO DATOS...</div>}>
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-black text-primary font-bold uppercase tracking-widest">SYNCING DATA...</div>}>
       <RiderViewContent />
     </Suspense>
   );

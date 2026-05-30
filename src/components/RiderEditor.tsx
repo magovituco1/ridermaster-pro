@@ -27,10 +27,7 @@ export const RiderEditor = ({ initialRider }: RiderEditorProps) => {
   const [isSaving, setIsSaving] = useState(false);
   const [isAutoSaving, setIsAutoSaving] = useState(false);
   
-  // Estado para controlar la visibilidad del botón de Preview en tiempo real
   const [currentId, setCurrentId] = useState<string | null>(initialRider?.id || null);
-  
-  // Ref para mantener el ID asignado y evitar duplicados por auto-guardado
   const assignedId = useRef<string | null>(initialRider?.id || null);
   
   const [formData, setFormData] = useState<Partial<Rider>>(initialRider || {
@@ -44,12 +41,9 @@ export const RiderEditor = ({ initialRider }: RiderEditorProps) => {
   const lastSavedData = useRef(JSON.stringify(initialRider || {}));
   const autoSaveTimer = useRef<NodeJS.Timeout | null>(null);
 
-  // Efecto para auto-guardado
   useEffect(() => {
     const currentData = JSON.stringify(formData);
     if (currentData === lastSavedData.current) return;
-    
-    // Evitar auto-guardar si no hay datos mínimos
     if (!formData.showName?.trim() && !formData.artistName?.trim()) return;
 
     if (autoSaveTimer.current) clearTimeout(autoSaveTimer.current);
@@ -67,7 +61,6 @@ export const RiderEditor = ({ initialRider }: RiderEditorProps) => {
   const performSave = (isBackground: boolean = false) => {
     if (!firestore) return;
 
-    // Lógica para prevenir duplicados: solo generamos ID una vez
     if (!assignedId.current) {
       const newDocRef = doc(collection(firestore, 'riders'));
       assignedId.current = newDocRef.id;
@@ -90,7 +83,7 @@ export const RiderEditor = ({ initialRider }: RiderEditorProps) => {
       .then(() => {
         lastSavedData.current = JSON.stringify(savePayload);
         if (!isBackground) {
-          toast({ title: "Guardado", description: "Especificaciones técnicas actualizadas." });
+          toast({ title: "Saved", description: "Technical specifications updated." });
           router.push(`/rider/view/?id=${riderId}`);
         }
       })
@@ -111,8 +104,8 @@ export const RiderEditor = ({ initialRider }: RiderEditorProps) => {
   const handleManualSave = () => {
     if (!formData.showName?.trim() || !formData.artistName?.trim()) {
       toast({ 
-        title: "Campos Requeridos", 
-        description: "Nombre del Show y Artista son obligatorios.", 
+        title: "Fields Required", 
+        description: "Show Name and Artist are mandatory.", 
         variant: "destructive" 
       });
       return;
@@ -125,41 +118,41 @@ export const RiderEditor = ({ initialRider }: RiderEditorProps) => {
       <Card className="border-primary/20 bg-card/60 backdrop-blur-md">
         <CardHeader className="flex flex-row items-center justify-between pb-2">
           <CardTitle className="text-[10px] font-bold flex items-center gap-2 text-primary tracking-[0.3em] uppercase">
-            <LayoutDashboard className="w-4 h-4" /> DATOS DE PRODUCCIÓN
+            <LayoutDashboard className="w-4 h-4" /> PRODUCTION DATA
           </CardTitle>
           <div className="flex items-center gap-2">
             {isAutoSaving ? (
               <div className="flex items-center gap-1 text-[9px] text-accent animate-pulse font-bold uppercase tracking-widest">
-                <CloudUpload className="w-3 h-3" /> AUTO-GUARDANDO...
+                <CloudUpload className="w-3 h-3" /> AUTO-SAVING...
               </div>
             ) : (
               <div className="flex items-center gap-1 text-[9px] text-muted-foreground font-bold uppercase tracking-widest opacity-40">
-                <Cloud className="w-3 h-3" /> NUBE SINCRONIZADA
+                <Cloud className="w-3 h-3" /> CLOUD SYNCED
               </div>
             )}
           </div>
         </CardHeader>
         <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-2">
-            <label className="text-[9px] font-black uppercase tracking-[0.3em] text-muted-foreground/60">Nombre del Show</label>
+            <label className="text-[9px] font-black uppercase tracking-[0.3em] text-muted-foreground/60">Show Name</label>
             <Input 
-              placeholder="GIRA / EVENTO ESPECIAL" 
+              placeholder="TOUR / SPECIAL EVENT" 
               className="bg-background uppercase tracking-wider font-bold border-primary/10 focus:border-primary text-white h-11"
               value={formData.showName}
               onChange={(e) => setFormData({ ...formData, showName: e.target.value })}
             />
           </div>
           <div className="space-y-2">
-            <label className="text-[9px] font-black uppercase tracking-[0.3em] text-muted-foreground/60">Artista / Grupo</label>
+            <label className="text-[9px] font-black uppercase tracking-[0.3em] text-muted-foreground/60">Artist / Group</label>
             <Input 
-              placeholder="NOMBRE DEL ARTISTA" 
+              placeholder="ARTIST NAME" 
               className="bg-background uppercase tracking-wider font-bold border-primary/10 focus:border-primary text-white h-11"
               value={formData.artistName}
               onChange={(e) => setFormData({ ...formData, artistName: e.target.value })}
             />
           </div>
           <div className="space-y-2">
-            <label className="text-[9px] font-black uppercase tracking-[0.3em] text-muted-foreground/60">Fecha del Show</label>
+            <label className="text-[9px] font-black uppercase tracking-[0.3em] text-muted-foreground/60">Show Date</label>
             <Input 
               type="date" 
               className="bg-background uppercase tracking-wider font-bold border-primary/10 focus:border-primary text-white h-11"
@@ -168,9 +161,9 @@ export const RiderEditor = ({ initialRider }: RiderEditorProps) => {
             />
           </div>
           <div className="space-y-2">
-            <label className="text-[9px] font-black uppercase tracking-[0.3em] text-muted-foreground/60">Lugar / Venue</label>
+            <label className="text-[9px] font-black uppercase tracking-[0.3em] text-muted-foreground/60">Venue</label>
             <Input 
-              placeholder="CIUDAD / TEATRO / RECINTO" 
+              placeholder="CITY / THEATRE / RECINTO" 
               className="bg-background uppercase tracking-wider font-bold border-primary/10 focus:border-primary text-white h-11"
               value={formData.venue}
               onChange={(e) => setFormData({ ...formData, venue: e.target.value })}
@@ -191,7 +184,7 @@ export const RiderEditor = ({ initialRider }: RiderEditorProps) => {
               variant="outline"
               className="border-primary/50 text-primary hover:bg-primary hover:text-primary-foreground min-w-[180px] h-14 font-black tracking-[0.2em] uppercase text-sm transition-all"
             >
-              <Eye className="mr-2 w-5 h-5" /> VISTA PREVIA
+              <Eye className="mr-2 w-5 h-5" /> PREVIEW
             </Button>
           </Link>
         ) : (
@@ -200,7 +193,7 @@ export const RiderEditor = ({ initialRider }: RiderEditorProps) => {
             disabled
             className="border-border text-muted-foreground min-w-[180px] h-14 font-black tracking-[0.2em] uppercase text-sm opacity-50 cursor-not-allowed"
           >
-            <EyeOff className="mr-2 w-5 h-5" /> PREVIEW BLOQUEADO
+            <EyeOff className="mr-2 w-5 h-5" /> PREVIEW LOCKED
           </Button>
         )}
         
@@ -209,7 +202,7 @@ export const RiderEditor = ({ initialRider }: RiderEditorProps) => {
           disabled={isSaving}
           className="bg-primary text-primary-foreground hover:bg-primary/90 min-w-[200px] h-14 font-black tracking-[0.2em] uppercase text-sm shadow-2xl transition-all"
         >
-          {isSaving ? "GUARDANDO..." : <><Save className="mr-2 w-5 h-5" /> GUARDAR PRODUCCIÓN</>}
+          {isSaving ? "SAVING..." : <><Save className="mr-2 w-5 h-5" /> SAVE PRODUCTION</>}
         </Button>
       </div>
     </div>

@@ -1,3 +1,4 @@
+
 /**
  * @fileOverview An AI assistant that suggests sound and lighting configurations for a song based on its genre.
  *

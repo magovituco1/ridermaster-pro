@@ -35,29 +35,29 @@ export default function HomePage() {
   const handleDelete = (id: string) => {
     if (!db) return;
     deleteDoc(doc(db, 'riders', id));
-    toast({ title: "Rider Eliminado", description: "El proyecto ha sido borrado." });
+    toast({ title: "Rider Deleted", description: "The project has been removed." });
   };
 
   const seedDemoData = async () => {
     if (!db) return;
     
-    const demoId = 'gira-magica-2025';
+    const demoId = 'magic-tour-2025';
     const demoRider = {
       id: demoId,
-      showName: 'GIRA MÁGICA 2025',
-      artistName: 'MAGO VITUCO',
+      showName: 'MAGIC TOUR 2025',
+      artistName: 'WIZARD VITUCO',
       showDate: '2025-05-20',
-      venue: 'GRAN TEATRO CENTRAL',
+      venue: 'GRAND CENTRAL THEATRE',
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
       songs: [
-        { id: 's1', orderNum: 1, songName: 'APERTURA: EL DESPERTAR', soundNotes: 'Fade in orquestal progresivo.', lightNotes: 'Wash azul a blanco frío.', extraNotes: 'Humo bajo.' },
-        { id: 's10', orderNum: 10, songName: 'EL ESCAPE FINAL', soundNotes: 'In crescendo épico.', lightNotes: 'Todo el rig al 100%.', extraNotes: 'Pirotecnia.' }
+        { id: 's1', orderNum: 1, songName: 'OPENING: THE AWAKENING', soundNotes: 'Progressive orchestral fade in.', lightNotes: 'Blue wash to cold white cenital.', extraNotes: 'Low fog.' },
+        { id: 's10', orderNum: 10, songName: 'THE FINAL ESCAPE', soundNotes: 'Epic in crescendo.', lightNotes: 'All rig at 100%.', extraNotes: 'Pyrotechnics.' }
       ]
     };
 
     setDoc(doc(db, 'riders', demoId), demoRider);
-    toast({ title: "Demo Cargado", description: "Producción de Mago Vituco activa." });
+    toast({ title: "Demo Loaded", description: "Wizard Vituco production active." });
   };
 
   return (
@@ -68,16 +68,15 @@ export default function HomePage() {
         <RiderMasterLogo />
         <Link href="/rider/new">
           <Button className="bg-primary text-primary-foreground hover:bg-primary/90 gap-2 font-bold tracking-widest uppercase text-xs">
-            <Plus className="w-4 h-4" /> NUEVO RIDER
+            <Plus className="w-4 h-4" /> NEW RIDER
           </Button>
         </Link>
       </header>
 
       <main className="max-w-7xl mx-auto p-6 space-y-8">
         <div className="flex flex-col gap-2">
-          {/* Título simplificado a RIDERS según solicitud */}
           <h1 className="text-4xl font-black text-primary uppercase tracking-widest">RIDERS</h1>
-          <p className="text-muted-foreground font-medium tracking-wide uppercase text-xs">PRODUCCIONES Y GIRAS ACTIVAS</p>
+          <p className="text-muted-foreground font-medium tracking-wide uppercase text-xs">ACTIVE PRODUCTIONS AND TOURS</p>
         </div>
 
         {loading ? (
@@ -120,12 +119,12 @@ export default function HomePage() {
                 <CardFooter className="pt-4 flex flex-col gap-2">
                   <Link href={`/rider/view/?id=${rider.id}`} className="w-full">
                     <Button variant="secondary" className="w-full justify-between uppercase tracking-widest font-bold text-[10px]">
-                      ABRIR RIDER TÉCNICO <ChevronRight className="w-4 h-4" />
+                      OPEN TECHNICAL RIDER <ChevronRight className="w-4 h-4" />
                     </Button>
                   </Link>
                   <Link href={`/rider/edit/?id=${rider.id}`} className="w-full">
                     <Button variant="outline" className="w-full justify-between border-primary/50 text-primary uppercase tracking-widest font-bold text-[10px]">
-                      EDITAR ESPECIFICACIONES <Edit className="w-4 h-4" />
+                      EDIT SPECIFICATIONS <Edit className="w-4 h-4" />
                     </Button>
                   </Link>
                 </CardFooter>
@@ -137,7 +136,7 @@ export default function HomePage() {
                 <div className="p-4 rounded-full bg-secondary group-hover:bg-primary/20 transition-colors">
                   <Plus className="w-8 h-8 text-muted-foreground group-hover:text-primary" />
                 </div>
-                <span className="text-muted-foreground font-bold tracking-widest uppercase text-[10px]">CREAR NUEVA PRODUCCIÓN</span>
+                <span className="text-muted-foreground font-bold tracking-widest uppercase text-[10px]">CREATE NEW PRODUCTION</span>
               </div>
             </Link>
 
@@ -148,7 +147,7 @@ export default function HomePage() {
                   variant="ghost" 
                   className="text-accent hover:text-accent/80 font-black tracking-[0.3em] uppercase text-[10px] gap-2"
                 >
-                  <Sparkles className="w-4 h-4" /> RECUPERAR DEMO (MAGO VITUCO)
+                  <Sparkles className="w-4 h-4" /> RESTORE DEMO (WIZARD VITUCO)
                 </Button>
               </div>
             )}

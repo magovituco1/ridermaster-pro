@@ -2,16 +2,15 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  // Exportación estática obligatoria para aplicaciones Electron
+  // Mandatory static export for Electron applications
   output: 'export',
-  // Genera carpetas con index.html para que las rutas funcionen sin servidor (file://)
+  // Generate folders with index.html so routes work without a server (file://)
   trailingSlash: true,
   distDir: 'out',
   images: {
     unoptimized: true,
   },
   typescript: {
-    // Evitamos bloqueos por errores menores en desarrollo local
     ignoreBuildErrors: true,
   },
   eslint: {
@@ -19,7 +18,7 @@ const nextConfig: NextConfig = {
   },
   webpack: (config, { isServer }) => {
     if (!isServer) {
-      // Evita que Electron intente cargar módulos de Node que no existen en el navegador durante el build de Next.js
+      // Prevents Electron from trying to load Node modules that don't exist in the browser
       config.resolve.fallback = {
         ...config.resolve.fallback,
         fs: false,
@@ -37,7 +36,7 @@ const nextConfig: NextConfig = {
         readline: false,
       };
     }
-    // Ignora advertencias y errores de módulos que solo funcionan en servidor
+    // Ignore warnings and errors for modules that only work on the server
     config.ignoreWarnings = [
       { module: /@opentelemetry/ },
       { module: /@genkit-ai/ },

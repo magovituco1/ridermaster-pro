@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useMemo, Suspense } from 'react';
@@ -37,9 +38,9 @@ function EditRiderContent() {
       <div className="min-h-screen flex items-center justify-center bg-background">
         <StageBackground />
         <div className="text-center">
-          <h1 className="text-2xl font-black mb-4 uppercase tracking-widest text-white">RIDER NO ENCONTRADO</h1>
+          <h1 className="text-2xl font-black mb-4 uppercase tracking-widest text-white">RIDER NOT FOUND</h1>
           <Link href="/">
-            <Button variant="outline" className="uppercase font-bold tracking-widest">VOLVER A RIDERS</Button>
+            <Button variant="outline" className="uppercase font-bold tracking-widest">BACK TO RIDERS</Button>
           </Link>
         </div>
       </div>
@@ -52,14 +53,14 @@ function EditRiderContent() {
       <header className="border-b border-border bg-background/80 backdrop-blur-md sticky top-0 z-50 px-6 py-4 flex items-center justify-between no-print">
         <RiderMasterLogo />
         <Link href={`/rider/view?id=${id}`} className="text-muted-foreground hover:text-foreground flex items-center gap-2 text-xs font-bold uppercase tracking-widest transition-colors">
-          <ArrowLeft className="w-4 h-4" /> CANCELAR EDICIÓN
+          <ArrowLeft className="w-4 h-4" /> CANCEL EDIT
         </Link>
       </header>
 
       <main className="max-w-5xl mx-auto p-6 mt-8">
         <div className="mb-10 text-center">
-          <h1 className="text-4xl font-black mb-2 uppercase tracking-widest text-primary">MODIFICAR RIDER</h1>
-          <p className="text-muted-foreground uppercase tracking-[0.2em] text-sm font-bold">ACTUALIZANDO: {rider.showName}</p>
+          <h1 className="text-4xl font-black mb-2 uppercase tracking-widest text-primary">MODIFY RIDER</h1>
+          <p className="text-muted-foreground uppercase tracking-[0.2em] text-sm font-bold">UPDATING: {rider.showName}</p>
         </div>
         
         <RiderEditor initialRider={rider} />
@@ -70,7 +71,7 @@ function EditRiderContent() {
 
 export default function EditRiderPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-black text-primary font-bold uppercase tracking-widest">CARGANDO EDITOR...</div>}>
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-black text-primary font-bold uppercase tracking-widest">LOADING EDITOR...</div>}>
       <EditRiderContent />
     </Suspense>
   );
