@@ -1,0 +1,17 @@
+====================================
+     RIDERMASTER PRO - Versión Web
+====================================
+
+Cómo usar:
+
+1. Abre la carpeta "RiderMaster Pro - Windows"
+2. Haz doble clic en el archivo:
+   → RiderMaster Pro.html
+
+La aplicación se abrirá en tu navegador.
+
+Notas:
+- Necesitas internet la primera vez
+- No borres la carpeta "out"
+
+Cualquier duda: Mago Vituco Productions

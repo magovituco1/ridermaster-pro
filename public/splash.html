@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2575.5">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times; -webkit-text-stroke: #000000}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times; -webkit-text-stroke: #000000; min-height: 14.0px}
+    span.s1 {font-kerning: none}
+  </style>
+</head>
+<body>
+<p class="p1"><span class="s1">use tauri::{WebviewUrl, WebviewWindowBuilder};</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">#[cfg_attr(mobile, tauri::mobile_entry_point)]</span></p>
+<p class="p1"><span class="s1">pub fn run() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>tauri::Builder::default()</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.setup(|app| {</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// SPLASH</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>let splash = WebviewWindowBuilder::new(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>app,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>"splash",</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>WebviewUrl::App("splash.html".into()),</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>)</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>.title("Loading...")</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>.build()?;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// MAIN (Next.js)</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>let main = WebviewWindowBuilder::new(</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>app,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>"main",</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>WebviewUrl::External("http://localhost:9002".parse().unwrap()),</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>)</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>.title("RiderMaster Pro")</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>.build()?;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// cerrar splash cuando main envíe "tauri://ready"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>let splash_ref = splash.clone();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>main.once("tauri://ready", move |_| {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>let _ = splash_ref.close();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>});</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>Ok(())</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>})</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.run(tauri::generate_context!())</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.expect("error while running app");</span></p>
+<p class="p1"><span class="s1">}</span></p>
+</body>
+</html>

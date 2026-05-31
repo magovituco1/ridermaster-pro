@@ -1,0 +1,36 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "ridermaster-pro",
+  "version": "0.1.0",
+  "identifier": "com.magovitucoproducciones.ridermaster",
+
+  "build": {
+    "devUrl": "http://localhost:9002",
+    "frontendDist": "../out",
+    "beforeDevCommand": "npm run dev",
+    "beforeBuildCommand": "npm run build"
+  },
+
+  "app": {
+    "windows": [
+      {
+        "label": "main",
+        "title": "RiderMaster Pro",
+        "width": 1280,
+        "height": 800,
+        "visible": true,
+        "center": true,
+        "resizable": true,
+        "fullscreen": false
+      }
+    ]
+  },
+
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": [
+      "icons/logo.png"
+    ]
+  }
+}

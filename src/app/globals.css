@@ -106,3 +106,52 @@
     page-break-inside: avoid !important;
   }
 }
+
+/* === HOJA EN HORIZONTAL POR DEFECTO (Print + PDF) === */
+@media print {
+  @page {
+    size: A4 landscape;
+    margin: 1cm;
+  }
+
+  body,
+  .print-container,
+  .hoja,
+  .preview-container {
+    width: 100% !important;
+    height: auto !important;
+    page-break-inside: avoid;
+  }
+}
+
+/* === FUERZA HORIZONTAL EN DIÁLOGO REAL DE IMPRESIÓN === */
+@media print {
+  @page {
+    size: A4 landscape !important;
+    margin: 0.8cm !important;
+    orientation: landscape !important;
+  }
+
+  body, 
+  .print-container, 
+  .hoja, 
+  .preview-container,
+  html {
+    width: 100% !important;
+    height: auto !important;
+    page-break-inside: avoid !important;
+  }
+}
+/* === EVITAR QUE SE CORTEN LAS LETRAS DEL ENCABEZADO AL IMPRIMIR === */
+@media print {
+  .a4-landscape-page .bg-black {
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+  }
+}/* === SOLUCIONAR CORTE DE LETRAS EN EL ENCABEZADO NEGRO === */
+@media print {
+  .a4-landscape-page .bg-black {
+    padding-top: 8px !important;
+    padding-bottom: 6px !important;
+  }
+}

@@ -9,17 +9,17 @@ import { RiderMasterLogo } from '@/components/RiderMasterLogo';
 import { Button } from '@/components/ui/button';
 import { PrintButton } from '@/components/PrintButton';
 import Link from 'next/link';
-import { 
-  Edit, 
-  Trash2, 
-  ArrowLeft, 
-  Calendar, 
-  MapPin, 
+import {
+  Edit,
+  Trash2,
+  ArrowLeft,
+  Calendar,
+  MapPin,
   Users,
   LayoutGrid,
   Music
 } from 'lucide-react';
-import { 
+import {
   AlertDialog,
   AlertDialogAction,
   AlertDialogCancel,
@@ -125,7 +125,7 @@ function RiderViewContent() {
         </div>
       </header>
 
-      <main className="flex flex-col items-center py-12 print:p-0 print:py-0">
+      <main className="flex flex-col items-center py-12 print:p-0 print:py-0 print-container">
         {pageChunks.map((chunk, pageIndex) => (
           <div key={pageIndex} className="a4-landscape-page">
             <div className="mb-1 flex justify-between items-end">
@@ -181,7 +181,6 @@ function RiderViewContent() {
                       <td className="px-2 border-r border-black whitespace-pre-wrap leading-tight py-1 overflow-hidden">{song.extraNotes || '-'}</td>
                     </tr>
                   ))}
-                  {/* Fills empty space if fewer than 10 rows */}
                   {Array.from({ length: Math.max(0, 10 - chunk.length) }).map((_, i) => (
                     <tr key={`empty-${i}`} className="border-b border-black h-[calc(100%/10.5)] opacity-20">
                       <td className="border-r border-black">&nbsp;</td>
@@ -195,7 +194,6 @@ function RiderViewContent() {
               </table>
             </div>
 
-            {/* Official Footer for Printing */}
             <div className="mt-2 pt-1 flex justify-between items-center border-t border-black/10 shrink-0">
               <div className="flex items-center gap-1">
                 <span className="text-[7px] font-black tracking-widest text-black">RIDERMASTER</span>
