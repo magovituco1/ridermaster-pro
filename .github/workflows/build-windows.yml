@@ -34,10 +34,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tagName: app-v__VERSION__
-          releaseName: 'RiderMaster Pro v__VERSION__'
-          releaseBody: 'Windows build'
-          releaseDraft: false
-          prerelease: false
-          createRelease: false
           args: --target x86_64-pc-windows-msvc
