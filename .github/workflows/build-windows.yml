@@ -39,4 +39,5 @@ jobs:
           releaseBody: 'Windows build'
           releaseDraft: false
           prerelease: false
+          createRelease: false
           args: --target x86_64-pc-windows-msvc
