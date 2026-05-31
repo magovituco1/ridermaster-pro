@@ -18,18 +18,19 @@
         "title": "RiderMaster Pro",
         "width": 1280,
         "height": 800,
-        "visible": true,
-        "center": true,
         "resizable": true,
         "fullscreen": false
       }
-    ]
+    ],
+    "security": {
+      "csp": null
+    }
   },
 
-"bundle": {
-  "active": true,
-  "targets": "all",
-  "icon": ["icons/icon.ico"],
-  "category": "Utility",
-  ...
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": ["icons/icon.ico"],
+    "category": "Utility"
+  }
 }
